@@ -128,6 +128,68 @@ nav{
 }
 </style>
 
+
+<style id="athar-receipt-print-style">
+@media print{
+  body *{visibility:hidden!important;}
+  #receiptPrintArea, #receiptPrintArea *{visibility:visible!important;}
+  #receiptPrintArea{
+    position:absolute!important; left:0!important; top:0!important;
+    width:80mm!important; padding:0!important; margin:0!important;
+    background:#fff!important; color:#000!important;
+    font-family:Tahoma,Arial,sans-serif!important;
+  }
+}
+.receipt-paper{width:80mm;max-width:80mm;background:#fff;color:#111;padding:10px 12px;border:1px dashed #999;direction:rtl;font-size:12px;line-height:1.5}
+.receipt-paper .center{text-align:center}.receipt-paper .title{font-size:16px;font-weight:900}.receipt-paper .line{border-top:1px dashed #777;margin:8px 0}
+.receipt-paper .row{display:flex;justify-content:space-between;gap:8px;margin:3px 0}.receipt-paper .amount{font-size:18px;font-weight:900;text-align:center;margin:8px 0}
+.receipt-actions{display:flex;gap:6px;flex-wrap:wrap}
+</style>
+
+<style id="athar-catalog-transfer-style">.tag-soft{display:inline-block;padding:4px 10px;border-radius:12px;background:#e8f5f4;color:#0d7377;font-weight:800;font-size:12px}</style>
+
+<style id="athar-safety-notifications-style">
+.notification-list{display:grid;gap:10px}
+.notification-item{padding:12px 14px;border-radius:12px;border-right:5px solid #0d7377;background:#f4fbfb;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.notification-item.danger{border-right-color:#dc3545;background:#fff5f5;color:#721c24}
+.notification-item.warn{border-right-color:#ffc107;background:#fff9e6;color:#7a5b00}
+.notification-item.success{border-right-color:#28a745;background:#f2fff6;color:#155724}
+.notification-item .small{font-size:12px;opacity:.85}
+#patientDuplicateWarning.danger{display:block!important;background:#f8d7da!important;color:#721c24!important;border-right:4px solid #dc3545!important}
+</style>
+
+
+<style id="athar-print-documents-style">
+@media print{
+  body *{visibility:hidden!important;}
+  #atharPrintArea, #atharPrintArea *{visibility:visible!important;}
+  #atharPrintArea{
+    position:absolute!important; inset:0 auto auto 0!important;
+    width:100%!important; background:#fff!important; color:#000!important;
+    padding:18px!important; direction:rtl!important; font-family:Tahoma,Arial,sans-serif!important;
+  }
+}
+.print-doc{background:#fff;color:#111;padding:18px;direction:rtl;font-size:14px;line-height:1.7}
+.print-doc h1,.print-doc h2{text-align:center;margin:4px 0;color:#111}
+.print-doc .meta{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:12px 0}
+.print-doc table{width:100%;border-collapse:collapse;margin-top:10px}
+.print-doc th,.print-doc td{border:1px solid #333;padding:6px;text-align:right}
+.print-doc .signatures{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;text-align:center}
+</style>
+
+
+<style id="athar-users-permissions-style">
+.logo-preview-img{max-height:64px;max-width:140px;object-fit:contain;background:#fff;border-radius:10px;padding:5px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.permissions-wrap{overflow:auto}
+.permissions-table th,.permissions-table td{text-align:center;white-space:nowrap}
+.permissions-table td:first-child,.permissions-table th:first-child{text-align:right;position:sticky;right:0;background:#fff;z-index:1}
+.permission-check{width:18px;height:18px;accent-color:#0d7377}
+.user-status-on{color:#198754;font-weight:900}
+.user-status-off{color:#dc3545;font-weight:900}
+.hospital-header-chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:6px 10px;margin-top:7px}
+.hospital-header-chip img{height:34px;max-width:80px;object-fit:contain;background:#fff;border-radius:8px;padding:3px}
+</style>
+
 </head>
 <body>
 
@@ -171,13 +233,17 @@ nav{
   <button class="nav-btn" onclick="showPage('patients',this)">👤 المرضى</button>
   <button class="nav-btn" onclick="showPage('reception',this)">🎫 الاستقبال</button>
   <button class="nav-btn" onclick="showPage('clinic',this)">🩺 العيادات</button>
+  <button class="nav-btn" onclick="showPage('admission',this)">🏨 التحويل والإقامة</button>
   <button class="nav-btn" onclick="showPage('pharmacy',this)">💊 الصيدلية</button>
   <button class="nav-btn" onclick="showPage('lab',this)">🧪 المعمل والأشعة</button>
   <button class="nav-btn" onclick="showPage('store',this)">📦 المخازن</button>
   <button class="nav-btn" onclick="showPage('cashier',this)">💰 الخزينة</button>
+  <button class="nav-btn" onclick="showPage('receipts',this)">🧾 الإيصالات</button>
   <button class="nav-btn" onclick="showPage('staff',this)">👨‍⚕️ الأطباء/التمريض</button>
   <button class="nav-btn" onclick="showPage('departments',this)">🏥 الأقسام</button>
   <button class="nav-btn" onclick="showPage('accounts',this)">📒 الحسابات والقيود</button>
+  <button class="nav-btn" onclick="showPage('catalogs',this)">📚 بنود الإيرادات والمصروفات</button>
+  <button class="nav-btn" onclick="showPage('systemSettings',this)">⚙️ إعدادات النظام</button>
   <button class="nav-btn" onclick="showPage('reports',this)">📈 التقارير</button>
 </nav>
 
@@ -186,6 +252,7 @@ nav{
 <!-- DASHBOARD -->
 <div id="dashboard" class="page active">
   <div class="grid grid-4" id="dashStats"></div>
+  <div class="card" id="dashboardNotificationsCard" style="margin-top:20px;"><h2>🔔 تنبيهات النظام</h2><div id="dashboardNotifications"></div></div>
   <div class="card" style="margin-top:20px;"><h2>آخر الزيارات</h2><div id="dashVisits"></div></div>
   <div class="card"><h2>أرصدة المرضى المفتوحة</h2><div id="dashBalances"></div></div>
 </div>
@@ -195,9 +262,9 @@ nav{
   <div class="card">
     <h2>إضافة مريض جديد</h2>
     <div class="grid grid-3">
-      <div class="field"><label>الاسم رباعي</label><input id="pName" placeholder="مثال: أحمد محمد علي حسن"></div>
-      <div class="field"><label>الرقم القومي</label><input id="pNid" placeholder="14 رقم"></div>
-      <div class="field"><label>التليفون</label><input id="pPhone" placeholder="01xxxxxxxxx"></div>
+      <div class="field"><label>الاسم رباعي</label><input id="pName" placeholder="مثال: أحمد محمد علي حسن" oninput="checkPatientDuplicateLive()"></div>
+      <div class="field"><label>الرقم القومي</label><input id="pNid" placeholder="14 رقم" oninput="checkPatientDuplicateLive()"></div>
+      <div class="field"><label>التليفون</label><input id="pPhone" placeholder="01xxxxxxxxx" oninput="checkPatientDuplicateLive()"></div>
       <div class="field"><label>تاريخ الميلاد</label><input type="date" id="pBirth"></div>
       <div class="field"><label>النوع</label><select id="pGender"><option>ذكر</option><option>أنثى</option></select></div>
       <div class="field"><label>التصنيف</label>
@@ -211,6 +278,7 @@ nav{
       <div class="field" style="grid-column:span 2;"><label>العنوان</label><input id="pAddress"></div>
       <div class="field"><label>التاريخ المرضي / حساسية</label><input id="pHistory" placeholder="اختياري"></div>
     </div>
+    <div class="alert alert-info" id="patientDuplicateWarning" style="display:none;margin-top:15px;"></div>
     <div class="actions"><button class="btn btn-primary" onclick="addPatient()">➕ إضافة المريض</button></div>
   </div>
   <div class="card">
@@ -229,6 +297,7 @@ nav{
       <div class="field"><label>القسم / التخصص</label><select id="vDepartment" onchange="applyDepartmentToVisit()"></select></div>
       <div class="field"><label>العيادة + الطبيب</label><select id="vDoctor"></select></div>
       <div class="field"><label>الممرض</label><select id="vNurse"></select></div>
+      <div class="field"><label>الطبيب المُحوِّل</label><input id="vRefDoctor" placeholder="اختياري - اسم الطبيب المحول"></div>
       <div class="field"><label>رسم الكشف (ج.م)</label><input type="number" id="vFee" value="100"></div>
       <div class="field"><label>طريقة السداد</label>
         <select id="vPay"><option value="آجل">آجل (على حساب المريض)</option><option value="كاش">كاش فوري</option></select>
@@ -237,6 +306,43 @@ nav{
     <div class="actions"><button class="btn btn-primary" onclick="addVisit()">🎫 فتح الزيارة</button></div>
   </div>
   <div class="card"><h2>زيارات اليوم</h2><div id="visitsTable"></div></div>
+</div>
+
+
+<div id="admission" class="page">
+  <div class="card">
+    <h2>🔁 تحويل مريض من قسم لقسم</h2>
+    <div class="grid grid-4">
+      <div class="field"><label>المريض</label><select id="trPatient" onchange="showTransferPatientInfo()"></select></div>
+      <div class="field"><label>من قسم</label><select id="trFromDept"></select></div>
+      <div class="field"><label>إلى قسم</label><select id="trToDept"></select></div>
+      <div class="field"><label>الطبيب المسؤول</label><select id="trDoctor"></select></div>
+      <div class="field"><label>رسوم التحويل / الخدمة</label><input type="number" id="trFee" value="0"></div>
+      <div class="field"><label>حالة الدفع</label><select id="trPayStatus"><option value="على الحساب">على حساب المريض</option><option value="كاش">كاش فوري</option></select></div>
+      <div class="field" style="grid-column:span 2;"><label>سبب التحويل</label><input id="trReason" placeholder="مثال: احتياج أشعة / عناية / متابعة"></div>
+    </div>
+    <div class="alert alert-info" id="transferPatientInfo">اختر المريض لعرض الرصيد وآخر زيارة.</div>
+    <div class="actions"><button class="btn btn-primary" onclick="addDepartmentTransfer()">🔁 تسجيل التحويل</button></div>
+  </div>
+
+  <div class="card">
+    <h2>🏨 إقامة داخلية / تنويم</h2>
+    <div class="grid grid-4">
+      <div class="field"><label>المريض</label><select id="admPatient" onchange="showAdmissionPatientInfo()"></select></div>
+      <div class="field"><label>القسم</label><select id="admDept"></select></div>
+      <div class="field"><label>نوع الإقامة</label><select id="admType"><option>عناية مركزة</option><option>عناية متوسطة</option><option>إقامة داخلية</option><option>حضانة أطفال</option><option>غسيل كلى</option><option>أخرى</option></select></div>
+      <div class="field"><label>رقم الغرفة / السرير</label><input id="admBed" placeholder="غرفة 3 - سرير 2"></div>
+      <div class="field"><label>سعر اليوم</label><input type="number" id="admDailyRate" value="0"></div>
+      <div class="field"><label>عدد الأيام المبدئي</label><input type="number" id="admDays" value="1"></div>
+      <div class="field"><label>الطبيب المسؤول</label><select id="admDoctor"></select></div>
+      <div class="field"><label>حالة الدفع</label><select id="admPayStatus"><option value="على الحساب">على حساب المريض</option><option value="كاش">كاش فوري</option></select></div>
+      <div class="field" style="grid-column:span 4;"><label>ملاحظات الدخول</label><input id="admNote" placeholder="سبب الإقامة / التشخيص الأولي"></div>
+    </div>
+    <div class="alert alert-info" id="admissionPatientInfo">اختر المريض لعرض الرصيد وآخر زيارة.</div>
+    <div class="actions"><button class="btn btn-success" onclick="addAdmission()">🏨 تسجيل الإقامة</button></div>
+  </div>
+
+  <div class="card"><h2>📋 سجل التحويلات والإقامات</h2><div id="admissionTransferTable"></div></div>
 </div>
 
 <!-- CLINIC -->
@@ -250,10 +356,12 @@ nav{
         <div class="tab active" onclick="switchTab(this,'tabDiag')">📝 التشخيص</div>
         <div class="tab" onclick="switchTab(this,'tabRx')">💊 روشتة دوائية</div>
         <div class="tab" onclick="switchTab(this,'tabLab')">🧪 تحاليل/أشعة</div>
+        <div class="tab" onclick="switchTab(this,'tabTransfer')">🔁 تحويل / إقامة</div>
       </div>
       <div id="tabDiag" class="tab-content active">
         <div class="field"><label>التشخيص</label><textarea id="diagnosis" rows="3"></textarea></div>
         <button class="btn btn-primary" style="margin-top:10px;" onclick="saveDiagnosis()">💾 حفظ التشخيص</button>
+        <button class="btn btn-success" id="printDiagnosisBtn" style="margin-top:10px;" onclick="printDiagnosis()">🖨 طباعة تشخيص الحالة</button>
       </div>
       <div id="tabRx" class="tab-content">
         <div class="grid grid-3">
@@ -261,6 +369,7 @@ nav{
           <div class="field"><label>الكمية</label><input type="number" id="rxQty" value="1"></div>
           <div class="field" style="align-self:end;"><button class="btn btn-success" onclick="addPrescription()">➕ إضافة للروشتة</button></div>
         </div>
+        <div class="actions"><button class="btn btn-primary" id="printPrescriptionBtn" onclick="printPrescription()">🖨 طباعة الروشتة</button></div>
         <div id="rxList" style="margin-top:15px;"></div>
       </div>
       <div id="tabLab" class="tab-content">
@@ -269,6 +378,25 @@ nav{
           <div class="field" style="align-self:end;"><button class="btn btn-success" onclick="addService()">➕ طلب الخدمة</button></div>
         </div>
         <div id="srvList" style="margin-top:15px;"></div>
+      </div>
+      <div id="tabTransfer" class="tab-content">
+        <div class="grid grid-4">
+          <div class="field"><label>نوع الإجراء</label>
+            <select id="clinicTransferType" onchange="toggleClinicTransferMode()">
+              <option value="transfer">تحويل داخلي لقسم</option>
+              <option value="admission">إقامة داخلية</option>
+            </select>
+          </div>
+          <div class="field"><label>إلى قسم</label><select id="clinicToDept"></select></div>
+          <div class="field"><label>رسوم التحويل/الدخول</label><input type="number" id="clinicTransferFee" value="0"></div>
+          <div class="field"><label>حالة السداد</label><select id="clinicTransferPay"><option value="على الحساب">على حساب المريض</option><option value="كاش">كاش فوري</option></select></div>
+          <div class="field clinic-admission-only" style="display:none;"><label>نوع الإقامة</label><select id="clinicAdmType"><option>إقامة داخلية</option><option>عناية مركزة</option><option>عناية متوسطة</option><option>حضانة أطفال</option><option>غسيل كلى</option></select></div>
+          <div class="field clinic-admission-only" style="display:none;"><label>سعر اليوم</label><input type="number" id="clinicAdmDailyRate" value="0"></div>
+          <div class="field clinic-admission-only" style="display:none;"><label>عدد الأيام</label><input type="number" id="clinicAdmDays" value="1"></div>
+          <div class="field clinic-admission-only" style="display:none;"><label>الغرفة/السرير</label><input id="clinicAdmBed"></div>
+          <div class="field" style="grid-column:span 4;"><label>السبب / ملاحظات</label><input id="clinicTransferReason" placeholder="سبب التحويل أو الإقامة"></div>
+        </div>
+        <div class="actions"><button class="btn btn-primary" onclick="addClinicTransferOrAdmission()">حفظ التحويل / الإقامة</button></div>
       </div>
     </div>
   </div>
@@ -306,6 +434,7 @@ nav{
   <div class="grid grid-4" id="treasurySummaryCards" style="margin-bottom:18px;"></div>
   <div class="card">
     <h2>سداد مديونية مريض</h2>
+    <div class="alert alert-info">آخر إيصال: <b id="lastReceiptNo">لم يتم إصدار إيصال بعد</b> — يمكن إعادة الطباعة من شاشة الإيصالات.</div>
     <div class="grid grid-3">
       <div class="field"><label>المريض</label><select id="payPatient" onchange="atharUpdatePatientBalance();"></select></div>
       <div class="field"><label>الرصيد المستحق</label><input id="payBalance" disabled style="background:#f8f9fa;font-weight:700;color:#dc3545;"></div>
@@ -333,6 +462,7 @@ nav{
 
 <!-- STAFF -->
 <div id="staff" class="page">
+  <div id="staffDuesPolicyNote" class="alert alert-info">🔔 سياسة المستحقات: لا يتم احتساب مستحقات الأطباء والتمريض إلا بعد سداد المريض. الخدمات غير المحصلة تظهر كتنبيه فقط.</div>
   <div class="card">
     <h2>إضافة طبيب / ممرض</h2>
     <div class="grid grid-4">
@@ -366,13 +496,101 @@ nav{
   <div class="card"><h2>قائمة الأقسام والتخصصات</h2><div id="departmentsTable"></div></div>
 </div>
 
+
+<!-- RECEIPTS -->
+<div id="receipts" class="page">
+  <div class="card">
+    <h2>🧾 سجل الإيصالات</h2>
+    <div class="grid grid-4">
+      <div class="field"><label>بحث برقم الإيصال / المريض</label><input id="receiptSearch" oninput="renderReceipts()" placeholder="RC-2026-000001 أو اسم المريض"></div>
+      <div class="field"><label>من تاريخ</label><input type="date" id="receiptFrom" onchange="renderReceipts()"></div>
+      <div class="field"><label>إلى تاريخ</label><input type="date" id="receiptTo" onchange="renderReceipts()"></div>
+      <div class="field"><label>نوع الإيصال</label>
+        <select id="receiptTypeFilter" onchange="renderReceipts()">
+          <option value="all">الكل</option>
+          <option value="قبض">قبض</option>
+          <option value="صرف">صرف</option>
+          <option value="سداد مديونية">سداد مديونية</option>
+        </select>
+      </div>
+    </div>
+    <div id="receiptsTable" style="margin-top:15px;"></div>
+  </div>
+</div>
+
+
+<div id="catalogs" class="page">
+  <div class="card">
+    <h2>📚 دليل بنود الإيرادات والمصروفات</h2>
+    <div class="grid grid-4">
+      <div class="field"><label>نوع البند</label><select id="catType"><option value="إيراد">إيراد</option><option value="مصروف">مصروف</option><option value="تكلفة خدمة">تكلفة خدمة</option><option value="أصل">أصل</option><option value="خصم">خصم</option></select></div>
+      <div class="field"><label>اسم البند</label><input id="catName" placeholder="مثال: قسطرة / أدوية / كهرباء"></div>
+      <div class="field"><label>القسم المرتبط</label><select id="catDepartment"></select></div>
+      <div class="field"><label>الحساب المحاسبي</label><input id="catAccount" placeholder="مثال: إيراد المعمل"></div>
+      <div class="field"><label>سعر افتراضي / تكلفة</label><input type="number" id="catDefaultAmount" value="0"></div>
+      <div class="field"><label>يظهر في التقارير</label><select id="catActive"><option value="true">نعم</option><option value="false">لا</option></select></div>
+    </div>
+    <div class="actions"><button class="btn btn-primary" onclick="addCatalogItem()">➕ إضافة البند</button></div>
+  </div>
+  <div class="grid grid-2">
+    <div class="card"><h2>📈 بنود الإيرادات</h2><div id="revenueCatalogTable"></div></div>
+    <div class="card"><h2>📉 بنود المصروفات والتكاليف</h2><div id="expenseCatalogTable"></div></div>
+  </div>
+</div>
+
 <!-- ACCOUNTS -->
 <div id="accounts" class="page">
   <div class="card"><h2>شجرة الحسابات</h2><div id="chartOfAccounts"></div></div>
-  <div class="card"><h2>دفتر اليومية — القيود المحاسبية</h2><div id="journalTable"></div></div>
+  <div class="card"><h2>دفتر اليومية — القيود المحاسبية <button class="btn btn-primary btn-sm" id="printJournalBtn" onclick="printJournal()">🖨 طباعة اليومية</button></h2><div id="journalTable"></div></div>
 </div>
 
 <!-- REPORTS -->
+
+<!-- SYSTEM SETTINGS -->
+<div id="systemSettings" class="page">
+  <div class="card">
+    <h2>🏥 البيانات الأساسية للمستشفى</h2>
+    <div class="grid grid-4">
+      <div class="field"><label>اسم المستشفى بالعربي</label><input id="hospitalNameAr" placeholder="المستوصف الخيري بالمنيرة"></div>
+      <div class="field"><label>اسم المستشفى بالإنجليزي</label><input id="hospitalNameEn" placeholder="Al Monira Charity Clinic"></div>
+      <div class="field" style="grid-column:span 2;"><label>العنوان</label><input id="hospitalAddress" placeholder="العنوان التفصيلي"></div>
+      <div class="field"><label>الهاتف</label><input id="hospitalPhone" placeholder="01xxxxxxxxx"></div>
+      <div class="field"><label>البريد الإلكتروني</label><input id="hospitalEmail" placeholder="info@example.com"></div>
+      <div class="field"><label>شعار المستشفى</label><input type="file" id="hospitalLogoFile" accept="image/*" onchange="previewHospitalLogo(event)"></div>
+      <div class="field"><label>معاينة الشعار</label><div id="hospitalLogoPreview" style="height:70px;display:flex;align-items:center;gap:10px;"></div></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="saveHospitalSettings()">💾 حفظ بيانات المستشفى</button>
+      <button class="btn btn-warn" onclick="resetHospitalLogo()">حذف الشعار</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>👥 المستخدمون</h2>
+    <div class="grid grid-4">
+      <div class="field"><label>اسم المستخدم</label><input id="usrName" placeholder="مثال: ahmed"></div>
+      <div class="field"><label>الاسم الكامل</label><input id="usrFullName" placeholder="اسم الموظف"></div>
+      <div class="field"><label>الدور</label><select id="usrRole"></select></div>
+      <div class="field"><label>كلمة المرور</label><input type="password" id="usrPassword" placeholder="كلمة مرور"></div>
+      <div class="field"><label>الحالة</label><select id="usrActive"><option value="true">مفعل</option><option value="false">موقوف</option></select></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="addSystemUser()">➕ إضافة مستخدم</button>
+    </div>
+    <div id="usersTable" style="margin-top:15px;"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔐 الأدوار والصلاحيات</h2>
+    <div class="alert alert-info">6 أدوار جاهزة: مدير، طبيب، محاسب، صيدلاني، استقبال، فني معمل. يمكن تعديل الصلاحيات من الجدول.</div>
+    <div id="permissionsTable"></div>
+    <div class="actions">
+      <button class="btn btn-success" onclick="savePermissionsFromTable()">💾 حفظ الصلاحيات</button>
+      <button class="btn btn-warn" onclick="resetDefaultPermissions()">🔄 استرجاع الصلاحيات الافتراضية</button>
+    </div>
+  </div>
+</div>
+
 <div id="reports" class="page">
   <div class="card"><h2>ميزان المراجعة</h2><div id="trialBalance"></div></div>
   <div class="card"><h2>قائمة الدخل المبسطة</h2><div id="incomeStatement"></div></div>
@@ -933,245 +1151,7 @@ box-shadow:0 -4px 20px rgba(0,0,0,.12);
 
 
 
-<script id="athar-cashier-force-fix">
-(function(){
-  function read(key, def){
-    try { return JSON.parse(localStorage.getItem('athar_' + key) || JSON.stringify(def)); }
-    catch(e){ return def; }
-  }
-  function write(key, val){
-    try { localStorage.setItem('athar_' + key, JSON.stringify(val)); } catch(e){}
-  }
-  function money(v){
-    return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' ج';
-  }
-  function getPatients(){ return read('patients', []); }
-  function getPayments(){ return read('payments', []); }
-  function getExpenses(){ return read('expenses', []); }
-  function getTreasuryMovements(){ return read('treasuryMovements', []); }
-  function getPatientName(id){
-    var p = getPatients().find(function(x){ return String(x.id) === String(id); });
-    return p ? p.name : '-';
-  }
-  function getPatientBalance(id){
-    var p = getPatients().find(function(x){ return String(x.id) === String(id); });
-    return p ? Number(p.balance || 0) : 0;
-  }
 
-  window.atharUpdatePatientBalance = window.showPatientBalance = function(){
-    var sel = document.getElementById('payPatient');
-    var box = document.getElementById('payBalance');
-    if(!sel || !box) return;
-
-    var bal = getPatientBalance(sel.value);
-    box.value = money(bal);
-    box.setAttribute('value', money(bal));
-    box.style.color = bal > 0 ? '#dc3545' : '#198754';
-    box.style.fontWeight = '900';
-    box.style.background = '#fff';
-
-    var amount = document.getElementById('payAmount');
-    if(amount) amount.placeholder = bal > 0 ? ('المستحق: ' + money(bal)) : 'لا يوجد مديونية';
-
-    // label helper beside field if needed
-    var parent = box.closest('.field');
-    if(parent && !parent.querySelector('.live-balance-note')){
-      var note = document.createElement('div');
-      note.className = 'live-balance-note';
-      note.style.cssText = 'font-size:12px;margin-top:5px;font-weight:800;';
-      parent.appendChild(note);
-    }
-    var noteEl = parent ? parent.querySelector('.live-balance-note') : null;
-    if(noteEl){
-      noteEl.textContent = bal > 0 ? ('المستحق على المريض: ' + money(bal)) : 'لا توجد مديونية';
-      noteEl.style.color = bal > 0 ? '#dc3545' : '#198754';
-    }
-  };
-
-  function allRows(){
-    var rows = [];
-    var tms = getTreasuryMovements();
-    var pays = getPayments();
-    var exps = getExpenses();
-
-    tms.forEach(function(m){
-      rows.push({
-        date: m.date || new Date().toISOString(),
-        type: m.type || 'قبض',
-        party: m.patientId ? getPatientName(m.patientId) : (m.party || '-'),
-        desc: m.desc || m.note || '-',
-        method: m.method || 'كاش',
-        treasury: m.treasury || 'الخزينة الرئيسية',
-        amount: Number(m.amount)||0
-      });
-    });
-
-    pays.forEach(function(p){
-      var exists = rows.some(function(r){
-        return r.type === 'قبض' && String(r.party) === String(getPatientName(p.patientId)) && Number(r.amount) === Number(p.amount) && String(r.date) === String(p.date);
-      });
-      if(!exists){
-        rows.push({
-          date: p.date || new Date().toISOString(),
-          type: 'قبض',
-          party: getPatientName(p.patientId),
-          desc: p.note || 'سداد مريض',
-          method: p.method || 'كاش',
-          treasury: p.treasury || 'الخزينة الرئيسية',
-          amount: Number(p.amount)||0
-        });
-      }
-    });
-
-    exps.forEach(function(e){
-      var exists = rows.some(function(r){
-        return r.type === 'صرف' && Number(r.amount) === Number(e.amount) && String(r.date) === String(e.date);
-      });
-      if(!exists){
-        rows.push({
-          date: e.date || new Date().toISOString(),
-          type: 'صرف',
-          party: e.type || 'مصروف',
-          desc: e.note || e.type || '-',
-          method: e.method || 'كاش',
-          treasury: e.treasury || 'الخزينة الرئيسية',
-          amount: Number(e.amount)||0
-        });
-      }
-    });
-
-    rows.sort(function(a,b){ return new Date(a.date) - new Date(b.date); });
-
-    var cash=0, card=0, bank=0;
-    rows.forEach(function(r){
-      var sign = r.type === 'صرف' ? -1 : 1;
-      if((r.method||'').indexOf('شبكة') >= 0) card += sign * r.amount;
-      else if((r.method||'').indexOf('تحويل') >= 0) bank += sign * r.amount;
-      else cash += sign * r.amount;
-      r.cashBal = cash;
-      r.cardBal = card;
-      r.bankBal = bank;
-      r.totalBal = cash + card + bank;
-    });
-
-    return rows;
-  }
-
-  window.atharRenderTreasuryCards = function(){
-    var box = document.getElementById('treasurySummaryCards');
-    if(!box) return;
-    var rows = allRows();
-    var last = rows.length ? rows[rows.length-1] : {cashBal:0,cardBal:0,bankBal:0,totalBal:0};
-    box.innerHTML =
-      '<div class="stat-box"><div class="label">💵 رصيد كاش</div><div class="value">'+money(last.cashBal)+'</div></div>' +
-      '<div class="stat-box"><div class="label">💳 رصيد شبكة</div><div class="value">'+money(last.cardBal)+'</div></div>' +
-      '<div class="stat-box"><div class="label">🏦 رصيد تحويل بنكي</div><div class="value">'+money(last.bankBal)+'</div></div>' +
-      '<div class="stat-box"><div class="label">💰 إجمالي الرصيد</div><div class="value">'+money(last.totalBal)+'</div></div>';
-  };
-
-  window.renderCashier = window.atharRenderCashier = function(){
-    window.atharUpdatePatientBalance();
-    window.atharRenderTreasuryCards();
-
-    var box = document.getElementById('cashierTable');
-    if(!box) return;
-
-    var today = new Date().toDateString();
-    var rows = allRows().filter(function(r){ return new Date(r.date).toDateString() === today; });
-
-    if(!rows.length){
-      box.innerHTML = '<div class="no-data">لا توجد حركات خزينة اليوم</div>';
-      return;
-    }
-
-    var html = '<table><tr>' +
-      '<th>نوع</th><th>الطرف</th><th>البيان</th><th>حالة الدفع</th>' +
-      '<th>مقبوض</th><th>منصرف</th><th>رصيد كاش</th><th>رصيد شبكة</th>' +
-      '<th>رصيد تحويل</th><th>إجمالي الرصيد</th><th>التاريخ</th>' +
-      '</tr>';
-
-    rows.forEach(function(r){
-      var out = r.type === 'صرف';
-      html += '<tr>' +
-        '<td><span class="badge '+(out?'badge-danger':'badge-success')+'">'+r.type+'</span></td>' +
-        '<td>'+r.party+'</td>' +
-        '<td>'+r.desc+'</td>' +
-        '<td><span class="badge badge-success">'+r.method+'</span></td>' +
-        '<td style="color:#198754;font-weight:800;">'+(!out ? money(r.amount) : '-')+'</td>' +
-        '<td style="color:#dc3545;font-weight:800;">'+(out ? money(r.amount) : '-')+'</td>' +
-        '<td>'+money(r.cashBal)+'</td>' +
-        '<td>'+money(r.cardBal)+'</td>' +
-        '<td>'+money(r.bankBal)+'</td>' +
-        '<td style="color:#0d7377;font-weight:900;">'+money(r.totalBal)+'</td>' +
-        '<td>'+new Date(r.date).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'})+'</td>' +
-        '</tr>';
-    });
-    html += '</table>';
-    box.innerHTML = html;
-  };
-
-  // Make sure patient balance updates after original fillPatientSelects changes options
-  var oldFill = window.fillPatientSelects;
-  window.fillPatientSelects = function(){
-    if(typeof oldFill === 'function') oldFill();
-    var sel = document.getElementById('payPatient');
-    if(sel){
-      sel.onchange = function(){ window.atharUpdatePatientBalance(); };
-      setTimeout(window.atharUpdatePatientBalance, 50);
-    }
-  };
-
-  // After saving payment, force redraw
-  var oldPay = window.payPartial;
-  window.payPartial = function(){
-    if(typeof oldPay === 'function') oldPay();
-    setTimeout(function(){
-      window.atharUpdatePatientBalance();
-      window.atharRenderCashier();
-    }, 80);
-  };
-
-  var oldRefresh = window.refreshPage;
-  window.refreshPage = function(id){
-    if(typeof oldRefresh === 'function') oldRefresh(id);
-    if(id === 'cashier'){
-      setTimeout(function(){
-        window.atharUpdatePatientBalance();
-        window.atharRenderCashier();
-      }, 120);
-    }
-  };
-
-  document.addEventListener('change', function(e){
-    if(e.target && e.target.id === 'payPatient') window.atharUpdatePatientBalance();
-  });
-
-  document.addEventListener('click', function(e){
-    var txt = (e.target && e.target.textContent || '');
-    if(txt.indexOf('الخزينة') >= 0){
-      setTimeout(function(){
-        window.atharUpdatePatientBalance();
-        window.atharRenderCashier();
-      }, 200);
-    }
-  });
-
-  setInterval(function(){
-    if(document.getElementById('cashier') && document.getElementById('cashier').classList.contains('active')){
-      window.atharUpdatePatientBalance();
-      window.atharRenderCashier();
-    }
-  }, 1000);
-
-  setTimeout(function(){
-    window.atharUpdatePatientBalance();
-    window.atharRenderTreasuryCards();
-    if(document.getElementById('cashier') && document.getElementById('cashier').classList.contains('active')){
-      window.atharRenderCashier();
-    }
-  }, 400);
-})();
-</script>
 
 
 
@@ -1485,6 +1465,1754 @@ document.addEventListener('DOMContentLoaded', function(){
       if(el) el.addEventListener('change', renderStaffAccountReports);
     });
   },300);
+});
+
+})();
+</script>
+
+
+<script id="athar-receipts-system">
+(function(){
+function read(key, def){ try { return JSON.parse(localStorage.getItem('athar_' + key) || JSON.stringify(def)); } catch(e){ return def; } }
+function write(key, val){ try { localStorage.setItem('athar_' + key, JSON.stringify(val)); } catch(e){} }
+function money(v){ return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' ج'; }
+function nowISO(){ return new Date().toISOString(); }
+function dateText(v){ return new Date(v || new Date()).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'}); }
+function patientName(id){ var p = read('patients',[]).find(function(x){ return String(x.id) === String(id); }); return p ? p.name : '-'; }
+function patientBalance(id){ var p = read('patients',[]).find(function(x){ return String(x.id) === String(id); }); return p ? Number(p.balance || 0) : 0; }
+function nextReceiptNo(){
+  var year = new Date().getFullYear();
+  var seq = Number(localStorage.getItem('athar_receiptSeq_' + year) || '0') + 1;
+  localStorage.setItem('athar_receiptSeq_' + year, String(seq));
+  return 'RC-' + year + '-' + String(seq).padStart(6,'0');
+}
+window.atharCreateReceipt = function(data){
+  var receipts = read('receipts',[]);
+  var receipt = {
+    id: 'R-' + Date.now(), no: data.no || nextReceiptNo(), date: data.date || nowISO(),
+    type: data.type || 'قبض', patientId: data.patientId || null,
+    patientName: data.patientName || (data.patientId ? patientName(data.patientId) : '-'),
+    service: data.service || '-', amount: Number(data.amount)||0,
+    method: data.method || 'كاش', treasury: data.treasury || 'الخزينة الرئيسية',
+    cashier: data.cashier || 'مدير النظام', previousBalance: Number(data.previousBalance)||0,
+    paid: Number(data.paid || data.amount)||0, remainingBalance: Number(data.remainingBalance)||0,
+    note: data.note || '', ref: data.ref || ''
+  };
+  receipts.push(receipt); write('receipts', receipts);
+  var last = document.getElementById('lastReceiptNo'); if(last) last.textContent = receipt.no;
+  return receipt;
+};
+window.atharReceiptHtml = function(r){
+  return '<div class="receipt-paper">'+
+    '<div class="center title">المستوصف الخيري بالمنيرة</div>'+
+    '<div class="center">Athar Medical ERP</div><div class="line"></div>'+
+    '<div class="row"><b>رقم الإيصال:</b><span>'+r.no+'</span></div>'+
+    '<div class="row"><b>التاريخ:</b><span>'+dateText(r.date)+'</span></div>'+
+    '<div class="row"><b>نوع الإيصال:</b><span>'+r.type+'</span></div><div class="line"></div>'+
+    '<div class="row"><b>المريض/الطرف:</b><span>'+(r.patientName||'-')+'</span></div>'+
+    '<div class="row"><b>الخدمة/البيان:</b><span>'+(r.service||r.note||'-')+'</span></div>'+
+    '<div class="row"><b>طريقة الدفع:</b><span>'+(r.method||'-')+'</span></div>'+
+    '<div class="row"><b>الخزينة:</b><span>'+(r.treasury||'-')+'</span></div>'+
+    '<div class="amount">'+money(r.amount)+'</div><div class="line"></div>'+
+    '<div class="row"><b>الرصيد السابق:</b><span>'+money(r.previousBalance)+'</span></div>'+
+    '<div class="row"><b>المدفوع:</b><span>'+money(r.paid)+'</span></div>'+
+    '<div class="row"><b>المتبقي:</b><span>'+money(r.remainingBalance)+'</span></div><div class="line"></div>'+
+    '<div class="row"><b>الكاشير:</b><span>'+(r.cashier||'مدير النظام')+'</span></div>'+
+    '<div class="center" style="margin-top:8px;">شكراً لثقتكم</div>'+
+    '<div class="center" style="font-size:10px;margin-top:4px;">Powered by ZAD Digital & Business Solutions</div></div>';
+};
+window.printReceipt = function(receiptNo){
+  var r = read('receipts',[]).find(function(x){ return x.no === receiptNo; });
+  if(!r){ alert('الإيصال غير موجود'); return; }
+  var area = document.getElementById('receiptPrintArea');
+  if(!area){ area = document.createElement('div'); area.id = 'receiptPrintArea'; document.body.appendChild(area); }
+  area.innerHTML = atharReceiptHtml(r);
+  setTimeout(function(){ window.print(); },100);
+};
+window.renderReceipts = function(){
+  var box = document.getElementById('receiptsTable'); if(!box) return;
+  var q = (document.getElementById('receiptSearch')?.value || '').trim().toLowerCase();
+  var from = document.getElementById('receiptFrom')?.value || '';
+  var to = document.getElementById('receiptTo')?.value || '';
+  var type = document.getElementById('receiptTypeFilter')?.value || 'all';
+  var list = read('receipts',[]).filter(function(r){
+    var d = new Date(r.date).toISOString().slice(0,10);
+    if(from && d < from) return false; if(to && d > to) return false;
+    if(type !== 'all' && r.type !== type) return false;
+    if(q && !(String(r.no).toLowerCase().includes(q) || String(r.patientName).toLowerCase().includes(q))) return false;
+    return true;
+  }).sort(function(a,b){ return new Date(b.date)-new Date(a.date); });
+  if(!list.length){ box.innerHTML = '<div class="no-data">لا توجد إيصالات</div>'; return; }
+  var total = list.reduce(function(s,r){ return s + Number(r.amount||0); },0);
+  var html = '<div class="alert alert-info">إجمالي الإيصالات المعروضة: <b>'+money(total)+'</b> | العدد: <b>'+list.length+'</b></div>';
+  html += '<table><tr><th>رقم الإيصال</th><th>التاريخ</th><th>النوع</th><th>المريض/الطرف</th><th>الخدمة</th><th>المبلغ</th><th>طريقة الدفع</th><th>إجراء</th></tr>';
+  list.forEach(function(r){
+    html += '<tr><td><b>'+r.no+'</b></td><td>'+dateText(r.date)+'</td><td><span class="badge badge-info">'+r.type+'</span></td><td>'+r.patientName+'</td><td>'+r.service+'</td><td><b>'+money(r.amount)+'</b></td><td>'+r.method+'</td><td><div class="receipt-actions"><button class="btn btn-primary btn-sm" onclick="printReceipt(\\''+r.no+'\\')">🖨 طباعة</button></div></td></tr>';
+  });
+  box.innerHTML = html + '</table>';
+};
+var oldPayPartial = window.payPartial;
+window.payPartial = function(){
+  var patientId = document.getElementById('payPatient')?.value;
+  var amount = Number(document.getElementById('payAmount')?.value)||0;
+  var method = document.getElementById('payMethod')?.value || 'كاش';
+  var treasury = document.getElementById('payTreasury')?.value || 'الخزينة الرئيسية';
+  var note = document.getElementById('payNote')?.value || 'سداد مديونية';
+  var prevBal = patientBalance(patientId);
+  var beforePayments = read('payments',[]).length;
+  if(typeof oldPayPartial === 'function') oldPayPartial();
+  var afterPayments = read('payments',[]).length;
+  var newBal = patientBalance(patientId);
+  if(afterPayments > beforePayments && amount > 0){
+    var r = atharCreateReceipt({type:'سداد مديونية',patientId:patientId,service:note,amount:amount,paid:amount,method:method,treasury:treasury,previousBalance:prevBal,remainingBalance:newBal,note:note});
+    if(confirm('تم إصدار إيصال رقم ' + r.no + ' — هل تريد الطباعة الآن؟')) printReceipt(r.no);
+  }
+};
+var oldAddExpense = window.addExpense;
+window.addExpense = function(){
+  var amount = Number(document.getElementById('expenseAmount')?.value)||0;
+  var method = document.getElementById('expenseMethod')?.value || 'كاش';
+  var treasury = document.getElementById('expenseTreasury')?.value || 'الخزينة الرئيسية';
+  var type = document.getElementById('expenseType')?.value || 'مصروف';
+  var note = document.getElementById('expenseNote')?.value || type;
+  var before = read('expenses',[]).length;
+  if(typeof oldAddExpense === 'function') oldAddExpense();
+  var after = read('expenses',[]).length;
+  if(after > before && amount > 0){
+    var r = atharCreateReceipt({type:'صرف',patientName:type,service:note,amount:amount,paid:amount,method:method,treasury:treasury,previousBalance:0,remainingBalance:0,note:note});
+    if(confirm('تم إصدار إيصال صرف رقم ' + r.no + ' — هل تريد الطباعة الآن؟')) printReceipt(r.no);
+  }
+};
+var oldAddVisit = window.addVisit;
+window.addVisit = function(){
+  var patientId = document.getElementById('vPatient')?.value;
+  var pay = document.getElementById('vPay')?.value || '';
+  var fee = Number(document.getElementById('vFee')?.value)||0;
+  var beforeVisits = read('visits',[]).length;
+  var prevBal = patientBalance(patientId);
+  if(typeof oldAddVisit === 'function') oldAddVisit();
+  var afterVisits = read('visits',[]).length;
+  var p = read('patients',[]).find(function(x){ return String(x.id) === String(patientId); });
+  var discount = p ? Number(p.discount||0) : 0;
+  var net = fee * (1 - discount/100);
+  if(afterVisits > beforeVisits && pay === 'كاش' && net > 0){
+    var r = atharCreateReceipt({type:'قبض',patientId:patientId,service:'كشف طبي',amount:net,paid:net,method:'كاش',treasury:'الخزينة الرئيسية',previousBalance:prevBal,remainingBalance:patientBalance(patientId),note:'كشف طبي'});
+    if(confirm('تم إصدار إيصال رقم ' + r.no + ' — هل تريد الطباعة الآن؟')) printReceipt(r.no);
+  }
+};
+var oldRefresh = window.refreshPage;
+window.refreshPage = function(id){
+  if(typeof oldRefresh === 'function') oldRefresh(id);
+  if(id === 'receipts') setTimeout(renderReceipts,80);
+};
+document.addEventListener('DOMContentLoaded', function(){
+  if(!document.getElementById('receiptPrintArea')){
+    var area = document.createElement('div'); area.id = 'receiptPrintArea'; document.body.appendChild(area);
+  }
+});
+})();
+</script>
+
+
+<script id="athar-catalog-transfer-system">
+(function(){
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function money(v){return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function now(){return new Date().toISOString();}
+function patientName(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?p.name:'-';}
+function patientBalance(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?Number(p.balance||0):0;}
+function staffName(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.name:'-';}
+function getDepartments(){var d=read('departments',[]);return d.length?d:[{id:'عيادة باطنة',name:'عيادة باطنة'},{id:'المعمل',name:'المعمل'},{id:'الأشعة',name:'الأشعة'},{id:'الصيدلية',name:'الصيدلية'},{id:'عناية مركزة',name:'عناية مركزة'},{id:'إقامة داخلية',name:'إقامة داخلية'}];}
+function depName(id){var d=getDepartments().find(x=>String(x.id)===String(id));return d?(d.name||d.id):(id||'-');}
+function lastVisitText(pid){var v=read('visits',[]).filter(x=>String(x.patientId)===String(pid)).sort((a,b)=>new Date(b.date)-new Date(a.date))[0];return v?'آخر زيارة: #'+v.id+' — '+new Date(v.date).toLocaleDateString('ar-EG')+' — الطبيب: '+staffName(v.doctorId):'لا توجد زيارات سابقة';}
+
+function initCatalogs(){
+ if(read('catalogItems',[]).length) return;
+ var items=[
+ {id:1,type:'إيراد',name:'قلب مفتوح',department:'عمليات',account:'إيراد عمليات',amount:0,active:true},
+ {id:2,type:'إيراد',name:'قسطرة',department:'قسطرة',account:'إيراد قسطرة',amount:0,active:true},
+ {id:3,type:'إيراد',name:'عناية مركزة',department:'عناية',account:'إيراد عناية مركزة',amount:0,active:true},
+ {id:4,type:'إيراد',name:'عناية متوسطة',department:'عناية',account:'إيراد عناية متوسطة',amount:0,active:true},
+ {id:5,type:'إيراد',name:'إيكو وسونار',department:'أشعة',account:'إيراد أشعة',amount:0,active:true},
+ {id:6,type:'إيراد',name:'عيادة خارجية',department:'عيادات',account:'إيراد كشف',amount:0,active:true},
+ {id:7,type:'إيراد',name:'معمل',department:'معمل',account:'إيراد المعمل',amount:0,active:true},
+ {id:8,type:'إيراد',name:'أشعة عادية',department:'أشعة',account:'إيراد الأشعة',amount:0,active:true},
+ {id:9,type:'إيراد',name:'غسيل كلى',department:'غسيل كلى',account:'إيراد غسيل كلى',amount:0,active:true},
+ {id:10,type:'إيراد',name:'حضانات / وحدة الأطفال',department:'أطفال',account:'إيراد حضانات',amount:0,active:true},
+ {id:101,type:'تكلفة خدمة',name:'أدوية',department:'صيدلية',account:'تكلفة أدوية',amount:0,active:true},
+ {id:102,type:'تكلفة خدمة',name:'مستلزمات عناية',department:'عناية',account:'تكلفة مستلزمات عناية',amount:0,active:true},
+ {id:103,type:'تكلفة خدمة',name:'أتعاب أطباء',department:'طبي',account:'مصروف أتعاب الأطباء',amount:0,active:true},
+ {id:104,type:'مصروف',name:'مرتبات تمريض',department:'تمريض',account:'مصروف مرتبات تمريض',amount:0,active:true},
+ {id:105,type:'مصروف',name:'مرتبات إداريين',department:'إداري',account:'مصروف مرتبات إداريين',amount:0,active:true},
+ {id:106,type:'مصروف',name:'كهرباء وسولار',department:'تشغيل',account:'مصروف كهرباء وسولار',amount:0,active:true},
+ {id:107,type:'مصروف',name:'صيانة',department:'تشغيل',account:'مصروف صيانة',amount:0,active:true},
+ {id:108,type:'مصروف',name:'تليفون',department:'إداري',account:'مصروف تليفون',amount:0,active:true},
+ {id:109,type:'مصروف',name:'ضرائب ورسوم',department:'إداري',account:'مصروف ضرائب ورسوم',amount:0,active:true},
+ {id:110,type:'أصل',name:'أصول وأجهزة طبية',department:'أصول',account:'الأصول الثابتة',amount:0,active:true}];
+ write('catalogItems',items);localStorage.setItem('athar_catalogNextId','111');
+}
+initCatalogs();
+
+function fillCatalogDepartments(){var s=document.getElementById('catDepartment');if(!s)return;s.innerHTML='<option value="عام">عام</option>'+getDepartments().map(d=>'<option value="'+(d.name||d.id)+'">'+(d.name||d.id)+'</option>').join('');}
+window.addCatalogItem=function(){var name=document.getElementById('catName').value.trim();if(!name)return alert('اكتب اسم البند');var items=read('catalogItems',[]);var id=Number(localStorage.getItem('athar_catalogNextId')||'1000');localStorage.setItem('athar_catalogNextId',String(id+1));items.push({id:id,type:catType.value,name:name,department:catDepartment.value,account:catAccount.value||name,amount:Number(catDefaultAmount.value)||0,active:catActive.value==='true'});write('catalogItems',items);catName.value='';catAccount.value='';catDefaultAmount.value='0';renderCatalogItems();};
+window.renderCatalogItems=function(){fillCatalogDepartments();var r=document.getElementById('revenueCatalogTable'),e=document.getElementById('expenseCatalogTable');if(!r||!e)return;var items=read('catalogItems',[]);function tbl(list){if(!list.length)return '<div class="no-data">لا توجد بنود</div>';var h='<table><tr><th>النوع</th><th>البند</th><th>القسم</th><th>الحساب</th><th>قيمة افتراضية</th><th>الحالة</th></tr>';list.forEach(i=>h+='<tr><td><span class="tag-soft">'+i.type+'</span></td><td><b>'+i.name+'</b></td><td>'+i.department+'</td><td>'+i.account+'</td><td>'+money(i.amount)+'</td><td>'+(i.active?'<span class="badge badge-success">نشط</span>':'<span class="badge badge-danger">موقوف</span>')+'</td></tr>');return h+'</table>';}r.innerHTML=tbl(items.filter(i=>i.type==='إيراد'));e.innerHTML=tbl(items.filter(i=>i.type!=='إيراد'));};
+
+function fillOptions(){var pts=read('patients',[]),docs=read('staff',[]).filter(s=>s.role==='طبيب'),deps=getDepartments();['trPatient','admPatient'].forEach(id=>{var el=document.getElementById(id);if(el)el.innerHTML=pts.map(p=>'<option value="'+p.id+'">#'+p.id+' - '+p.name+'</option>').join('');});['trDoctor','admDoctor'].forEach(id=>{var el=document.getElementById(id);if(el)el.innerHTML=docs.map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');});['trFromDept','trToDept','admDept'].forEach(id=>{var el=document.getElementById(id);if(el)el.innerHTML=deps.map(d=>'<option value="'+d.id+'">'+(d.name||d.id)+'</option>').join('');});}
+window.showTransferPatientInfo=function(){var id=document.getElementById('trPatient')?.value;var b=document.getElementById('transferPatientInfo');if(b)b.innerHTML='<b>الرصيد الحالي:</b> '+money(patientBalance(id))+' | '+lastVisitText(id);};
+window.showAdmissionPatientInfo=function(){var id=document.getElementById('admPatient')?.value;var b=document.getElementById('admissionPatientInfo');if(b)b.innerHTML='<b>الرصيد الحالي:</b> '+money(patientBalance(id))+' | '+lastVisitText(id);};
+
+function chargePatient(pid,amount,desc,account,pay){var patients=read('patients',[]);var p=patients.find(x=>String(x.id)===String(pid));amount=Number(amount)||0;if(!p||amount<=0)return;p.balance=Number(p.balance||0)+amount;write('patients',patients);var journal=read('journal',[]),next=read('nextId',{j:journal.length+1});if(!next.j)next.j=journal.length+1;journal.push({id:next.j++,date:now(),description:desc,lines:[{acc:'حساب المريض #'+pid,dr:amount,cr:0},{acc:account||'إيرادات طبية',dr:0,cr:amount}]});write('journal',journal);write('nextId',next);if(pay==='كاش'){var payments=read('payments',[]);payments.push({id:Date.now(),patientId:pid,amount:amount,method:'كاش',treasury:'الخزينة الرئيسية',note:desc,date:now()});write('payments',payments);patients=read('patients',[]);p=patients.find(x=>String(x.id)===String(pid));if(p){p.balance=Math.max(0,Number(p.balance||0)-amount);write('patients',patients);}var tm=read('treasuryMovements',[]);tm.push({id:'TM-'+Date.now(),date:now(),type:'قبض',amount:amount,method:'كاش',treasury:'الخزينة الرئيسية',desc:desc,patientId:pid});write('treasuryMovements',tm);journal=read('journal',[]);next=read('nextId',{j:journal.length+1});journal.push({id:next.j++,date:now(),description:'سداد فوري - '+desc,lines:[{acc:'الخزينة الرئيسية',dr:amount,cr:0},{acc:'حساب المريض #'+pid,dr:0,cr:amount}]});write('journal',journal);write('nextId',next);}}
+
+window.addDepartmentTransfer=function(){var pid=trPatient.value,from=trFromDept.value,to=trToDept.value,doc=trDoctor.value,fee=Number(trFee.value)||0,pay=trPayStatus.value,reason=trReason.value||'تحويل قسم';if(!pid||!to)return alert('اختر المريض والقسم المحول إليه');var arr=read('transfers',[]);arr.push({id:'TR-'+Date.now(),date:now(),patientId:pid,fromDept:from,toDept:to,doctorId:doc,fee:fee,payStatus:pay,reason:reason});write('transfers',arr);if(fee>0)chargePatient(pid,fee,'تحويل من '+depName(from)+' إلى '+depName(to)+' - '+reason,'إيراد تحويلات/خدمات',pay);renderAdmissionTransfers();showTransferPatientInfo();alert('تم تسجيل التحويل بنجاح ✓');};
+window.addAdmission=function(){var pid=admPatient.value,dept=admDept.value,type=admType.value,bed=admBed.value,rate=Number(admDailyRate.value)||0,days=Number(admDays.value)||1,doc=admDoctor.value,pay=admPayStatus.value,note=admNote.value||type,total=rate*days;if(!pid||!dept)return alert('اختر المريض والقسم');var arr=read('admissions',[]);arr.push({id:'ADM-'+Date.now(),date:now(),patientId:pid,dept:dept,type:type,bed:bed,dailyRate:rate,days:days,doctorId:doc,payStatus:pay,note:note,status:'مفتوحة',total:total});write('admissions',arr);if(total>0)chargePatient(pid,total,'إقامة داخلية - '+type+' - '+days+' يوم','إيراد إقامة داخلية',pay);renderAdmissionTransfers();showAdmissionPatientInfo();alert('تم تسجيل الإقامة بنجاح ✓');};
+window.renderAdmissionTransfers=function(){var box=document.getElementById('admissionTransferTable');if(!box)return;var rows=[];read('transfers',[]).forEach(t=>rows.push({date:t.date,kind:'تحويل',patient:patientName(t.patientId),detail:'من '+depName(t.fromDept)+' إلى '+depName(t.toDept),doctor:staffName(t.doctorId),amount:t.fee,status:t.payStatus,note:t.reason}));read('admissions',[]).forEach(a=>rows.push({date:a.date,kind:'إقامة',patient:patientName(a.patientId),detail:a.type+' - '+depName(a.dept)+' - '+(a.bed||'-'),doctor:staffName(a.doctorId),amount:a.total,status:a.payStatus,note:a.note}));rows.sort((a,b)=>new Date(b.date)-new Date(a.date));if(!rows.length){box.innerHTML='<div class="no-data">لا توجد تحويلات أو إقامات</div>';return;}var h='<table><tr><th>التاريخ</th><th>النوع</th><th>المريض</th><th>التفاصيل</th><th>الطبيب</th><th>المبلغ</th><th>الدفع</th><th>ملاحظات</th></tr>';rows.forEach(r=>h+='<tr><td>'+new Date(r.date).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'})+'</td><td><span class="tag-soft">'+r.kind+'</span></td><td>'+r.patient+'</td><td>'+r.detail+'</td><td>'+r.doctor+'</td><td><b>'+money(r.amount)+'</b></td><td>'+r.status+'</td><td>'+r.note+'</td></tr>');box.innerHTML=h+'</table>';};
+function refreshAdmission(){fillOptions();showTransferPatientInfo();showAdmissionPatientInfo();renderAdmissionTransfers();}
+var oldRefresh=window.refreshPage;window.refreshPage=function(id){if(typeof oldRefresh==='function')oldRefresh(id);if(id==='catalogs')setTimeout(renderCatalogItems,80);if(id==='admission')setTimeout(refreshAdmission,80);};
+document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){renderCatalogItems();refreshAdmission();},400);});
+})();
+</script>
+
+
+<script id="athar-deferred-staff-dues">
+(function(){
+
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function money(v){return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function dt(v){try{return new Date(v).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'});}catch(e){return '-';}}
+function patientName(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?p.name:'-';}
+function staffName(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.name:'-';}
+function staffRole(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.role:'-';}
+function getStaff(id){return read('staff',[]).find(x=>String(x.id)===String(id));}
+
+function itemById(id){return read('items',[]).find(x=>String(x.id)===String(id));}
+function visitById(id){return read('visits',[]).find(x=>String(x.id)===String(id));}
+
+function buildChargeRows(){
+  var rows=[];
+  var visits=read('visits',[]);
+  var services=read('services',[]);
+  var prescriptions=read('prescriptions',[]);
+  var transfers=read('transfers',[]);
+  var admissions=read('admissions',[]);
+
+  visits.forEach(function(v){
+    var doc=getStaff(v.doctorId), nurse=getStaff(v.nurseId);
+    var amount=Number(v.fee||v.total||0);
+    if(amount>0){
+      if(doc) rows.push({date:v.date, patientId:v.patientId, staffId:doc.id, role:doc.role, source:'كشف', gross:amount, rate:Number(doc.feeRate||0), chargeAmount:amount, visitId:v.id});
+      if(nurse) rows.push({date:v.date, patientId:v.patientId, staffId:nurse.id, role:nurse.role, source:'تمريض كشف', gross:amount, rate:Number(nurse.feeRate||0), chargeAmount:amount, visitId:v.id});
+    }
+  });
+
+  services.filter(s=>s.status==='تم التنفيذ').forEach(function(s){
+    var v=visitById(s.visitId); if(!v) return;
+    var it=itemById(s.itemId); if(!it) return;
+    var p=read('patients',[]).find(x=>String(x.id)===String(v.patientId));
+    var disc=p?Number(p.discount||0):0;
+    var amount=Number(it.price||0)*(1-disc/100);
+    var doc=getStaff(v.doctorId);
+    if(doc && amount>0) rows.push({date:s.date||v.date, patientId:v.patientId, staffId:doc.id, role:doc.role, source:it.type||'خدمة', gross:amount, rate:Number(doc.srvRate||0), chargeAmount:amount, visitId:v.id});
+  });
+
+  prescriptions.filter(r=>r.status==='تم الصرف').forEach(function(r){
+    var v=visitById(r.visitId); if(!v) return;
+    var drug=itemById(r.drugId); if(!drug) return;
+    var p=read('patients',[]).find(x=>String(x.id)===String(v.patientId));
+    var disc=p?Number(p.discount||0):0;
+    var amount=Number(drug.price||0)*Number(r.qty||0)*(1-disc/100);
+    // الصيدلية عادة لا تحسب نسبة طبيب إلا لو موجودة في إعدادات الطبيب srvRate، هنتركها صفر في الأغلب
+    var doc=getStaff(v.doctorId);
+    if(doc && Number(doc.pharmacyRate||0)>0 && amount>0) rows.push({date:r.date||v.date, patientId:v.patientId, staffId:doc.id, role:doc.role, source:'صيدلية', gross:amount, rate:Number(doc.pharmacyRate||0), chargeAmount:amount, visitId:v.id});
+  });
+
+  transfers.forEach(function(t){
+    var amount=Number(t.fee||0), doc=getStaff(t.doctorId);
+    if(doc && amount>0) rows.push({date:t.date, patientId:t.patientId, staffId:doc.id, role:doc.role, source:'تحويل قسم', gross:amount, rate:Number(doc.srvRate||0), chargeAmount:amount});
+  });
+
+  admissions.forEach(function(a){
+    var amount=Number(a.total||0), doc=getStaff(a.doctorId);
+    if(doc && amount>0) rows.push({date:a.date, patientId:a.patientId, staffId:doc.id, role:doc.role, source:'إقامة داخلية', gross:amount, rate:Number(doc.srvRate||0), chargeAmount:amount});
+  });
+
+  rows.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  return rows;
+}
+
+function paidByPatient(){
+  var map={};
+  read('payments',[]).forEach(function(p){
+    var id=String(p.patientId||'');
+    map[id]=(map[id]||0)+Number(p.amount||0);
+  });
+  return map;
+}
+
+function buildPaidStaffLedger(){
+  var charges=buildChargeRows();
+  var paidMap=paidByPatient();
+  var usedByPatient={};
+  var output=[];
+
+  charges.forEach(function(c){
+    var pid=String(c.patientId);
+    usedByPatient[pid]=usedByPatient[pid]||0;
+    var totalPaid=paidMap[pid]||0;
+    var available=Math.max(0,totalPaid-usedByPatient[pid]);
+    var paidPart=Math.min(Number(c.chargeAmount||0), available);
+    var unpaid=Math.max(0, Number(c.chargeAmount||0)-paidPart);
+    usedByPatient[pid]+=paidPart;
+
+    var net=paidPart*Number(c.rate||0)/100;
+    output.push({
+      date:c.date, patientId:c.patientId, patient:patientName(c.patientId),
+      staffId:c.staffId, staff:staffName(c.staffId), role:staffRole(c.staffId),
+      source:c.source, gross:Number(c.gross||0), paid:paidPart, unpaid:unpaid,
+      rate:Number(c.rate||0), net:net, status: paidPart>0 ? (unpaid>0?'محصل جزئي':'محصل') : 'غير محصل'
+    });
+  });
+
+  return output;
+}
+
+window.recalculateStaffDuesOnCollection = function(){
+  var ledger=buildPaidStaffLedger();
+  var totals={};
+  ledger.forEach(function(r){ totals[r.staffId]=(totals[r.staffId]||0)+Number(r.net||0); });
+
+  var staff=read('staff',[]);
+  staff.forEach(function(s){ s.due=Number(totals[s.id]||0); });
+  write('staff',staff);
+
+  var pending=ledger.filter(r=>r.unpaid>0).length;
+  var pendingAmount=ledger.reduce((a,r)=>a+Number(r.unpaid||0),0);
+  return {ledger:ledger,pending:pending,pendingAmount:pendingAmount};
+};
+
+function showPendingAlert(){
+  var res=recalculateStaffDuesOnCollection();
+  if(!res.pending) return;
+
+  var target=document.getElementById('staffTable') || document.getElementById('doctorAccountReport') || document.getElementById('nurseAccountReport');
+  if(target && !document.getElementById('duesPendingAlert')){
+    var div=document.createElement('div');
+    div.id='duesPendingAlert';
+    div.className='alert alert-info';
+    div.innerHTML='🔔 يوجد خدمات غير محصلة بقيمة <b>'+money(res.pendingAmount)+'</b> — لن يتم احتساب نسب الأطباء/التمريض إلا بعد سداد المريض.';
+    target.parentNode.insertBefore(div,target);
+  }
+}
+
+var oldRenderStaff=window.renderStaff;
+window.renderStaff=function(){
+  recalculateStaffDuesOnCollection();
+  if(typeof oldRenderStaff==='function') oldRenderStaff();
+  setTimeout(showPendingAlert,50);
+};
+
+function filterLedgerForSmartReports(rows){
+  function dOnly(v){try{return new Date(v).toISOString().slice(0,10);}catch(e){return '';}}
+  var from=document.getElementById('staffRptFrom')?.value||'';
+  var to=document.getElementById('staffRptTo')?.value||'';
+  var l1=document.getElementById('staffRptLevel1')?.value||'all';
+  var l2=document.getElementById('staffRptLevel2')?.value||'all';
+  return rows.filter(function(r){
+    var d=dOnly(r.date);
+    if(from && d<from) return false;
+    if(to && d>to) return false;
+    if(l1==='doctor' && r.role!=='طبيب') return false;
+    if(l1==='nurse' && r.role==='طبيب') return false;
+    if((l1==='doctor'||l1==='nurse') && l2!=='all' && String(r.staffId)!==String(l2)) return false;
+    if(l1==='patient' && l2!=='all' && String(r.patientId)!==String(l2)) return false;
+    if(l1==='service' && l2!=='all'){
+      if(l2==='visit' && String(r.source).indexOf('كشف')<0) return false;
+      if(l2==='lab' && String(r.source).indexOf('تحليل')<0 && String(r.source).indexOf('معمل')<0) return false;
+      if(l2==='xray' && String(r.source).indexOf('أشعة')<0) return false;
+      if(l2==='pharmacy' && String(r.source).indexOf('صيدلية')<0) return false;
+    }
+    return true;
+  });
+}
+
+function renderDuesTable(targetId, rows, empty){
+  var box=document.getElementById(targetId); if(!box) return;
+  if(!rows.length){box.innerHTML='<div class="no-data">'+empty+'</div>';return;}
+  var totalGross=0,totalPaid=0,totalUnpaid=0,totalNet=0, byStaff={};
+  var html='<table><tr><th>التاريخ</th><th>الاسم</th><th>الوظيفة</th><th>المريض</th><th>الخدمة</th><th>القيمة</th><th>المحصل</th><th>غير المحصل</th><th>النسبة</th><th>المستحق</th><th>الحالة</th></tr>';
+  rows.forEach(function(r){
+    totalGross+=r.gross; totalPaid+=r.paid; totalUnpaid+=r.unpaid; totalNet+=r.net;
+    byStaff[r.staffId]=(byStaff[r.staffId]||0)+r.net;
+    html+='<tr><td>'+dt(r.date)+'</td><td>'+r.staff+'</td><td>'+r.role+'</td><td>'+r.patient+'</td><td>'+r.source+'</td><td>'+money(r.gross)+'</td><td style="color:#198754;font-weight:800">'+money(r.paid)+'</td><td style="color:#dc3545;font-weight:800">'+money(r.unpaid)+'</td><td>'+r.rate+'%</td><td style="color:#0d7377;font-weight:900">'+money(r.net)+'</td><td><span class="badge '+(r.status==='غير محصل'?'badge-danger':(r.status==='محصل جزئي'?'badge-warn':'badge-success'))+'">'+r.status+'</span></td></tr>';
+  });
+  html+='<tr style="background:#e8f5f4;font-weight:900"><td colspan="5">الإجمالي</td><td>'+money(totalGross)+'</td><td>'+money(totalPaid)+'</td><td>'+money(totalUnpaid)+'</td><td>-</td><td>'+money(totalNet)+'</td><td></td></tr></table>';
+  var summary='<div class="alert alert-info">تنبيه: المستحقات تُحسب على المبالغ المحصلة فقط، أما غير المحصل فيظهر للمتابعة ولا يدخل في مستحقات الطبيب/التمريض.</div>'+
+    '<div class="grid grid-4" style="margin-bottom:15px"><div class="stat-box"><div class="label">عدد الأفراد</div><div class="value">'+Object.keys(byStaff).length+'</div></div><div class="stat-box"><div class="label">إجمالي المحصل</div><div class="value">'+money(totalPaid)+'</div></div><div class="stat-box"><div class="label">غير المحصل</div><div class="value">'+money(totalUnpaid)+'</div></div><div class="stat-box"><div class="label">الصافي المستحق</div><div class="value">'+money(totalNet)+'</div></div></div>';
+  box.innerHTML=summary+html;
+}
+
+window.renderStaffAccountReports=function(){
+  var res=recalculateStaffDuesOnCollection();
+  var rows=filterLedgerForSmartReports(res.ledger);
+  var doctors=rows.filter(r=>r.role==='طبيب');
+  var nurses=rows.filter(r=>r.role!=='طبيب');
+  var l1=document.getElementById('staffRptLevel1')?.value||'all';
+  if(l1==='doctor'){
+    renderDuesTable('doctorAccountReport',doctors,'لا توجد حركات للأطباء طبقًا للفلاتر');
+    var n=document.getElementById('nurseAccountReport'); if(n)n.innerHTML='<div class="no-data">فلتر الأطباء مفعل</div>';
+  } else if(l1==='nurse'){
+    var d=document.getElementById('doctorAccountReport'); if(d)d.innerHTML='<div class="no-data">فلتر التمريض/الفنيين مفعل</div>';
+    renderDuesTable('nurseAccountReport',nurses,'لا توجد حركات للتمريض طبقًا للفلاتر');
+  } else {
+    renderDuesTable('doctorAccountReport',doctors,'لا توجد حركات للأطباء');
+    renderDuesTable('nurseAccountReport',nurses,'لا توجد حركات للتمريض/الفنيين');
+  }
+};
+
+var oldPayPartial=window.payPartial;
+window.payPartial=function(){
+  if(typeof oldPayPartial==='function') oldPayPartial();
+  setTimeout(function(){
+    recalculateStaffDuesOnCollection();
+    if(typeof renderStaff==='function') renderStaff();
+    if(document.getElementById('reports')?.classList.contains('active')) renderStaffAccountReports();
+    alert('تم تحديث مستحقات الأطباء/التمريض على أساس المبلغ المحصل فقط.');
+  },120);
+};
+
+var oldAddVisit=window.addVisit;
+window.addVisit=function(){
+  if(typeof oldAddVisit==='function') oldAddVisit();
+  setTimeout(function(){
+    recalculateStaffDuesOnCollection();
+    var p=document.getElementById('vPay')?.value||'';
+    if(p!=='كاش') alert('تنبيه: تم تحميل الخدمة على حساب المريض، ولن يتم احتساب نسبة الطبيب/التمريض إلا بعد السداد.');
+  },120);
+};
+
+var oldExecuteSrv=window.executeSrv;
+window.executeSrv=function(id){
+  if(typeof oldExecuteSrv==='function') oldExecuteSrv(id);
+  setTimeout(function(){
+    recalculateStaffDuesOnCollection();
+    alert('تنبيه: أي نسبة طبيب/تمريض لهذه الخدمة ستُحسب فقط بعد تحصيل المبلغ من المريض.');
+  },120);
+};
+
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function') oldRefresh(id);
+  setTimeout(function(){
+    if(id==='staff'){recalculateStaffDuesOnCollection(); showPendingAlert();}
+    if(id==='reports'){renderStaffAccountReports();}
+  },120);
+};
+
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(recalculateStaffDuesOnCollection,400);
+});
+
+})();
+</script>
+
+
+<script id="athar-single-treasury-source-fix">
+(function(){
+
+function read(k,d){
+  try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}
+  catch(e){return d;}
+}
+function write(k,v){
+  try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}
+}
+function money(v){
+  return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';
+}
+function patientName(id){
+  var p=read('patients',[]).find(function(x){return String(x.id)===String(id);});
+  return p?p.name:'-';
+}
+function getPatientBalance(id){
+  var p=read('patients',[]).find(function(x){return String(x.id)===String(id);});
+  return p?Number(p.balance||0):0;
+}
+
+// Clear old migration flags so they don't create noise, but we no longer run any migration.
+try{
+  Object.keys(localStorage).forEach(function(k){
+    if(k.indexOf('athar_treasury_migrated') >= 0 || k.indexOf('athar_treasury_migrated_from_payments') >= 0){
+      localStorage.removeItem(k);
+    }
+  });
+}catch(e){}
+
+function movementKey(m){
+  var t = '';
+  try{
+    var d = new Date(m.date || new Date());
+    // minute-level key catches duplicate wrapper entries created in same action
+    t = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes();
+  }catch(e){ t = String(m.date||''); }
+
+  return [
+    t,
+    String(m.type||'قبض'),
+    String(m.patientId||''),
+    String(m.amount||0),
+    String(m.method||'كاش'),
+    String(m.treasury||'الخزينة الرئيسية'),
+    String(m.desc||m.note||'').trim()
+  ].join('|');
+}
+
+window.dedupeTreasuryMovements = function(){
+  var list = read('treasuryMovements',[]);
+  var seen = {};
+  var clean = [];
+  list.forEach(function(m){
+    var key = movementKey(m);
+    if(!seen[key]){
+      seen[key]=true;
+      clean.push(m);
+    }
+  });
+  if(clean.length !== list.length){
+    write('treasuryMovements', clean);
+  }
+  return clean;
+};
+
+window.addTreasuryMove = function(type, amount, method, treasury, desc, patientId){
+  var list = dedupeTreasuryMovements();
+  amount = Number(amount)||0;
+  if(amount <= 0) return null;
+
+  var m = {
+    id:'TM-'+Date.now()+'-'+Math.floor(Math.random()*1000),
+    date:new Date().toISOString(),
+    type:type||'قبض',
+    amount:amount,
+    method:method||'كاش',
+    treasury:treasury||'الخزينة الرئيسية',
+    desc:desc||'',
+    patientId:patientId||null
+  };
+
+  // Prevent duplicate same action if any older wrapper still calls twice in the same second.
+  var newKey = movementKey(m);
+  var exists = list.some(function(x){ return movementKey(x) === newKey; });
+  if(!exists){
+    list.push(m);
+    write('treasuryMovements', list);
+  }
+  return m;
+};
+
+function allTreasuryRows(){
+  var rows = dedupeTreasuryMovements().slice().sort(function(a,b){
+    return new Date(a.date)-new Date(b.date);
+  });
+
+  var cash=0, card=0, bank=0;
+  rows.forEach(function(r){
+    var sign = r.type === 'صرف' ? -1 : 1;
+    var amount = Number(r.amount)||0;
+    var method = String(r.method||'كاش');
+
+    if(method.indexOf('شبكة') >= 0) card += sign*amount;
+    else if(method.indexOf('تحويل') >= 0) bank += sign*amount;
+    else cash += sign*amount;
+
+    r.cashBal = cash;
+    r.cardBal = card;
+    r.bankBal = bank;
+    r.totalBal = cash + card + bank;
+  });
+  return rows;
+}
+
+window.atharUpdatePatientBalance = window.showPatientBalance = function(){
+  var sel=document.getElementById('payPatient');
+  var box=document.getElementById('payBalance');
+  if(!sel || !box) return;
+  var bal=getPatientBalance(sel.value);
+  box.value=money(bal);
+  box.style.color=bal>0?'#dc3545':'#198754';
+  box.style.fontWeight='900';
+  box.style.background='#fff';
+};
+
+window.renderTreasurySummaryCards = window.atharRenderTreasuryCards = function(){
+  var box=document.getElementById('treasurySummaryCards') || document.getElementById('treasuryBalances');
+  if(!box) return;
+
+  var rows=allTreasuryRows();
+  var last=rows.length ? rows[rows.length-1] : {cashBal:0,cardBal:0,bankBal:0,totalBal:0};
+  box.innerHTML =
+    '<div class="stat-box"><div class="label">💵 رصيد كاش</div><div class="value">'+money(last.cashBal)+'</div></div>'+
+    '<div class="stat-box"><div class="label">💳 رصيد شبكة</div><div class="value">'+money(last.cardBal)+'</div></div>'+
+    '<div class="stat-box"><div class="label">🏦 رصيد تحويل</div><div class="value">'+money(last.bankBal)+'</div></div>'+
+    '<div class="stat-box"><div class="label">💰 إجمالي الرصيد</div><div class="value">'+money(last.totalBal)+'</div></div>';
+};
+
+window.renderCashier = window.atharRenderCashier = function(){
+  showPatientBalance();
+  renderTreasurySummaryCards();
+
+  var box=document.getElementById('cashierTable');
+  if(!box) return;
+
+  var today=new Date().toDateString();
+  var rows=allTreasuryRows().filter(function(r){
+    return new Date(r.date).toDateString() === today;
+  });
+
+  if(!rows.length){
+    box.innerHTML='<div class="no-data">لا توجد حركات خزينة اليوم</div>';
+    return;
+  }
+
+  var html='<table><tr>'+
+    '<th>نوع</th><th>الطرف</th><th>البيان</th><th>حالة الدفع</th>'+
+    '<th>مقبوض</th><th>منصرف</th><th>رصيد كاش</th><th>رصيد شبكة</th>'+
+    '<th>رصيد تحويل</th><th>إجمالي الرصيد</th><th>التاريخ</th>'+
+    '</tr>';
+
+  rows.forEach(function(r){
+    var out = r.type === 'صرف';
+    html += '<tr>'+
+      '<td><span class="badge '+(out?'badge-danger':'badge-success')+'">'+r.type+'</span></td>'+
+      '<td>'+(r.patientId?patientName(r.patientId):(r.party||'-'))+'</td>'+
+      '<td>'+(r.desc||r.note||'-')+'</td>'+
+      '<td><span class="badge badge-success">'+(r.method||'كاش')+'</span></td>'+
+      '<td style="color:#198754;font-weight:800;">'+(!out?money(r.amount):'-')+'</td>'+
+      '<td style="color:#dc3545;font-weight:800;">'+(out?money(r.amount):'-')+'</td>'+
+      '<td>'+money(r.cashBal)+'</td>'+
+      '<td>'+money(r.cardBal)+'</td>'+
+      '<td>'+money(r.bankBal)+'</td>'+
+      '<td style="color:#0d7377;font-weight:900;">'+money(r.totalBal)+'</td>'+
+      '<td>'+new Date(r.date).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'})+'</td>'+
+      '</tr>';
+  });
+  html += '</table>';
+  box.innerHTML = html;
+};
+
+window.renderTreasuryReport = function(){
+  var box=document.getElementById('treasuryReport');
+  if(!box) return;
+  var rows=allTreasuryRows();
+  if(!rows.length){
+    box.innerHTML='<div class="no-data">لا توجد حركات خزينة</div>';
+    return;
+  }
+
+  var totalIn=0,totalOut=0;
+  var last=rows[rows.length-1];
+
+  var html='<div class="grid grid-4" style="margin-bottom:15px;">'+
+    '<div class="stat-box"><div class="label">💵 رصيد كاش</div><div class="value">'+money(last.cashBal)+'</div></div>'+
+    '<div class="stat-box"><div class="label">💳 رصيد شبكة</div><div class="value">'+money(last.cardBal)+'</div></div>'+
+    '<div class="stat-box"><div class="label">🏦 رصيد تحويل</div><div class="value">'+money(last.bankBal)+'</div></div>'+
+    '<div class="stat-box"><div class="label">💰 إجمالي الرصيد</div><div class="value">'+money(last.totalBal)+'</div></div>'+
+    '</div>';
+
+  html += '<table><tr><th>التاريخ</th><th>النوع</th><th>الطرف</th><th>البيان</th><th>طريقة الدفع</th><th>الخزينة</th><th>مقبوض</th><th>منصرف</th><th>رصيد كاش</th><th>رصيد شبكة</th><th>رصيد تحويل</th><th>إجمالي الرصيد</th></tr>';
+
+  rows.forEach(function(r){
+    var out=r.type==='صرف';
+    if(out) totalOut += Number(r.amount)||0; else totalIn += Number(r.amount)||0;
+    html += '<tr>'+
+      '<td>'+new Date(r.date).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'})+'</td>'+
+      '<td><span class="badge '+(out?'badge-danger':'badge-success')+'">'+r.type+'</span></td>'+
+      '<td>'+(r.patientId?patientName(r.patientId):(r.party||'-'))+'</td>'+
+      '<td>'+(r.desc||r.note||'-')+'</td>'+
+      '<td>'+(r.method||'كاش')+'</td>'+
+      '<td>'+(r.treasury||'الخزينة الرئيسية')+'</td>'+
+      '<td style="color:#198754;font-weight:800;">'+(!out?money(r.amount):'-')+'</td>'+
+      '<td style="color:#dc3545;font-weight:800;">'+(out?money(r.amount):'-')+'</td>'+
+      '<td>'+money(r.cashBal)+'</td>'+
+      '<td>'+money(r.cardBal)+'</td>'+
+      '<td>'+money(r.bankBal)+'</td>'+
+      '<td style="color:#0d7377;font-weight:900;">'+money(r.totalBal)+'</td>'+
+      '</tr>';
+  });
+
+  html += '<tr style="background:#e8f5f4;font-weight:900;"><td colspan="6">الإجماليات</td><td>'+money(totalIn)+'</td><td>'+money(totalOut)+'</td><td colspan="3">صافي الحركة</td><td>'+money(totalIn-totalOut)+'</td></tr></table>';
+  box.innerHTML=html;
+};
+
+// Patch original pay/add visit/add expense without adding duplicate treasury movements.
+var oldPayPartial = window.payPartial;
+window.payPartial = function(){
+  var patientId=document.getElementById('payPatient')?.value;
+  var amount=Number(document.getElementById('payAmount')?.value)||0;
+  var method=document.getElementById('payMethod')?.value||'كاش';
+  var treasury=document.getElementById('payTreasury')?.value||'الخزينة الرئيسية';
+  var note=document.getElementById('payNote')?.value||'سداد مريض';
+
+  var before = read('payments',[]).length;
+  if(typeof oldPayPartial==='function') oldPayPartial();
+  var after = read('payments',[]).length;
+
+  // If original payment succeeded, record exactly once in treasuryMovements.
+  if(after > before && amount > 0){
+    addTreasuryMove('قبض', amount, method, treasury, note, patientId);
+  }
+  setTimeout(function(){ showPatientBalance(); renderCashier(); },80);
+};
+
+var oldAddVisit = window.addVisit;
+window.addVisit = function(){
+  var patientId=document.getElementById('vPatient')?.value;
+  var pay=document.getElementById('vPay')?.value||'';
+  var fee=Number(document.getElementById('vFee')?.value)||0;
+  var patients=read('patients',[]);
+  var p=patients.find(function(x){return String(x.id)===String(patientId);});
+  var discount=p?Number(p.discount||0):0;
+  var net=fee*(1-discount/100);
+  var before=read('visits',[]).length;
+
+  if(typeof oldAddVisit==='function') oldAddVisit();
+
+  var after=read('visits',[]).length;
+  if(after > before && pay === 'كاش' && net > 0){
+    addTreasuryMove('قبض', net, 'كاش', 'الخزينة الرئيسية', 'كشف طبي', patientId);
+  }
+  setTimeout(function(){ renderTreasurySummaryCards(); },80);
+};
+
+var oldAddExpense = window.addExpense;
+window.addExpense = function(){
+  var amount=Number(document.getElementById('expenseAmount')?.value)||0;
+  var method=document.getElementById('expenseMethod')?.value||'كاش';
+  var treasury=document.getElementById('expenseTreasury')?.value||'الخزينة الرئيسية';
+  var type=document.getElementById('expenseType')?.value||'مصروف';
+  var note=document.getElementById('expenseNote')?.value||type;
+
+  var before=read('expenses',[]).length;
+  if(typeof oldAddExpense==='function') oldAddExpense();
+  var after=read('expenses',[]).length;
+
+  if(after > before && amount > 0){
+    addTreasuryMove('صرف', amount, method, treasury, type+' - '+note, null);
+  }
+  setTimeout(function(){ renderCashier(); },80);
+};
+
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function') oldRefresh(id);
+  if(id==='cashier') setTimeout(renderCashier,100);
+  if(id==='reports') setTimeout(renderTreasuryReport,100);
+};
+
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(function(){
+    dedupeTreasuryMovements();
+    renderTreasurySummaryCards();
+    if(document.getElementById('cashier')?.classList.contains('active')) renderCashier();
+  },400);
+});
+
+})();
+</script>
+
+
+<script id="athar-safety-notifications-fix">
+(function(){
+
+function read(k,d){
+  try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}
+  catch(e){return d;}
+}
+function write(k,v){
+  try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}
+}
+function money(v){
+  return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';
+}
+function norm(s){
+  return String(s||'').trim().toLowerCase().replace(/\s+/g,' ');
+}
+function onlyDigits(s){
+  return String(s||'').replace(/\D/g,'');
+}
+function patients(){ return read('patients',[]); }
+function treasury(){ return read('treasuryMovements',[]); }
+
+function currentCashBalance(){
+  var cash = 0;
+  treasury().forEach(function(m){
+    var method = String(m.method||'كاش');
+    if(method.indexOf('شبكة') >= 0 || method.indexOf('تحويل') >= 0) return;
+    var amount = Number(m.amount)||0;
+    cash += (m.type === 'صرف' ? -amount : amount);
+  });
+  return cash;
+}
+
+function findDuplicatePatient(name,nid,phone){
+  name = norm(name); nid = onlyDigits(nid); phone = onlyDigits(phone);
+  return patients().find(function(p){
+    var sameNid = nid && onlyDigits(p.nid) === nid;
+    var samePhone = phone && onlyDigits(p.phone) === phone;
+    var sameName = name && norm(p.name) === name;
+    return sameNid || samePhone || sameName;
+  });
+}
+
+window.checkPatientDuplicateLive = function(){
+  var name = document.getElementById('pName')?.value || '';
+  var nid = document.getElementById('pNid')?.value || '';
+  var phone = document.getElementById('pPhone')?.value || '';
+  var warn = document.getElementById('patientDuplicateWarning');
+  if(!warn) return false;
+
+  var dup = findDuplicatePatient(name,nid,phone);
+  if(dup){
+    warn.className = 'alert danger';
+    warn.style.display = 'block';
+    warn.innerHTML = '⚠️ المريض مسجل قبل كده: <b>#'+dup.id+' - '+dup.name+'</b> | تليفون: '+(dup.phone||'-')+' | رقم قومي: '+(dup.nid||'-')+'<br>لازم المريض يتسجل مرة واحدة فقط، افتح زيارة جديدة على نفس الملف بدل تكرار التسجيل.';
+    return true;
+  } else {
+    warn.style.display = 'none';
+    warn.innerHTML = '';
+    return false;
+  }
+};
+
+var oldAddPatient = window.addPatient;
+window.addPatient = function(){
+  var name = document.getElementById('pName')?.value || '';
+  var nid = document.getElementById('pNid')?.value || '';
+  var phone = document.getElementById('pPhone')?.value || '';
+  var dup = findDuplicatePatient(name,nid,phone);
+
+  if(dup){
+    checkPatientDuplicateLive();
+    alert('المريض موجود بالفعل ولا يمكن تسجيله مرة أخرى. افتح زيارة على ملف المريض الموجود: #' + dup.id + ' - ' + dup.name);
+    return;
+  }
+
+  if(typeof oldAddPatient === 'function') oldAddPatient();
+  setTimeout(renderDashboardNotifications,120);
+};
+
+function canSpendCash(amount, method){
+  amount = Number(amount)||0;
+  method = String(method||'كاش');
+  if(method.indexOf('كاش') < 0) return true;
+  return currentCashBalance() >= amount;
+}
+
+var oldAddExpense = window.addExpense;
+window.addExpense = function(){
+  var amount = Number(document.getElementById('expenseAmount')?.value)||0;
+  var method = document.getElementById('expenseMethod')?.value || 'كاش';
+
+  if(method.indexOf('كاش') >= 0 && !canSpendCash(amount, method)){
+    alert('لا يمكن الصرف من الكاش لأن الرصيد غير كافٍ.\nرصيد الكاش الحالي: ' + money(currentCashBalance()) + '\nالمبلغ المطلوب صرفه: ' + money(amount));
+    return;
+  }
+
+  if(typeof oldAddExpense === 'function') oldAddExpense();
+  setTimeout(renderDashboardNotifications,120);
+};
+
+var oldPaySalary = window.paySalary;
+window.paySalary = function(id){
+  var staff = read('staff',[]);
+  var s = staff.find(function(x){return String(x.id)===String(id);});
+  var amount = s ? Number(s.due||0) : 0;
+
+  if(!canSpendCash(amount,'كاش')){
+    alert('لا يمكن صرف مستحقات الفريق الطبي من الكاش لأن الرصيد غير كافٍ.\nرصيد الكاش الحالي: '+money(currentCashBalance())+'\nالمبلغ المطلوب: '+money(amount));
+    return;
+  }
+
+  if(typeof oldPaySalary === 'function') oldPaySalary(id);
+  setTimeout(renderDashboardNotifications,120);
+};
+
+function duplicatePatientsSummary(){
+  var list = patients();
+  var seen = {};
+  var dups = [];
+  list.forEach(function(p){
+    var keys = [];
+    if(onlyDigits(p.nid)) keys.push('nid:'+onlyDigits(p.nid));
+    if(onlyDigits(p.phone)) keys.push('phone:'+onlyDigits(p.phone));
+    if(norm(p.name)) keys.push('name:'+norm(p.name));
+    keys.forEach(function(k){
+      if(seen[k] && dups.indexOf(p.id) < 0) dups.push(p.id);
+      else seen[k] = p.id;
+    });
+  });
+  return dups.length;
+}
+
+function lowStockSummary(){
+  return read('items',[]).filter(function(i){
+    return Number(i.qty) < 9999 && Number(i.qty) <= Number(i.min||0);
+  }).length;
+}
+
+function pendingPatientBalances(){
+  return patients().filter(function(p){ return Number(p.balance||0) > 0; });
+}
+
+function unpaidStaffDuesInfo(){
+  if(typeof window.recalculateStaffDuesOnCollection === 'function'){
+    var res = window.recalculateStaffDuesOnCollection();
+    return {count:res.pending||0, amount:res.pendingAmount||0};
+  }
+  return {count:0, amount:0};
+}
+
+window.renderDashboardNotifications = function(){
+  var box = document.getElementById('dashboardNotifications');
+  if(!box) return;
+
+  var notes = [];
+  var cash = currentCashBalance();
+  var debts = pendingPatientBalances();
+  var dupCount = duplicatePatientsSummary();
+  var lowStock = lowStockSummary();
+  var staffPending = unpaidStaffDuesInfo();
+
+  if(cash < 0){
+    notes.push({type:'danger', title:'رصيد الكاش بالسالب', text:'رصيد الكاش الحالي '+money(cash)+' — راجع حركات الخزينة فورًا.'});
+  } else if(cash === 0){
+    notes.push({type:'warn', title:'رصيد الكاش صفر', text:'لا يمكن الصرف النقدي إلا بعد وجود تحصيلات كاش.'});
+  }
+
+  if(debts.length){
+    var totalDebts = debts.reduce(function(s,p){return s + Number(p.balance||0);},0);
+    notes.push({type:'warn', title:'مديونيات مرضى مفتوحة', text:'عدد المرضى: '+debts.length+' | الإجمالي: '+money(totalDebts)});
+  }
+
+  if(staffPending.count){
+    notes.push({type:'warn', title:'خدمات غير محصلة مرتبطة بمستحقات أطباء/تمريض', text:'عدد الحركات: '+staffPending.count+' | غير المحصل: '+money(staffPending.amount)});
+  }
+
+  if(lowStock){
+    notes.push({type:'danger', title:'أصناف مخزون تحت حد الطلب', text:'عدد الأصناف: '+lowStock+' — راجع شاشة المخازن.'});
+  }
+
+  if(dupCount){
+    notes.push({type:'danger', title:'اشتباه مرضى مكررين', text:'عدد الملفات المشتبه بتكرارها: '+dupCount+' — راجع قائمة المرضى.'});
+  }
+
+  if(!notes.length){
+    notes.push({type:'success', title:'لا توجد تنبيهات حرجة', text:'الخزينة والمرضى والمخزون بحالة مستقرة.'});
+  }
+
+  box.innerHTML = '<div class="notification-list">' + notes.map(function(n){
+    return '<div class="notification-item '+n.type+'"><div><b>'+n.title+'</b><div class="small">'+n.text+'</div></div><span>🔔</span></div>';
+  }).join('') + '</div>';
+};
+
+var oldRenderDashboard = window.renderDashboard;
+window.renderDashboard = function(){
+  if(typeof oldRenderDashboard === 'function') oldRenderDashboard();
+  setTimeout(renderDashboardNotifications,80);
+};
+
+var oldRefresh = window.refreshPage;
+window.refreshPage = function(id){
+  if(typeof oldRefresh === 'function') oldRefresh(id);
+  if(id === 'dashboard') setTimeout(renderDashboardNotifications,100);
+  if(id === 'patients') setTimeout(checkPatientDuplicateLive,100);
+};
+
+document.addEventListener('DOMContentLoaded', function(){
+  setTimeout(renderDashboardNotifications,500);
+  ['pName','pNid','pPhone'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('input', checkPatientDuplicateLive);
+  });
+});
+
+})();
+</script>
+
+
+<script id="athar-admission-reception-clinic-fix">
+(function(){
+
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function money(v){return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function now(){return new Date().toISOString();}
+function patientName(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?p.name:'-';}
+function patientBalance(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?Number(p.balance||0):0;}
+function staffName(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.name:'-';}
+function getDepartments(){var d=read('departments',[]);return d.length?d:[{id:'عيادات',name:'عيادات'},{id:'إقامة داخلية',name:'إقامة داخلية'},{id:'عناية مركزة',name:'عناية مركزة'},{id:'عناية متوسطة',name:'عناية متوسطة'},{id:'حضانات',name:'حضانات'},{id:'غسيل كلى',name:'غسيل كلى'}];}
+function depName(id){var d=getDepartments().find(x=>String(x.id)===String(id));return d?(d.name||d.id):(id||'-');}
+function doctors(){return read('staff',[]).filter(s=>s.role==='طبيب');}
+function lastVisitText(pid){var v=read('visits',[]).filter(x=>String(x.patientId)===String(pid)).sort((a,b)=>new Date(b.date)-new Date(a.date))[0];return v?'آخر زيارة: #'+v.id+' — '+new Date(v.date).toLocaleDateString('ar-EG')+' — الطبيب: '+staffName(v.doctorId):'لا توجد زيارات سابقة';}
+
+function fillSelect(id, list, labelFn, valFn){
+  var el=document.getElementById(id); if(!el) return;
+  el.innerHTML=list.map(x=>'<option value="'+(valFn?valFn(x):x.id)+'">'+(labelFn?labelFn(x):(x.name||x.id))+'</option>').join('');
+}
+function fillAdmissionCommonSelects(){
+  var pts=read('patients',[]);
+  var deps=getDepartments();
+  var docs=doctors();
+  fillSelect('recAdmPatient',pts,p=>'#'+p.id+' - '+p.name,p=>p.id);
+  fillSelect('recAdmDept',deps,d=>d.name||d.id,d=>d.id);
+  fillSelect('recAdmDoctor',docs,s=>s.name+' - '+(s.spec||''),s=>s.id);
+  fillSelect('clinicToDept',deps,d=>d.name||d.id,d=>d.id);
+  fillSelect('admPriceDept',deps,d=>d.name||d.id,d=>d.id);
+  fillSelect('admDept',deps,d=>d.name||d.id,d=>d.id);
+  fillSelect('trFromDept',deps,d=>d.name||d.id,d=>d.id);
+  fillSelect('trToDept',deps,d=>d.name||d.id,d=>d.id);
+}
+
+function initAdmissionPrices(){
+  if(read('admissionPrices',[]).length) return;
+  write('admissionPrices',[
+    {type:'إقامة داخلية',dept:'إقامة داخلية',daily:500},
+    {type:'عناية مركزة',dept:'عناية مركزة',daily:2500},
+    {type:'عناية متوسطة',dept:'عناية متوسطة',daily:1500},
+    {type:'حضانة أطفال',dept:'حضانات',daily:1000},
+    {type:'غسيل كلى',dept:'غسيل كلى',daily:700}
+  ]);
+}
+initAdmissionPrices();
+
+function getAdmissionRate(type, dept){
+  var prices=read('admissionPrices',[]);
+  var exact=prices.find(x=>String(x.type)===String(type) && String(x.dept)===String(dept));
+  if(exact) return Number(exact.daily||0);
+  var byType=prices.find(x=>String(x.type)===String(type));
+  return byType?Number(byType.daily||0):0;
+}
+window.applyAdmissionTypeRate = function(prefix){
+  var type = prefix==='rec' ? document.getElementById('recAdmType')?.value : document.getElementById('admType')?.value;
+  var dept = prefix==='rec' ? document.getElementById('recAdmDept')?.value : document.getElementById('admDept')?.value;
+  var rate = getAdmissionRate(type, dept);
+  var input = prefix==='rec' ? document.getElementById('recAdmDailyRate') : document.getElementById('admDailyRate');
+  if(input && rate) input.value=rate;
+};
+window.applyAdmissionDeptRate = function(prefix){ applyAdmissionTypeRate(prefix); };
+
+window.saveAdmissionPrice=function(){
+  var type=document.getElementById('admPriceType')?.value;
+  var dept=document.getElementById('admPriceDept')?.value;
+  var daily=Number(document.getElementById('admPriceDaily')?.value)||0;
+  if(!type||!dept||daily<=0) return alert('اختر النوع والقسم واكتب سعر اليوم');
+  var prices=read('admissionPrices',[]);
+  var old=prices.find(x=>String(x.type)===String(type)&&String(x.dept)===String(dept));
+  if(old) old.daily=daily; else prices.push({type:type,dept:dept,daily:daily});
+  write('admissionPrices',prices);
+  renderAdmissionPrices();
+  alert('تم حفظ سعر الإقامة');
+};
+window.renderAdmissionPrices=function(){
+  var box=document.getElementById('admissionPricesTable'); if(!box) return;
+  var rows=read('admissionPrices',[]);
+  if(!rows.length){box.innerHTML='<div class="no-data">لا توجد أسعار إقامة</div>';return;}
+  var h='<table><tr><th>نوع الإقامة</th><th>القسم</th><th>سعر اليوم</th></tr>';
+  rows.forEach(r=>h+='<tr><td>'+r.type+'</td><td>'+depName(r.dept)+'</td><td><b>'+money(r.daily)+'</b></td></tr>');
+  box.innerHTML=h+'</table>';
+};
+
+window.showRecAdmissionInfo=function(){
+  var id=document.getElementById('recAdmPatient')?.value;
+  var box=document.getElementById('recAdmissionInfo');
+  if(box) box.innerHTML='<b>الرصيد الحالي:</b> '+money(patientBalance(id))+' | '+lastVisitText(id);
+};
+
+function chargePatient(pid,amount,desc,account,pay){
+  amount=Number(amount)||0; if(!pid||amount<=0) return;
+  var patients=read('patients',[]);
+  var p=patients.find(x=>String(x.id)===String(pid));
+  if(!p) return;
+
+  p.balance=Number(p.balance||0)+amount;
+  write('patients',patients);
+
+  var journal=read('journal',[]);
+  var next=read('nextId',{j:journal.length+1}); if(!next.j) next.j=journal.length+1;
+  journal.push({id:next.j++,date:now(),description:desc,lines:[{acc:'حساب المريض #'+pid,dr:amount,cr:0},{acc:account||'إيرادات طبية',dr:0,cr:amount}]});
+  write('journal',journal); write('nextId',next);
+
+  if(pay==='كاش'){
+    var payments=read('payments',[]);
+    payments.push({id:Date.now(),patientId:pid,amount:amount,method:'كاش',treasury:'الخزينة الرئيسية',note:desc,date:now()});
+    write('payments',payments);
+
+    patients=read('patients',[]);
+    p=patients.find(x=>String(x.id)===String(pid));
+    if(p){p.balance=Math.max(0,Number(p.balance||0)-amount);write('patients',patients);}
+
+    if(typeof window.addTreasuryMove==='function') window.addTreasuryMove('قبض',amount,'كاش','الخزينة الرئيسية',desc,pid);
+    else {
+      var tm=read('treasuryMovements',[]);
+      tm.push({id:'TM-'+Date.now(),date:now(),type:'قبض',amount:amount,method:'كاش',treasury:'الخزينة الرئيسية',desc:desc,patientId:pid});
+      write('treasuryMovements',tm);
+    }
+
+    journal=read('journal',[]);
+    next=read('nextId',{j:journal.length+1});
+    journal.push({id:next.j++,date:now(),description:'سداد فوري - '+desc,lines:[{acc:'الخزينة الرئيسية',dr:amount,cr:0},{acc:'حساب المريض #'+pid,dr:0,cr:amount}]});
+    write('journal',journal); write('nextId',next);
+  }
+}
+
+function createAdmissionRecord(source,pid,dept,type,bed,rate,days,doctor,pay,note){
+  var total=Number(rate||0)*Number(days||1);
+  var admissions=read('admissions',[]);
+  admissions.push({id:'ADM-'+Date.now(),date:now(),source:source,patientId:pid,dept:dept,type:type,bed:bed,dailyRate:Number(rate)||0,days:Number(days)||1,doctorId:doctor,payStatus:pay,note:note,status:'مفتوحة',total:total});
+  write('admissions',admissions);
+  if(total>0) chargePatient(pid,total,'إقامة داخلية - '+type+' - '+days+' يوم','إيراد إقامة داخلية',pay);
+  return total;
+}
+
+window.addReceptionAdmission=function(){
+  var pid=document.getElementById('recAdmPatient')?.value;
+  var dept=document.getElementById('recAdmDept')?.value;
+  var type=document.getElementById('recAdmType')?.value;
+  var bed=document.getElementById('recAdmBed')?.value||'';
+  var rate=Number(document.getElementById('recAdmDailyRate')?.value)||0;
+  var days=Number(document.getElementById('recAdmDays')?.value)||1;
+  var doctor=document.getElementById('recAdmDoctor')?.value;
+  var pay=document.getElementById('recAdmPay')?.value;
+  var note=document.getElementById('recAdmNote')?.value||type;
+  if(!pid||!dept) return alert('اختر المريض وقسم الإقامة');
+  createAdmissionRecord('استقبال',pid,dept,type,bed,rate,days,doctor,pay,note);
+  showRecAdmissionInfo();
+  if(typeof renderAdmissionTransfers==='function') renderAdmissionTransfers();
+  alert('تم تسجيل دخول المريض للإقامة الداخلية من الاستقبال');
+};
+
+window.toggleClinicTransferMode=function(){
+  var mode=document.getElementById('clinicTransferType')?.value;
+  document.querySelectorAll('.clinic-admission-only').forEach(el=>el.style.display= mode==='admission' ? '' : 'none');
+};
+
+window.addClinicTransferOrAdmission=function(){
+  var vid=document.getElementById('cVisit')?.value;
+  var visits=read('visits',[]);
+  var v=visits.find(x=>String(x.id)===String(vid));
+  if(!v) return alert('اختر الزيارة أولاً');
+  var mode=document.getElementById('clinicTransferType')?.value;
+  var toDept=document.getElementById('clinicToDept')?.value;
+  var fee=Number(document.getElementById('clinicTransferFee')?.value)||0;
+  var pay=document.getElementById('clinicTransferPay')?.value;
+  var reason=document.getElementById('clinicTransferReason')?.value||'تحويل داخلي';
+
+  if(mode==='transfer'){
+    var transfers=read('transfers',[]);
+    transfers.push({id:'TR-'+Date.now(),date:now(),source:'العيادة',patientId:v.patientId,fromDept:v.departmentId||'العيادة',toDept:toDept,doctorId:v.doctorId,fee:fee,payStatus:pay,reason:reason});
+    write('transfers',transfers);
+    if(fee>0) chargePatient(v.patientId,fee,'تحويل داخلي إلى '+depName(toDept)+' - '+reason,'إيراد تحويلات/خدمات',pay);
+    alert('تم تسجيل التحويل الداخلي من العيادة');
+  } else {
+    var type=document.getElementById('clinicAdmType')?.value||'إقامة داخلية';
+    var rate=Number(document.getElementById('clinicAdmDailyRate')?.value)||0;
+    var days=Number(document.getElementById('clinicAdmDays')?.value)||1;
+    var bed=document.getElementById('clinicAdmBed')?.value||'';
+    createAdmissionRecord('تحويل من العيادة',v.patientId,toDept,type,bed,rate,days,v.doctorId,pay,reason);
+    alert('تم تحويل المريض إلى إقامة داخلية من العيادة');
+  }
+  if(typeof renderAdmissionTransfers==='function') renderAdmissionTransfers();
+};
+
+function refreshAdmissionReception(){
+  fillAdmissionCommonSelects();
+  applyAdmissionTypeRate('rec');
+  showRecAdmissionInfo();
+  renderAdmissionPrices();
+}
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function') oldRefresh(id);
+  if(id==='reception'||id==='admission'||id==='departments'||id==='clinic'){
+    setTimeout(refreshAdmissionReception,120);
+    if(id==='clinic') setTimeout(function(){fillAdmissionCommonSelects(); toggleClinicTransferMode();},150);
+  }
+};
+
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(refreshAdmissionReception,500);
+});
+})();
+</script>
+
+
+<script id="athar-print-daily-admission-refdoctor-journal-numbers">
+(function(){
+
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function money(v){return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function now(){return new Date().toISOString();}
+function dt(v){try{return new Date(v||new Date()).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'});}catch(e){return '-';}}
+function dateOnly(v){try{return new Date(v||new Date()).toISOString().slice(0,10);}catch(e){return '';}}
+function patientName(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?p.name:'-';}
+function patientObj(id){return read('patients',[]).find(x=>String(x.id)===String(id));}
+function staffName(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.name:'-';}
+function itemName(id){var i=read('items',[]).find(x=>String(x.id)===String(id));return i?i.name:'-';}
+
+function nextSeq(key,prefix){
+  var y=new Date().getFullYear();
+  var k='athar_'+key+'_'+y;
+  var n=Number(localStorage.getItem(k)||'0')+1;
+  localStorage.setItem(k,String(n));
+  return prefix+'-'+y+'-'+String(n).padStart(6,'0');
+}
+window.nextJournalNo=function(){return nextSeq('journalSeq','JV');}
+window.nextReceiptNo2=function(){return nextSeq('receiptSeq2','RC');}
+
+function ensurePrintArea(){
+  var a=document.getElementById('atharPrintArea');
+  if(!a){a=document.createElement('div');a.id='atharPrintArea';document.body.appendChild(a);}
+  return a;
+}
+function printHtml(html){
+  var a=ensurePrintArea();
+  a.innerHTML='<div class="print-doc">'+html+'</div>';
+  setTimeout(function(){window.print();},100);
+}
+
+// ---------------- Journal / Receipt numbers ----------------
+function normalizeJournalNumbers(){
+  var journal=read('journal',[]);
+  var changed=false;
+  journal.forEach(function(j){
+    if(!j.no){j.no=window.nextJournalNo();changed=true;}
+  });
+  if(changed) write('journal',journal);
+}
+normalizeJournalNumbers();
+
+var oldAddJournal=window.addJournal;
+window.addJournal=function(desc,lines){
+  if(typeof oldAddJournal==='function'){
+    oldAddJournal(desc,lines);
+    var journal=read('journal',[]);
+    var j=journal[journal.length-1];
+    if(j && !j.no){j.no=window.nextJournalNo();write('journal',journal);}
+  } else {
+    var journal=read('journal',[]);
+    var next=read('nextId',{j:journal.length+1});
+    if(!next.j) next.j=journal.length+1;
+    journal.push({id:next.j++,no:window.nextJournalNo(),date:now(),description:desc,lines:lines});
+    write('journal',journal);write('nextId',next);
+  }
+};
+
+var oldAtharCreateReceipt=window.atharCreateReceipt;
+window.atharCreateReceipt=function(data){
+  data=data||{};
+  if(!data.no) data.no=window.nextReceiptNo2();
+  if(typeof oldAtharCreateReceipt==='function') return oldAtharCreateReceipt(data);
+  var receipts=read('receipts',[]);
+  var r={id:'R-'+Date.now(),no:data.no,date:data.date||now(),type:data.type||'قبض',patientId:data.patientId||null,patientName:data.patientName||(data.patientId?patientName(data.patientId):'-'),service:data.service||'-',amount:Number(data.amount)||0,method:data.method||'كاش',treasury:data.treasury||'الخزينة الرئيسية',cashier:data.cashier||'مدير النظام',previousBalance:Number(data.previousBalance)||0,paid:Number(data.paid||data.amount)||0,remainingBalance:Number(data.remainingBalance)||0,note:data.note||'',ref:data.ref||''};
+  receipts.push(r);write('receipts',receipts);
+  return r;
+};
+
+// ---------------- Referred doctor save in visit/admission/patient ----------------
+var oldAddVisit=window.addVisit;
+window.addVisit=function(){
+  var ref=document.getElementById('vRefDoctor')?.value||'';
+  var before=read('visits',[]).length;
+  if(typeof oldAddVisit==='function') oldAddVisit();
+  var visits=read('visits',[]);
+  if(visits.length>before){
+    visits[visits.length-1].refDoctor=ref;
+    write('visits',visits);
+    if(ref){
+      var pid=visits[visits.length-1].patientId;
+      var patients=read('patients',[]);
+      var p=patients.find(x=>String(x.id)===String(pid));
+      if(p){p.refDoctor=ref;write('patients',patients);}
+    }
+  }
+};
+
+var oldAddReceptionAdmission=window.addReceptionAdmission;
+window.addReceptionAdmission=function(){
+  var ref=document.getElementById('recAdmRefDoctor')?.value||'';
+  var before=read('admissions',[]).length;
+  if(typeof oldAddReceptionAdmission==='function') oldAddReceptionAdmission();
+  var admissions=read('admissions',[]);
+  if(admissions.length>before){
+    admissions[admissions.length-1].refDoctor=ref;
+    write('admissions',admissions);
+    if(ref){
+      var pid=admissions[admissions.length-1].patientId;
+      var patients=read('patients',[]);
+      var p=patients.find(x=>String(x.id)===String(pid));
+      if(p){p.refDoctor=ref;write('patients',patients);}
+    }
+  }
+};
+
+// enhance patients rendering with referred doctor
+var oldRenderPatients=window.renderPatients;
+window.renderPatients=function(){
+  if(typeof oldRenderPatients==='function') oldRenderPatients();
+  var table=document.querySelector('#patientsTable table');
+  if(!table || table.getAttribute('data-refdoctor-enhanced')) return;
+  table.setAttribute('data-refdoctor-enhanced','1');
+  var head=table.rows[0];
+  if(head){ var th=document.createElement('th'); th.textContent='الطبيب المحول'; head.insertBefore(th, head.lastElementChild); }
+  var pts=read('patients',[]);
+  for(var i=1;i<table.rows.length;i++){
+    var row=table.rows[i];
+    var idCell=row.cells[0]?.textContent.replace('#','').trim();
+    var p=pts.find(x=>String(x.id)===String(idCell));
+    var td=document.createElement('td'); td.textContent=(p&&p.refDoctor)?p.refDoctor:'-';
+    row.insertBefore(td,row.lastElementChild);
+  }
+};
+
+// ---------------- Prescription / Diagnosis printing ----------------
+window.printPrescription=function(){
+  var vid=document.getElementById('cVisit')?.value;
+  if(!vid) return alert('اختر الزيارة أولاً');
+  var v=read('visits',[]).find(x=>String(x.id)===String(vid));
+  if(!v) return alert('الزيارة غير موجودة');
+  var rx=read('prescriptions',[]).filter(r=>String(r.visitId)===String(vid));
+  var p=patientObj(v.patientId);
+  var rows=rx.map(function(r,i){return '<tr><td>'+(i+1)+'</td><td>'+itemName(r.drugId)+'</td><td>'+r.qty+'</td><td>'+(r.status||'-')+'</td></tr>';}).join('');
+  if(!rows) rows='<tr><td colspan="4">لا توجد أدوية مسجلة</td></tr>';
+  printHtml('<h1>المستوصف الخيري بالمنيرة</h1><h2>روشتة علاج</h2><div class="meta"><div><b>المريض:</b> '+(p?p.name:'-')+'</div><div><b>رقم الملف:</b> '+(p?p.id:'-')+'</div><div><b>الطبيب:</b> '+staffName(v.doctorId)+'</div><div><b>التاريخ:</b> '+dt(new Date())+'</div></div><table><tr><th>#</th><th>الدواء</th><th>الكمية</th><th>الحالة</th></tr>'+rows+'</table><div class="signatures"><div>توقيع الطبيب</div><div>الصيدلية</div><div>ختم المستوصف</div></div>');
+};
+
+window.printDiagnosis=function(){
+  var vid=document.getElementById('cVisit')?.value;
+  if(!vid) return alert('اختر الزيارة أولاً');
+  var v=read('visits',[]).find(x=>String(x.id)===String(vid));
+  if(!v) return alert('الزيارة غير موجودة');
+  var p=patientObj(v.patientId);
+  var diag=document.getElementById('diagnosis')?.value || v.diagnosis || '-';
+  printHtml('<h1>المستوصف الخيري بالمنيرة</h1><h2>تشخيص الحالة</h2><div class="meta"><div><b>المريض:</b> '+(p?p.name:'-')+'</div><div><b>رقم الملف:</b> '+(p?p.id:'-')+'</div><div><b>الطبيب:</b> '+staffName(v.doctorId)+'</div><div><b>التاريخ:</b> '+dt(new Date())+'</div><div><b>الطبيب المحول:</b> '+(v.refDoctor || (p&&p.refDoctor) || '-')+'</div><div><b>الرصيد الحالي:</b> '+money(p?p.balance:0)+'</div></div><h3>التشخيص</h3><div style="border:1px solid #333;min-height:120px;padding:10px">'+diag+'</div><div class="signatures"><div>توقيع الطبيب</div><div>مراجعة</div><div>ختم المستوصف</div></div>');
+};
+
+// ---------------- Cash receipt printing convenience ----------------
+window.printLastReceipt=function(){
+  var receipts=read('receipts',[]).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  if(!receipts.length) return alert('لا توجد إيصالات');
+  if(typeof window.printReceipt==='function') printReceipt(receipts[0].no);
+};
+
+// Add print receipt button to cashier if not exists
+function addCashierPrintButton(){
+  var card=document.querySelector('#cashier .actions');
+  if(card && !document.getElementById('printLastReceiptBtn')){
+    var btn=document.createElement('button');
+    btn.className='btn btn-warn';
+    btn.id='printLastReceiptBtn';
+    btn.textContent='🖨 طباعة آخر إيصال خزينة';
+    btn.onclick=printLastReceipt;
+    card.appendChild(btn);
+  }
+}
+
+// ---------------- Daily admission cost by date now ----------------
+function postDailyAdmissionCharges(){
+  var today=dateOnly(new Date());
+  var admissions=read('admissions',[]);
+  var posted=read('admissionDailyCharges',[]);
+  var patients=read('patients',[]);
+  var journal=read('journal',[]);
+  var next=read('nextId',{j:journal.length+1}); if(!next.j) next.j=journal.length+1;
+  var count=0,total=0;
+
+  admissions.forEach(function(a){
+    if(a.status && a.status!=='مفتوحة') return;
+    var key=a.id+'|'+today;
+    if(posted.some(x=>x.key===key)) return;
+    var start=dateOnly(a.date);
+    if(today < start) return;
+    var amount=Number(a.dailyRate||0);
+    if(amount<=0) return;
+
+    var p=patients.find(x=>String(x.id)===String(a.patientId));
+    if(!p) return;
+    p.balance=Number(p.balance||0)+amount;
+
+    posted.push({key:key,admissionId:a.id,patientId:a.patientId,date:today,amount:amount,desc:'تكلفة إقامة يومية - '+(a.type||'إقامة')});
+    journal.push({id:next.j++,no:window.nextJournalNo(),date:now(),description:'تحميل تكلفة إقامة يومية - '+patientName(a.patientId),lines:[{acc:'حساب المريض #'+a.patientId,dr:amount,cr:0},{acc:'إيراد إقامة داخلية',dr:0,cr:amount}]});
+    count++; total+=amount;
+  });
+
+  if(count){
+    write('patients',patients); write('admissionDailyCharges',posted); write('journal',journal); write('nextId',next);
+  }
+  return {count:count,total:total};
+}
+window.postDailyAdmissionCharges=postDailyAdmissionCharges;
+
+// Run once per browser day
+try{
+  var today=dateOnly(new Date());
+  if(localStorage.getItem('athar_dailyAdmissionPosted_'+today)!=='1'){
+    var res=postDailyAdmissionCharges();
+    localStorage.setItem('athar_dailyAdmissionPosted_'+today,'1');
+    if(res.count>0){
+      setTimeout(function(){alert('تم تحميل تكلفة الإقامة اليومية لعدد '+res.count+' حالة بإجمالي '+money(res.total));},500);
+    }
+  }
+}catch(e){}
+
+// ---------------- Journal print and enhanced render ----------------
+var oldRenderJournal=window.renderJournal;
+window.renderJournal=function(){
+  normalizeJournalNumbers();
+  if(typeof oldRenderJournal==='function') oldRenderJournal();
+  var table=document.querySelector('#journalTable table');
+  if(!table || table.getAttribute('data-no-enhanced')) return;
+  table.setAttribute('data-no-enhanced','1');
+  // If old table exists, add journal no display beside #id where possible
+  var journal=read('journal',[]);
+  for(var i=1;i<table.rows.length;i++){
+    var c=table.rows[i].cells[0];
+    if(c && c.rowSpan){
+      var id=String(c.textContent||'').replace('#','').trim();
+      var j=journal.find(x=>String(x.id)===String(id));
+      if(j && j.no) c.innerHTML='#'+j.id+'<br><small>'+j.no+'</small>';
+    }
+  }
+};
+window.printJournal=function(){
+  normalizeJournalNumbers();
+  var journal=read('journal',[]).slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
+  if(!journal.length) return alert('لا توجد قيود للطباعة');
+  var rows='';
+  journal.forEach(function(j){
+    (j.lines||[]).forEach(function(l,idx){
+      rows+='<tr>'+(idx===0?'<td rowspan="'+j.lines.length+'">'+(j.no||('#'+j.id))+'</td><td rowspan="'+j.lines.length+'">'+dt(j.date)+'</td><td rowspan="'+j.lines.length+'">'+j.description+'</td>':'')+'<td>'+l.acc+'</td><td>'+money(l.dr||0)+'</td><td>'+money(l.cr||0)+'</td></tr>';
+    });
+  });
+  printHtml('<h1>المستوصف الخيري بالمنيرة</h1><h2>دفتر قيود اليومية</h2><table><tr><th>رقم القيد</th><th>التاريخ</th><th>البيان</th><th>الحساب</th><th>مدين</th><th>دائن</th></tr>'+rows+'</table><div class="signatures"><div>المحاسب</div><div>المراجعة</div><div>الاعتماد</div></div>');
+};
+
+// Enhance receipts existing numbers on load
+(function normalizeReceipts(){
+  var receipts=read('receipts',[]), changed=false;
+  receipts.forEach(function(r){if(!r.no){r.no=window.nextReceiptNo2();changed=true;}});
+  if(changed) write('receipts',receipts);
+})();
+
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function') oldRefresh(id);
+  setTimeout(function(){
+    addCashierPrintButton();
+    if(id==='accounts') {normalizeJournalNumbers(); if(typeof renderJournal==='function') renderJournal();}
+  },120);
+};
+
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(function(){ensurePrintArea(); addCashierPrintButton(); normalizeJournalNumbers();},400);
+});
+
+})();
+</script>
+
+
+<script id="athar-users-permissions-hospital-settings">
+(function(){
+
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function now(){return new Date().toISOString();}
+function h(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+const roles = [
+  {id:'admin',name:'مدير'},
+  {id:'doctor',name:'طبيب'},
+  {id:'accountant',name:'محاسب'},
+  {id:'pharmacist',name:'صيدلاني'},
+  {id:'reception',name:'استقبال'},
+  {id:'labtech',name:'فني معمل'}
+];
+
+const permissions = [
+  {id:'dashboard',name:'الرئيسية'},
+  {id:'patients_view',name:'عرض المرضى'},
+  {id:'patients_add',name:'إضافة مريض'},
+  {id:'reception',name:'الاستقبال وفتح زيارة'},
+  {id:'clinic',name:'شاشة العيادة والتشخيص'},
+  {id:'prescription_print',name:'طباعة الروشتة والتشخيص'},
+  {id:'pharmacy',name:'الصيدلية والصرف'},
+  {id:'lab',name:'المعمل والأشعة'},
+  {id:'store',name:'المخازن'},
+  {id:'cashier',name:'الخزينة والتحصيل'},
+  {id:'expenses',name:'تسجيل المصروفات'},
+  {id:'accounts',name:'الحسابات والقيود'},
+  {id:'journal_print',name:'طباعة اليومية'},
+  {id:'reports',name:'التقارير'},
+  {id:'receipts',name:'الإيصالات والطباعة'},
+  {id:'admission',name:'الإقامة والتحويل'},
+  {id:'settings',name:'الإعدادات والصلاحيات'}
+];
+
+function defaultPermissions(){
+  const all = {};
+  permissions.forEach(p=>all[p.id]=true);
+  return {
+    admin: all,
+    doctor: {dashboard:true,patients_view:true,clinic:true,prescription_print:true,admission:true},
+    accountant: {dashboard:true,patients_view:true,cashier:true,expenses:true,accounts:true,journal_print:true,reports:true,receipts:true},
+    pharmacist: {dashboard:true,patients_view:true,pharmacy:true,store:true,reports:true},
+    reception: {dashboard:true,patients_view:true,patients_add:true,reception:true,cashier:true,receipts:true,admission:true},
+    labtech: {dashboard:true,patients_view:true,lab:true,reports:true}
+  };
+}
+
+function initSettings(){
+  if(!read('rolePermissions',null)) write('rolePermissions', defaultPermissions());
+  if(!read('systemUsers',null)){
+    write('systemUsers',[
+      {id:'U-1',username:'admin',fullName:'مدير النظام',role:'admin',passwordHash:'demo-admin',active:true,createdAt:now()}
+    ]);
+  }
+  if(!read('hospitalSettings',null)){
+    write('hospitalSettings',{
+      nameAr:'المستوصف الخيري بالمنيرة',
+      nameEn:'Al Monira Charity Clinic',
+      address:'',
+      phone:'',
+      email:'',
+      logo:''
+    });
+  }
+}
+initSettings();
+
+async function sha256(text){
+  if(window.crypto && crypto.subtle){
+    const enc = new TextEncoder().encode(text);
+    const buf = await crypto.subtle.digest('SHA-256', enc);
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+  // fallback simple non-cryptographic if old browser
+  let hash=0; for(let i=0;i<text.length;i++){hash=((hash<<5)-hash)+text.charCodeAt(i);hash|=0;}
+  return 'fallback-'+Math.abs(hash);
+}
+
+window.previewHospitalLogo = function(ev){
+  const file = ev.target.files && ev.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const st = read('hospitalSettings',{});
+    st.logo = e.target.result;
+    write('hospitalSettings',st);
+    renderHospitalLogoPreview();
+    applyHospitalSettingsToUI();
+  };
+  reader.readAsDataURL(file);
+};
+
+window.resetHospitalLogo = function(){
+  const st=read('hospitalSettings',{});
+  st.logo='';
+  write('hospitalSettings',st);
+  renderHospitalLogoPreview();
+  applyHospitalSettingsToUI();
+};
+
+window.saveHospitalSettings = function(){
+  const st = read('hospitalSettings',{});
+  st.nameAr = document.getElementById('hospitalNameAr')?.value || '';
+  st.nameEn = document.getElementById('hospitalNameEn')?.value || '';
+  st.address = document.getElementById('hospitalAddress')?.value || '';
+  st.phone = document.getElementById('hospitalPhone')?.value || '';
+  st.email = document.getElementById('hospitalEmail')?.value || '';
+  write('hospitalSettings',st);
+  applyHospitalSettingsToUI();
+  alert('تم حفظ بيانات المستشفى');
+};
+
+function renderHospitalLogoPreview(){
+  const box=document.getElementById('hospitalLogoPreview');
+  if(!box) return;
+  const st=read('hospitalSettings',{});
+  box.innerHTML = st.logo ? '<img class="logo-preview-img" src="'+st.logo+'"><span>تم تحميل الشعار</span>' : '<span style="color:#777">لا يوجد شعار</span>';
+}
+
+function loadHospitalSettingsForm(){
+  const st=read('hospitalSettings',{});
+  const set=(id,val)=>{const el=document.getElementById(id); if(el) el.value=val||'';};
+  set('hospitalNameAr',st.nameAr);
+  set('hospitalNameEn',st.nameEn);
+  set('hospitalAddress',st.address);
+  set('hospitalPhone',st.phone);
+  set('hospitalEmail',st.email);
+  renderHospitalLogoPreview();
+}
+
+window.applyHospitalSettingsToUI = function(){
+  const st=read('hospitalSettings',{});
+  const nameAr = st.nameAr || 'المستوصف الخيري بالمنيرة';
+  const nameEn = st.nameEn || 'Athar Medical';
+  // Header visual update without breaking layout
+  const header = document.querySelector('header');
+  if(header){
+    let chip=document.getElementById('hospitalHeaderChip');
+    if(!chip){
+      chip=document.createElement('div');
+      chip.id='hospitalHeaderChip';
+      chip.className='hospital-header-chip';
+      const firstDiv=header.querySelector('div');
+      if(firstDiv) firstDiv.appendChild(chip); else header.appendChild(chip);
+    }
+    chip.innerHTML = (st.logo?'<img src="'+st.logo+'">':'') + '<span><b>'+h(nameAr)+'</b><br><small>'+h(nameEn)+'</small></span>';
+  }
+  // current print settings will use localStorage directly
+};
+
+function fillRoleSelect(){
+  const sel=document.getElementById('usrRole');
+  if(!sel) return;
+  sel.innerHTML = roles.map(r=>'<option value="'+r.id+'">'+r.name+'</option>').join('');
+}
+
+window.addSystemUser = async function(){
+  const username=(document.getElementById('usrName')?.value||'').trim();
+  const fullName=(document.getElementById('usrFullName')?.value||'').trim();
+  const role=document.getElementById('usrRole')?.value||'reception';
+  const password=document.getElementById('usrPassword')?.value||'';
+  const active=document.getElementById('usrActive')?.value==='true';
+
+  if(!username || !fullName || !password) return alert('اكتب اسم المستخدم والاسم الكامل وكلمة المرور');
+  const users=read('systemUsers',[]);
+  if(users.some(u=>String(u.username).toLowerCase()===username.toLowerCase())){
+    return alert('اسم المستخدم موجود بالفعل');
+  }
+  const hash = await sha256(password);
+  users.push({id:'U-'+Date.now(),username,fullName,role,passwordHash:hash,active,createdAt:now()});
+  write('systemUsers',users);
+  document.getElementById('usrName').value='';
+  document.getElementById('usrFullName').value='';
+  document.getElementById('usrPassword').value='';
+  renderUsersTable();
+  alert('تم إضافة المستخدم بكلمة مرور مشفرة');
+};
+
+window.toggleSystemUser = function(id){
+  const users=read('systemUsers',[]);
+  const u=users.find(x=>String(x.id)===String(id));
+  if(u){u.active=!u.active;write('systemUsers',users);renderUsersTable();}
+};
+
+window.deleteSystemUser = function(id){
+  if(!confirm('حذف المستخدم؟')) return;
+  write('systemUsers',read('systemUsers',[]).filter(u=>String(u.id)!==String(id)));
+  renderUsersTable();
+};
+
+function roleName(id){return (roles.find(r=>r.id===id)||{}).name||id;}
+
+window.renderUsersTable = function(){
+  const box=document.getElementById('usersTable'); if(!box) return;
+  const users=read('systemUsers',[]);
+  if(!users.length){box.innerHTML='<div class="no-data">لا يوجد مستخدمون</div>';return;}
+  let html='<table><tr><th>اسم المستخدم</th><th>الاسم الكامل</th><th>الدور</th><th>حالة</th><th>كلمة المرور</th><th>إجراءات</th></tr>';
+  users.forEach(u=>{
+    html+='<tr><td><b>'+h(u.username)+'</b></td><td>'+h(u.fullName)+'</td><td><span class="badge badge-info">'+roleName(u.role)+'</span></td><td class="'+(u.active?'user-status-on':'user-status-off')+'">'+(u.active?'مفعل':'موقوف')+'</td><td>🔐 مشفرة</td><td><button class="btn btn-warn btn-sm" onclick="toggleSystemUser(\''+u.id+'\')">'+(u.active?'إيقاف':'تفعيل')+'</button> <button class="btn btn-danger btn-sm" onclick="deleteSystemUser(\''+u.id+'\')">حذف</button></td></tr>';
+  });
+  box.innerHTML=html+'</table>';
+};
+
+window.renderPermissionsTable = function(){
+  const box=document.getElementById('permissionsTable'); if(!box) return;
+  const rp=read('rolePermissions',defaultPermissions());
+  let html='<div class="permissions-wrap"><table class="permissions-table"><tr><th>الصلاحية</th>';
+  roles.forEach(r=>html+='<th>'+r.name+'</th>');
+  html+='</tr>';
+  permissions.forEach(p=>{
+    html+='<tr><td><b>'+p.name+'</b></td>';
+    roles.forEach(r=>{
+      const checked = rp[r.id] && rp[r.id][p.id] ? 'checked' : '';
+      html+='<td><input class="permission-check" type="checkbox" data-role="'+r.id+'" data-perm="'+p.id+'" '+checked+'></td>';
+    });
+    html+='</tr>';
+  });
+  html+='</table></div>';
+  box.innerHTML=html;
+};
+
+window.savePermissionsFromTable = function(){
+  const rp={};
+  roles.forEach(r=>rp[r.id]={});
+  document.querySelectorAll('.permission-check').forEach(ch=>{
+    const role=ch.getAttribute('data-role'), perm=ch.getAttribute('data-perm');
+    if(!rp[role]) rp[role]={};
+    rp[role][perm]=ch.checked;
+  });
+  write('rolePermissions',rp);
+  alert('تم حفظ الصلاحيات');
+};
+
+window.resetDefaultPermissions = function(){
+  if(!confirm('استرجاع الصلاحيات الافتراضية؟')) return;
+  write('rolePermissions',defaultPermissions());
+  renderPermissionsTable();
+};
+
+// Enhance printing templates to use hospital data
+function hospitalHeaderHtml(){
+  const st=read('hospitalSettings',{});
+  return '<div style="text-align:center">'+(st.logo?'<img src="'+st.logo+'" style="max-height:70px;max-width:160px;object-fit:contain"><br>':'')+
+    '<h1>'+(st.nameAr||'المستوصف الخيري بالمنيرة')+'</h1>'+
+    '<h2 style="font-size:15px">'+(st.nameEn||'Athar Medical')+'</h2>'+
+    (st.address?'<div>'+st.address+'</div>':'')+
+    (st.phone?'<div>تليفون: '+st.phone+'</div>':'')+
+    '</div>';
+}
+
+// Patch receipt print html if exists
+const oldReceiptHtml=window.atharReceiptHtml;
+window.atharReceiptHtml=function(r){
+  if(typeof oldReceiptHtml !== 'function') return hospitalHeaderHtml();
+  let html=oldReceiptHtml(r);
+  const st=read('hospitalSettings',{});
+  html = html.replace('المستوصف الخيري بالمنيرة', st.nameAr||'المستوصف الخيري بالمنيرة');
+  html = html.replace('Athar Medical ERP', (st.nameEn||'Athar Medical')+' ERP');
+  if(st.address && html.indexOf(st.address)<0){
+    html = html.replace('<div class="line"></div>', '<div style="text-align:center;font-size:11px">'+h(st.address)+'</div><div class="line"></div>');
+  }
+  if(st.logo && html.indexOf(st.logo)<0){
+    html = html.replace('<div class="center title">', '<div class="center"><img src="'+st.logo+'" style="max-height:55px;max-width:130px;object-fit:contain"></div><div class="center title">');
+  }
+  return html;
+};
+
+// Apply to custom print-doc functions by patching printHtml if it exists indirectly not accessible. We'll provide global helper.
+window.atharHospitalHeaderHtml = hospitalHeaderHtml;
+
+function renderSettings(){
+  loadHospitalSettingsForm();
+  fillRoleSelect();
+  renderUsersTable();
+  renderPermissionsTable();
+  applyHospitalSettingsToUI();
+}
+
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function') oldRefresh(id);
+  if(id==='systemSettings') setTimeout(renderSettings,80);
+};
+
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(function(){
+    applyHospitalSettingsToUI();
+    renderSettings();
+  },400);
 });
 
 })();
