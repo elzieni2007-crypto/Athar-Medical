@@ -190,6 +190,7 @@ nav{
 .hospital-header-chip img{height:34px;max-width:80px;object-fit:contain;background:#fff;border-radius:8px;padding:3px}
 </style>
 
+<style id="athar-v38-core-finance-style">.form-mini{background:#f8fbfb;border:1px solid #dceeee;border-radius:12px;padding:15px;margin-top:10px}.inline-actions{display:flex;gap:6px;flex-wrap:wrap}</style>
 </head>
 <body>
 
@@ -516,6 +517,22 @@ nav{
     </div>
     <div id="receiptsTable" style="margin-top:15px;"></div>
   </div>
+
+  <div class="card" id="linkedTransactionCard">
+    <h2>🔗 ربط الصرف والتحصيل ببنود الإيرادات والمصروفات</h2>
+    <div class="grid grid-4">
+      <div class="field"><label>نوع الحركة</label><select id="linkedMoveType" onchange="fillLinkedCatalogItems()"><option value="قبض">قبض / إيراد</option><option value="صرف">صرف / مصروف</option></select></div>
+      <div class="field"><label>البند</label><select id="linkedCatalogItem"></select></div>
+      <div class="field"><label>المبلغ</label><input type="number" id="linkedAmount" value="0"></div>
+      <div class="field"><label>طريقة الدفع</label><select id="linkedMethod"><option>كاش</option><option>شبكة</option><option>تحويل بنكي</option><option>بنك</option></select></div>
+      <div class="field"><label>الخزينة/البنك</label><input id="linkedTreasury" value="الخزينة الرئيسية"></div>
+      <div class="field"><label>الطرف</label><input id="linkedParty" placeholder="مورد / مريض / جهة"></div>
+      <div class="field" style="grid-column:span 2;"><label>البيان</label><input id="linkedNote" placeholder="تفاصيل الحركة"></div>
+    </div>
+    <div class="actions"><button class="btn btn-success" onclick="createLinkedMove()">✅ تسجيل الحركة وإنشاء القيد والإيصال</button></div>
+  </div>
+
+  </div>
 </div>
 
 
@@ -620,10 +637,18 @@ nav{
   </div>
 </div>
 
-<div class="card"><h2>👨‍⚕️ كشف حساب الأطباء</h2><div id="doctorAccountReport"></div></div>
-  <div class="card"><h2>👩‍⚕️ كشف حساب التمريض ومساعد التمريض</h2><div id="nurseAccountReport"></div></div>
+<div class="card"><h2>👨‍⚕️ كشف حساب الأطباء</h2><div id="doctorCollectionSummary"></div>
+    <div id="doctorAccountReport"></div></div>
+  <div class="card"><h2>👩‍⚕️ كشف حساب التمريض ومساعد التمريض</h2><div id="nurseCollectionSummary"></div>
+    <div id="nurseAccountReport"></div></div>
   <div class="card"><h2>💊 كشف حساب الصيدلية ومجمل الربح</h2><div id="pharmacyProfitReport"></div></div>
   <div class="card"><h2>🧪 كشف حساب المعمل والأشعة ومجمل الربح</h2><div id="labProfitReport"></div></div>
+
+  <div class="card">
+    <h2>📊 تقرير تحليلي عام حسب الفلتر</h2>
+    <div id="smartGeneralReport"></div>
+  </div>
+
 </div>
 
 </main>
@@ -3215,6 +3240,204 @@ document.addEventListener('DOMContentLoaded',function(){
   },400);
 });
 
+})();
+</script>
+
+
+<script id="athar-v38-core-finance-fix">
+(function(){
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function money(v){return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function now(){return new Date().toISOString();}
+function dt(v){try{return new Date(v).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'});}catch(e){return '-';}}
+function dOnly(v){try{return new Date(v).toISOString().slice(0,10);}catch(e){return '';}}
+function patientName(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?p.name:'-';}
+function nextSeq(key,prefix){var y=new Date().getFullYear(),k='athar_'+key+'_'+y,n=Number(localStorage.getItem(k)||'0')+1;localStorage.setItem(k,String(n));return prefix+'-'+y+'-'+String(n).padStart(6,'0');}
+function ensurePrintArea(){var a=document.getElementById('atharPrintArea');if(!a){a=document.createElement('div');a.id='atharPrintArea';document.body.appendChild(a);}return a;}
+function printHtml(h){ensurePrintArea().innerHTML='<div class="print-doc">'+h+'</div>';setTimeout(function(){window.print();},100);}
+
+function seedCOA(){if(read('coaAccounts',[]).length)return;write('coaAccounts',[{code:'1101',name:'الخزينة الرئيسية',type:'أصول',parent:'الخزائن'},{code:'1102',name:'خزينة الشبكة',type:'أصول',parent:'الخزائن'},{code:'1103',name:'حساب البنك',type:'أصول',parent:'البنوك'},{code:'1201',name:'حسابات المرضى',type:'أصول',parent:'المدينون'},{code:'2101',name:'مستحقات الأطباء',type:'خصوم',parent:'المستحقات'},{code:'4101',name:'إيراد كشف',type:'إيرادات',parent:'إيرادات طبية'},{code:'4102',name:'إيراد الصيدلية',type:'إيرادات',parent:'إيرادات طبية'},{code:'4103',name:'إيراد المعمل',type:'إيرادات',parent:'إيرادات طبية'},{code:'4104',name:'إيراد الأشعة',type:'إيرادات',parent:'إيرادات طبية'},{code:'5101',name:'تكلفة أدوية',type:'تكلفة خدمات',parent:'تكلفة الخدمات'},{code:'6101',name:'مصروفات تشغيل',type:'مصروفات',parent:'مصروفات'}]);}
+seedCOA();
+function coaOptions(){return read('coaAccounts',[]).map(a=>'<option value="'+a.name+'">'+a.code+' - '+a.name+'</option>').join('');}
+window.saveCOAAccount=function(){var code=coaCode.value.trim(),name=coaName.value.trim();if(!code||!name)return alert('اكتب كود واسم الحساب');var list=read('coaAccounts',[]),old=list.find(a=>String(a.code)===String(code));if(old){old.name=name;old.type=coaType.value;old.parent=coaParent.value;}else list.push({code:code,name:name,type:coaType.value,parent:coaParent.value});write('coaAccounts',list);renderCOAManage();fillJournalAccountSelects();alert('تم حفظ الحساب');};
+window.renderCOAManage=function(){var box=document.getElementById('coaManageTable');if(!box)return;var h='<table><tr><th>الكود</th><th>الحساب</th><th>النوع</th><th>الأب</th><th>إجراء</th></tr>';read('coaAccounts',[]).forEach(a=>h+='<tr><td>'+a.code+'</td><td>'+a.name+'</td><td>'+a.type+'</td><td>'+(a.parent||'-')+'</td><td><button class="btn btn-sm btn-warn" onclick="editCOA(\\''+a.code+'\\')">تعديل</button></td></tr>');box.innerHTML=h+'</table>';};
+window.editCOA=function(code){var a=read('coaAccounts',[]).find(x=>String(x.code)===String(code));if(!a)return;coaCode.value=a.code;coaName.value=a.name;coaType.value=a.type;coaParent.value=a.parent||'';};
+window.fillJournalAccountSelects=function(){['manualDrAcc','manualCrAcc'].forEach(id=>{var el=document.getElementById(id);if(el)el.innerHTML=coaOptions();});};
+window.createManualJournal=function(){var dr=Number(manualDrAmount.value)||0,cr=Number(manualCrAmount.value)||0;if(!manualJournalDesc.value.trim())return alert('اكتب البيان');if(dr<=0||cr<=0||Math.abs(dr-cr)>0.001)return alert('المدين لازم يساوي الدائن');var journal=read('journal',[]),next=read('nextId',{j:journal.length+1});if(!next.j)next.j=journal.length+1;journal.push({id:next.j++,no:nextSeq('journalSeq','JV'),date:now(),description:manualJournalDesc.value,posted:true,manual:true,lines:[{acc:manualDrAcc.value,dr:dr,cr:0},{acc:manualCrAcc.value,dr:0,cr:cr}]});write('journal',journal);write('nextId',next);manualJournalDesc.value='';manualDrAmount.value=0;manualCrAmount.value=0;renderJournal();alert('تم ترحيل القيد');};
+window.renderCOA=function(){renderCOAManage();var box=document.getElementById('chartOfAccounts');if(!box)return;var groups={};read('coaAccounts',[]).forEach(a=>{groups[a.type]=groups[a.type]||[];groups[a.type].push(a);});var h='<div class="grid grid-2">';Object.keys(groups).forEach(t=>{h+='<div style="border:1px solid #e0e0e0;border-radius:8px;padding:15px;"><h3 style="color:#0d7377">'+t+'</h3><ul style="list-style:none;">';groups[t].forEach(a=>h+='<li style="padding:5px;border-bottom:1px dashed #eee">▸ '+a.code+' - '+a.name+'</li>');h+='</ul></div>';});box.innerHTML=h+'</div>';fillJournalAccountSelects();};
+window.renderJournal=function(){fillJournalAccountSelects();var box=document.getElementById('journalTable');if(!box)return;var q=(document.getElementById('journalSearch')?.value||'').toLowerCase(),from=document.getElementById('journalFrom')?.value||'',to=document.getElementById('journalTo')?.value||'';var list=read('journal',[]).slice().filter(j=>{var d=dOnly(j.date);if(from&&d<from)return false;if(to&&d>to)return false;if(q){var text=(j.no||'')+' '+j.id+' '+j.description+' '+(j.lines||[]).map(l=>l.acc).join(' ');if(text.toLowerCase().indexOf(q)<0)return false;}return true;}).reverse();if(!list.length){box.innerHTML='<div class="no-data">لا توجد قيود</div>';return;}var h='<table><tr><th>رقم القيد</th><th>التاريخ</th><th>البيان</th><th>الحساب</th><th>مدين</th><th>دائن</th><th>إجراء</th></tr>';list.forEach(j=>(j.lines||[]).forEach((l,i)=>{h+='<tr>'+(i===0?'<td rowspan="'+j.lines.length+'"><b>'+(j.no||('#'+j.id))+'</b></td><td rowspan="'+j.lines.length+'">'+dt(j.date)+'</td><td rowspan="'+j.lines.length+'">'+j.description+'</td>':'')+'<td>'+l.acc+'</td><td>'+money(l.dr||0)+'</td><td>'+money(l.cr||0)+'</td>'+(i===0?'<td rowspan="'+j.lines.length+'"><button class="btn btn-primary btn-sm" onclick="printSingleJournal(\\''+(j.no||j.id)+'\\')">طباعة</button></td>':'')+'</tr>';}));box.innerHTML=h+'</table>';};
+window.printSingleJournal=function(no){var j=read('journal',[]).find(x=>String(x.no)===String(no)||String(x.id)===String(no));if(!j)return alert('القيد غير موجود');var rows=(j.lines||[]).map(l=>'<tr><td>'+l.acc+'</td><td>'+money(l.dr||0)+'</td><td>'+money(l.cr||0)+'</td></tr>').join('');printHtml('<h1>قيد يومية</h1><h2>'+(j.no||('#'+j.id))+'</h2><p><b>التاريخ:</b> '+dt(j.date)+'</p><p><b>البيان:</b> '+j.description+'</p><table><tr><th>الحساب</th><th>مدين</th><th>دائن</th></tr>'+rows+'</table>');};
+
+function nextReceiptNo(){return nextSeq('receiptSeq','RC');}
+function makeReceipt(data){var receipts=read('receipts',[]),r={id:'R-'+Date.now(),no:data.no||nextReceiptNo(),date:now(),type:data.type||'قبض',patientId:data.patientId||'',patientName:data.patientName||patientName(data.patientId),service:data.service||data.note||'-',amount:Number(data.amount)||0,method:data.method||'كاش',treasury:data.treasury||'الخزينة الرئيسية',note:data.note||'',bank:data.bank||'',ref:data.ref||''};receipts.push(r);write('receipts',receipts);return r;}
+window.atharCreateReceipt=function(data){return makeReceipt(data||{});};
+window.showReceiptCreateForm=function(){var box=document.getElementById('receiptCreateArea');if(!box)return;box.innerHTML='<div class="form-mini"><div class="grid grid-4"><div class="field"><label>النوع</label><select id="newReceiptType"><option>قبض</option><option>صرف</option><option>إذن صرف</option><option>تحويل بنكي</option></select></div><div class="field"><label>الطرف/المريض</label><input id="newReceiptParty"></div><div class="field"><label>المبلغ</label><input type="number" id="newReceiptAmount"></div><div class="field"><label>طريقة الدفع</label><select id="newReceiptMethod"><option>كاش</option><option>شبكة</option><option>تحويل بنكي</option><option>بنك</option></select></div><div class="field"><label>الخزينة/البنك</label><input id="newReceiptTreasury" value="الخزينة الرئيسية"></div><div class="field"><label>رقم المرجع</label><input id="newReceiptRef"></div><div class="field" style="grid-column:span 2"><label>البيان</label><input id="newReceiptNote"></div></div><div class="actions"><button class="btn btn-success" onclick="createStandaloneReceipt()">حفظ وطباعة</button></div></div>';};
+window.createStandaloneReceipt=function(){var amount=Number(newReceiptAmount.value)||0;if(amount<=0)return alert('اكتب مبلغ صحيح');var type=newReceiptType.value,method=newReceiptMethod.value,party=newReceiptParty.value||'-',treasury=newReceiptTreasury.value||'الخزينة الرئيسية',note=newReceiptNote.value||type;var r=makeReceipt({type:type,patientName:party,amount:amount,method:method,treasury:treasury,note:note,service:note,ref:newReceiptRef.value});if(typeof addTreasuryMove==='function')addTreasuryMove(type==='قبض'?'قبض':'صرف',amount,method,treasury,note,null);renderReceipts();printReceipt(r.no);};
+window.renderReceipts=function(){var box=document.getElementById('receiptsTable');if(!box)return;var q=(document.getElementById('receiptSearch')?.value||'').toLowerCase(),from=document.getElementById('receiptFrom')?.value||'',to=document.getElementById('receiptTo')?.value||'',type=document.getElementById('receiptTypeFilter')?.value||'all';var list=read('receipts',[]).filter(r=>{var d=dOnly(r.date);if(from&&d<from)return false;if(to&&d>to)return false;if(type!=='all'&&r.type!==type)return false;if(q){var t=(r.no+' '+r.patientName+' '+r.service+' '+r.note).toLowerCase();if(t.indexOf(q)<0)return false;}return true;}).sort((a,b)=>new Date(b.date)-new Date(a.date));if(!list.length){box.innerHTML='<div class="no-data">لا توجد إيصالات</div>';return;}var total=list.reduce((s,r)=>s+Number(r.amount||0),0),h='<div class="alert alert-info">العدد: <b>'+list.length+'</b> | الإجمالي: <b>'+money(total)+'</b></div><table><tr><th>رقم</th><th>تاريخ</th><th>نوع</th><th>طرف</th><th>بيان</th><th>مبلغ</th><th>طريقة</th><th>إجراء</th></tr>';list.forEach(r=>h+='<tr><td><b>'+r.no+'</b></td><td>'+dt(r.date)+'</td><td>'+r.type+'</td><td>'+r.patientName+'</td><td>'+r.service+'</td><td>'+money(r.amount)+'</td><td>'+r.method+'</td><td><button class="btn btn-primary btn-sm" onclick="printReceipt(\\''+r.no+'\\')">طباعة</button></td></tr>');box.innerHTML=h+'</table>';};
+window.printReceipt=function(no){var r=read('receipts',[]).find(x=>x.no===no);if(!r)return alert('الإيصال غير موجود');printHtml('<h1>إيصال / إذن خزينة</h1><h2>'+r.no+'</h2><table><tr><td>التاريخ</td><td>'+dt(r.date)+'</td></tr><tr><td>النوع</td><td>'+r.type+'</td></tr><tr><td>الطرف</td><td>'+r.patientName+'</td></tr><tr><td>البيان</td><td>'+r.service+'</td></tr><tr><td>المبلغ</td><td><b>'+money(r.amount)+'</b></td></tr><tr><td>الطريقة</td><td>'+r.method+'</td></tr><tr><td>الخزينة/البنك</td><td>'+r.treasury+'</td></tr><tr><td>مرجع</td><td>'+(r.ref||'-')+'</td></tr></table>');};
+window.printLastReceipt=function(){var r=read('receipts',[]).sort((a,b)=>new Date(b.date)-new Date(a.date))[0];if(!r)return alert('لا توجد إيصالات');printReceipt(r.no);};
+
+function fillDepEdit(){var sel=document.getElementById('editDepSelect');if(!sel)return;var deps=read('departments',[]);sel.innerHTML=deps.map(d=>'<option value="'+d.id+'">'+(d.name||d.id)+'</option>').join('');if(deps.length)loadDepartmentForEdit();}
+window.loadDepartmentForEdit=function(){var id=editDepSelect.value,d=read('departments',[]).find(x=>String(x.id)===String(id));if(!d)return;editDepName.value=d.name||'';editDepFee.value=d.fee||0;editDepFollowFee.value=d.followFee||0;editDepIncomeAcc.value=d.incomeAcc||'إيراد كشف';editDepDoctorRate.value=d.doctorRate||40;editDepNurseRate.value=d.nurseRate||5;editDepActive.value=String(d.active!==false);};
+window.saveDepartmentEdit=function(){var deps=read('departments',[]),d=deps.find(x=>String(x.id)===String(editDepSelect.value));if(!d)return;d.name=editDepName.value;d.fee=Number(editDepFee.value)||0;d.followFee=Number(editDepFollowFee.value)||0;d.incomeAcc=editDepIncomeAcc.value;d.doctorRate=Number(editDepDoctorRate.value)||0;d.nurseRate=Number(editDepNurseRate.value)||0;d.active=editDepActive.value==='true';write('departments',deps);if(typeof renderDepartments==='function')renderDepartments();fillDepEdit();alert('تم تعديل القسم');};
+
+var oldRefresh=window.refreshPage;window.refreshPage=function(id){if(typeof oldRefresh==='function')oldRefresh(id);setTimeout(function(){if(id==='accounts'){renderCOA();renderJournal();}if(id==='receipts')renderReceipts();if(id==='departments')fillDepEdit();},120);};
+document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){renderCOAManage();fillJournalAccountSelects();fillDepEdit();},500);});
+})();
+</script>
+
+
+<script id="athar-v39-remaining-reports-links">
+(function(){
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function money(v){return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function now(){return new Date().toISOString();}
+function dOnly(v){try{return new Date(v).toISOString().slice(0,10);}catch(e){return '';}}
+function dt(v){try{return new Date(v).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'});}catch(e){return '-';}}
+function patientName(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?p.name:'-';}
+function staffName(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.name:'-';}
+function staffRole(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.role:'-';}
+function nextSeq(key,prefix){var y=new Date().getFullYear(),k='athar_'+key+'_'+y,n=Number(localStorage.getItem(k)||'0')+1;localStorage.setItem(k,String(n));return prefix+'-'+y+'-'+String(n).padStart(6,'0');}
+
+// ===== Link revenues/expenses catalog to treasury + journal + receipts =====
+window.fillLinkedCatalogItems=function(){
+  var sel=document.getElementById('linkedCatalogItem'); if(!sel)return;
+  var type=document.getElementById('linkedMoveType')?.value||'قبض';
+  var items=read('catalogItems',[]);
+  var list=items.filter(function(i){
+    if(type==='قبض') return i.type==='إيراد';
+    return i.type!=='إيراد';
+  });
+  if(!list.length){
+    list = type==='قبض' ? [{id:'rev',name:'إيراد عام',account:'إيراد عام',type:'إيراد'}] : [{id:'exp',name:'مصروف عام',account:'مصروفات تشغيل',type:'مصروف'}];
+  }
+  sel.innerHTML=list.map(i=>'<option value="'+i.id+'">'+i.name+' - '+(i.account||i.name)+'</option>').join('');
+};
+function getCatalogById(id){
+  return read('catalogItems',[]).find(i=>String(i.id)===String(id)) || null;
+}
+function addJournalAuto(desc, drAcc, crAcc, amount){
+  var journal=read('journal',[]), next=read('nextId',{j:journal.length+1}); if(!next.j)next.j=journal.length+1;
+  journal.push({id:next.j++,no:nextSeq('journalSeq','JV'),date:now(),description:desc,posted:true,auto:true,lines:[{acc:drAcc,dr:amount,cr:0},{acc:crAcc,dr:0,cr:amount}]});
+  write('journal',journal); write('nextId',next);
+}
+window.createLinkedMove=function(){
+  var type=document.getElementById('linkedMoveType')?.value||'قبض';
+  var item=getCatalogById(document.getElementById('linkedCatalogItem')?.value);
+  var amount=Number(document.getElementById('linkedAmount')?.value)||0;
+  var method=document.getElementById('linkedMethod')?.value||'كاش';
+  var treasury=document.getElementById('linkedTreasury')?.value||'الخزينة الرئيسية';
+  var party=document.getElementById('linkedParty')?.value||'-';
+  var note=document.getElementById('linkedNote')?.value || (item?item.name:type);
+  if(amount<=0)return alert('اكتب مبلغ صحيح');
+  var acc=item?(item.account||item.name):(type==='قبض'?'إيراد عام':'مصروفات تشغيل');
+
+  if(type==='صرف'){
+    // cash balance guard is in previous patch if addTreasuryMove exists
+    if(typeof addTreasuryMove==='function') addTreasuryMove('صرف',amount,method,treasury,note,null);
+    addJournalAuto(note, acc, treasury, amount);
+  }else{
+    if(typeof addTreasuryMove==='function') addTreasuryMove('قبض',amount,method,treasury,note,null);
+    addJournalAuto(note, treasury, acc, amount);
+  }
+
+  var receipts=read('receipts',[]);
+  var r={id:'R-'+Date.now(),no:nextSeq('receiptSeq','RC'),date:now(),type:type==='صرف'?'إذن صرف':'قبض',patientName:party,service:note,amount:amount,method:method,treasury:treasury,note:note,ref:''};
+  receipts.push(r); write('receipts',receipts);
+  if(typeof renderReceipts==='function')renderReceipts();
+  if(typeof renderJournal==='function')renderJournal();
+  alert('تم تسجيل الحركة وربطها بالبند والقيد والإيصال رقم '+r.no);
+};
+
+// ===== Doctor/Nurse: كام له، كام محصل، كام مؤجل =====
+function buildStaffCollectionRows(){
+  var visits=read('visits',[]);
+  var services=read('services',[]);
+  var payments=read('payments',[]);
+  var staff=read('staff',[]);
+  var rows=[];
+
+  function paidForPatient(pid){
+    return payments.filter(p=>String(p.patientId)===String(pid)).reduce((s,p)=>s+Number(p.amount||0),0);
+  }
+
+  visits.forEach(function(v){
+    var pPaid=paidForPatient(v.patientId);
+    var fee=Number(v.fee||0);
+    var paidPart=Math.min(fee,pPaid);
+    var unpaid=Math.max(0,fee-paidPart);
+    var doc=staff.find(s=>String(s.id)===String(v.doctorId));
+    var nurse=staff.find(s=>String(s.id)===String(v.nurseId));
+    if(doc){
+      rows.push({date:v.date,staffId:doc.id,role:doc.role,staff:doc.name,patient:patientName(v.patientId),service:'كشف',gross:fee,paid:paidPart,unpaid:unpaid,rate:Number(doc.feeRate||0),due:paidPart*Number(doc.feeRate||0)/100});
+    }
+    if(nurse){
+      rows.push({date:v.date,staffId:nurse.id,role:nurse.role,staff:nurse.name,patient:patientName(v.patientId),service:'تمريض كشف',gross:fee,paid:paidPart,unpaid:unpaid,rate:Number(nurse.feeRate||0),due:paidPart*Number(nurse.feeRate||0)/100});
+    }
+  });
+  return rows;
+}
+function staffFilterRows(rows){
+  var from=document.getElementById('staffRptFrom')?.value||'', to=document.getElementById('staffRptTo')?.value||'';
+  var l1=document.getElementById('staffRptLevel1')?.value||'all', l2=document.getElementById('staffRptLevel2')?.value||'all';
+  return rows.filter(function(r){
+    var d=dOnly(r.date); if(from&&d<from)return false; if(to&&d>to)return false;
+    if(l1==='doctor'&&r.role!=='طبيب')return false;
+    if(l1==='nurse'&&r.role==='طبيب')return false;
+    if((l1==='doctor'||l1==='nurse')&&l2!=='all'&&String(r.staffId)!==String(l2))return false;
+    return true;
+  });
+}
+function renderStaffCollectionBox(target, rows, label){
+  var box=document.getElementById(target); if(!box)return;
+  rows=staffFilterRows(rows);
+  if(!rows.length){box.innerHTML='<div class="no-data">لا توجد بيانات '+label+'</div>';return;}
+  var gross=0,paid=0,unpaid=0,due=0;
+  rows.forEach(r=>{gross+=r.gross;paid+=r.paid;unpaid+=r.unpaid;due+=r.due;});
+  var h='<div class="grid grid-4" style="margin-bottom:15px"><div class="stat-box"><div class="label">إجمالي قيمة الخدمات</div><div class="value">'+money(gross)+'</div></div><div class="stat-box"><div class="label">المحصل</div><div class="value">'+money(paid)+'</div></div><div class="stat-box"><div class="label">المؤجل</div><div class="value">'+money(unpaid)+'</div></div><div class="stat-box"><div class="label">مستحق فعلي</div><div class="value">'+money(due)+'</div></div></div>';
+  h+='<table><tr><th>التاريخ</th><th>الاسم</th><th>المريض</th><th>الخدمة</th><th>القيمة</th><th>محصل</th><th>مؤجل</th><th>النسبة</th><th>المستحق</th></tr>';
+  rows.forEach(r=>h+='<tr><td>'+dt(r.date)+'</td><td>'+r.staff+'</td><td>'+r.patient+'</td><td>'+r.service+'</td><td>'+money(r.gross)+'</td><td>'+money(r.paid)+'</td><td>'+money(r.unpaid)+'</td><td>'+r.rate+'%</td><td><b>'+money(r.due)+'</b></td></tr>');
+  box.innerHTML=h+'</table>';
+}
+window.renderStaffCollectionReports=function(){
+  var rows=buildStaffCollectionRows();
+  renderStaffCollectionBox('doctorCollectionSummary',rows.filter(r=>r.role==='طبيب'),'للأطباء');
+  renderStaffCollectionBox('nurseCollectionSummary',rows.filter(r=>r.role!=='طبيب'),'للتمريض');
+};
+
+// ===== General smart report filters for section/service/patient too =====
+window.renderSmartGeneralReport=function(){
+  var box=document.getElementById('smartGeneralReport'); if(!box)return;
+  var l1=document.getElementById('staffRptLevel1')?.value||'all', l2=document.getElementById('staffRptLevel2')?.value||'all';
+  var from=document.getElementById('staffRptFrom')?.value||'', to=document.getElementById('staffRptTo')?.value||'';
+  var visits=read('visits',[]);
+  var rows=visits.map(v=>({date:v.date,patientId:v.patientId,patient:patientName(v.patientId),service:'كشف',department:v.departmentName||v.departmentId||'عيادات',amount:Number(v.fee||0)}));
+  rows=rows.filter(r=>{var d=dOnly(r.date); if(from&&d<from)return false;if(to&&d>to)return false;if(l1==='patient'&&l2!=='all'&&String(r.patientId)!==String(l2))return false;if(l1==='service'&&l2!=='all'&&l2==='visit'&&r.service.indexOf('كشف')<0)return false;if(l1==='department'&&l2!=='all'&&String(r.department)!==String(l2))return false;return true;});
+  if(!rows.length){box.innerHTML='<div class="no-data">لا توجد بيانات للفلتر العام</div>';return;}
+  var total=rows.reduce((s,r)=>s+r.amount,0);
+  var h='<div class="alert alert-info">إجمالي التقرير العام: <b>'+money(total)+'</b> | عدد الحركات: <b>'+rows.length+'</b></div><table><tr><th>التاريخ</th><th>المريض</th><th>القسم</th><th>الخدمة</th><th>المبلغ</th></tr>';
+  rows.forEach(r=>h+='<tr><td>'+dt(r.date)+'</td><td>'+r.patient+'</td><td>'+r.department+'</td><td>'+r.service+'</td><td>'+money(r.amount)+'</td></tr>');
+  box.innerHTML=h+'</table>';
+};
+
+var oldReports=window.renderStaffAccountReports;
+window.renderStaffAccountReports=function(){
+  if(typeof oldReports==='function') oldReports();
+  setTimeout(function(){renderStaffCollectionReports();renderSmartGeneralReport();},80);
+};
+
+var oldFill=window.fillLinkedCatalogItems;
+document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){fillLinkedCatalogItems();renderStaffCollectionReports();renderSmartGeneralReport();},600);});
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function')oldRefresh(id);
+  setTimeout(function(){
+    if(id==='receipts')fillLinkedCatalogItems();
+    if(id==='reports'){renderStaffCollectionReports();renderSmartGeneralReport();}
+  },150);
+};
 })();
 </script>
 
