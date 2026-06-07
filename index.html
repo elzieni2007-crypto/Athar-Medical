@@ -200,6 +200,43 @@ nav{
 @media(max-width:800px){.v40-kpi{grid-template-columns:repeat(2,1fr)}}
 </style>
 
+
+<style id="athar-v41-dropdown-fix">
+/* Fix dropdowns not opening: prevent hidden print/overlay areas from catching taps */
+#atharPrintArea,
+#receiptPrintArea{
+  display:none !important;
+  pointer-events:none !important;
+}
+
+/* Keep native select behavior stable on desktop/mobile */
+select{
+  pointer-events:auto !important;
+  user-select:auto !important;
+  position:relative;
+  z-index:5;
+  min-height:38px;
+  background:#fff;
+  color:#222;
+}
+
+/* Make sure cards/pages don't create invisible overlays above form fields */
+.card, .field, main, .page{
+  pointer-events:auto;
+}
+
+@media print{
+  #atharPrintArea,
+  #receiptPrintArea{
+    display:block !important;
+    pointer-events:auto !important;
+  }
+  body *{visibility:hidden!important;}
+  #atharPrintArea, #atharPrintArea *,
+  #receiptPrintArea, #receiptPrintArea *{visibility:visible!important;}
+}
+</style>
+
 </head>
 <body>
 
@@ -3609,6 +3646,76 @@ window.v40RenderSmartReports=function(){var from=v40ReportFrom.value||'',to=v40R
 function refreshV40(id){if(id==='financeCore'){v40RenderCOA();v40FillAcc();v40RenderJournal()}if(id==='receipts'){v40RenderReceipts();v40FillCatalogSelect()}if(id==='doctorDues'){v40FillDuesNames();v40RenderDues()}if(id==='smartReports'){v40FillReportLevel2();v40RenderSmartReports()}}
 var oldRefresh=window.refreshPage;window.refreshPage=function(id){if(typeof oldRefresh==='function')oldRefresh(id);setTimeout(()=>refreshV40(id),120)}
 document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){v40RenderCOA();v40FillAcc();v40FillCatalogSelect();v40FillDuesNames();v40FillReportLevel2()},500)})
+})();
+</script>
+
+
+<script id="athar-v41-dropdown-fix">
+(function(){
+  function hidePrintAreas(){
+    ['atharPrintArea','receiptPrintArea'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){
+        el.style.display='none';
+        el.style.pointerEvents='none';
+      }
+    });
+  }
+
+  // Before print, allow print area to show. After print, hide it again.
+  window.addEventListener('beforeprint', function(){
+    ['atharPrintArea','receiptPrintArea'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){
+        el.style.display='block';
+        el.style.pointerEvents='auto';
+      }
+    });
+  });
+  window.addEventListener('afterprint', hidePrintAreas);
+
+  // Fix duplicate/empty select cases after page navigation by refreshing relevant data.
+  function safeCall(fn){
+    try{ if(typeof window[fn]==='function') window[fn](); }catch(e){ console.warn(fn,e); }
+  }
+
+  var oldShowPage = window.showPage;
+  window.showPage = function(id, btn){
+    if(typeof oldShowPage === 'function') oldShowPage(id, btn);
+    hidePrintAreas();
+
+    setTimeout(function(){
+      // General dropdown refreshers used across different versions
+      safeCall('fillPatientSelects');
+      safeCall('fillStaffSelects');
+      safeCall('fillVisitSelect');
+      safeCall('fillDrugSelect');
+      safeCall('fillServiceSelect');
+      safeCall('fillSmartReportLevel2');
+      safeCall('v40FillAcc');
+      safeCall('v40FillCatalogSelect');
+      safeCall('v40FillDuesNames');
+      safeCall('v40FillReportLevel2');
+
+      // Force selects to be usable even if an old style/script touched them
+      document.querySelectorAll('select').forEach(function(s){
+        s.disabled = false;
+        s.style.pointerEvents='auto';
+        s.style.zIndex='5';
+        s.style.position='relative';
+      });
+    }, 100);
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    hidePrintAreas();
+    setTimeout(function(){
+      document.querySelectorAll('select').forEach(function(s){
+        s.disabled=false;
+        s.style.pointerEvents='auto';
+      });
+    }, 300);
+  });
 })();
 </script>
 
