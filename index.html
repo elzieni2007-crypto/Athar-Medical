@@ -418,6 +418,126 @@ select{
 }
 </style>
 
+
+<style id="athar-v51-safe-logic-merge-style">
+.v51-logic-alert{
+  background:#fff8e1;
+  color:#856404;
+  border-right:5px solid #ffc107;
+  border-radius:10px;
+  padding:10px 14px;
+  margin:10px 0;
+  font-weight:800;
+}
+.v51-ok-alert{
+  background:#e8f5f4;
+  color:#0d7377;
+  border-right:5px solid #0d7377;
+  border-radius:10px;
+  padding:10px 14px;
+  margin:10px 0;
+  font-weight:800;
+}
+</style>
+
+
+<style id="athar-v52-admission-accounting-style">
+.v52-admission-note{background:#e8f5f4;color:#0d7377;border-right:5px solid #0d7377;padding:10px 14px;border-radius:10px;margin:10px 0;font-weight:800}
+.v52-danger-note{background:#f8d7da;color:#721c24;border-right:5px solid #dc3545;padding:10px 14px;border-radius:10px;margin:10px 0;font-weight:800}
+</style>
+
+
+<style id="athar-v53-doctor-accrual-style">
+.v53-accrual-note{
+  background:#eefaf9;
+  color:#0d7377;
+  border-right:5px solid #0d7377;
+  border-radius:10px;
+  padding:10px 14px;
+  margin:10px 0;
+  font-weight:800;
+}
+.v53-accrual-warn{
+  background:#fff8e1;
+  color:#856404;
+  border-right:5px solid #ffc107;
+  border-radius:10px;
+  padding:10px 14px;
+  margin:10px 0;
+  font-weight:800;
+}
+</style>
+
+
+<style id="athar-v54-single-bedmap-style">
+/* V54: eliminate duplicated bed maps */
+#admission #v46RoomMap,
+#admission #v47OperationalBedMap,
+#admission #v49OperationalBedMap,
+#admission .v47-bed-grid,
+#admission .v49-bed-grid:not(#v54OperationalBedMap){
+  display:none!important;
+}
+
+/* Hide empty/old cards that only contain duplicated maps */
+#admission .card:has(#v47OperationalBedMap),
+#admission .card:has(#v49OperationalBedMap){
+  display:none!important;
+}
+
+/* Keep dashboard bedmap only at home, not in admission */
+#admission #v49DashboardBedMapCard,
+#admission #v48DashboardBottomBedMapCard,
+#admission #v47DashboardBedMapCard{
+  display:none!important;
+}
+
+.v54-legend{display:flex;gap:18px;align-items:center;justify-content:flex-end;margin:12px 0;flex-wrap:wrap;font-weight:800}
+.v54-dot{display:inline-block;width:14px;height:14px;border-radius:4px;margin-left:6px;border:2px solid}
+.v54-dot.available{border-color:#28a745;background:#eaffef}
+.v54-dot.occupied{border-color:#dc3545;background:#dc3545}
+.v54-dot.reserved{border-color:#ffc107;background:#fff3cd}
+.v54-bed-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;direction:ltr}
+.v54-bed{
+  border:2px solid #28a745;background:#f8fff9;color:#0d7377;
+  border-radius:12px;min-height:68px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;font-weight:900;direction:rtl;text-align:center;
+  box-shadow:0 5px 14px rgba(0,0,0,.04);cursor:pointer;
+}
+.v54-bed .num{font-size:20px;line-height:1}
+.v54-bed .status{font-size:11px;margin-top:4px}
+.v54-bed small{font-size:10px;margin-top:3px;max-width:95%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v54-bed.occupied{background:linear-gradient(135deg,#ef4444,#b91c1c);border-color:#dc3545;color:#fff}
+.v54-bed.reserved{background:#fff8e1;border-color:#ffc107;color:#856404}
+.v54-bed.available{background:linear-gradient(135deg,#f7fff9,#e4ffeb);border-color:#28a745}
+@media(max-width:900px){.v54-bed-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+
+
+<style id="athar-v55-merge-alerts-style">
+/* V55: ضم التنبيهات وحذف كارت التنبيهات المحاسبية المستقل من الرئيسية */
+#v51LogicAlerts{
+  display:none!important;
+}
+.v55-alert-line{
+  background:#fff8e1;
+  color:#856404;
+  border-right:5px solid #ffc107;
+  border-radius:10px;
+  padding:10px 14px;
+  margin:8px 0;
+  font-weight:800;
+}
+.v55-alert-line.accounting{
+  background:#fff3cd;
+}
+.v55-alert-line.ok{
+  background:#e8f5f4;
+  color:#0d7377;
+  border-right-color:#0d7377;
+}
+</style>
+
 </head>
 <body>
 
@@ -588,7 +708,12 @@ select{
   <div class="card">
     <h2>📋 المرضى بالإقامة الداخلية حاليًا</h2>
     <div id="v46AdmissionStats"></div>
-    <div id="v46ActiveAdmissionsTable"></div>
+    <div class="card" id="v54AdmissionBedMapCard">
+  <h2>🗺️ خريطة الأسرة</h2>
+  <div class="v54-legend"><span><b class="v54-dot available"></b> متاح</span><span><b class="v54-dot occupied"></b> مشغول</span><span><b class="v54-dot reserved"></b> محجوز</span></div>
+  <div id="v54OperationalBedMap" class="v54-bed-grid"></div>
+</div>
+<div id="v46ActiveAdmissionsTable"></div>
   </div>
 </div>
 
@@ -5102,6 +5227,1260 @@ document.addEventListener('DOMContentLoaded',function(){
   },700);
 });
 
+})();
+</script>
+
+
+<script id="athar-v51-safe-logic-merge">
+(function(){
+/*
+  V51 Safe Logic Merge
+  نقلنا منطق الملف المرفوع بدون تغيير شكل النظام:
+  - منع الصرف بالسالب حسب وسيلة الدفع.
+  - منع سداد أكبر من رصيد المريض.
+  - مستحقات الأطباء/التمريض لا تُكتسب إلا على المبلغ المحصل فقط.
+  - تكلفة الإقامة اليومية لا تتكرر أكثر من مرة في نفس اليوم.
+  - تنبيهات محاسبية عند وجود خدمات غير محصلة.
+*/
+
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function money(v){return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function now(){return new Date().toISOString();}
+function today(){return new Date().toISOString().slice(0,10);}
+function dOnly(v){try{return new Date(v).toISOString().slice(0,10);}catch(e){return '';}}
+function patientName(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?p.name:'-';}
+function staffName(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.name:'-';}
+function staffRole(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.role:'-';}
+
+function nextSeq(key,prefix){
+  var y=new Date().getFullYear();
+  var k='athar_'+key+'_'+y;
+  var n=Number(localStorage.getItem(k)||'0')+1;
+  localStorage.setItem(k,String(n));
+  return prefix+'-'+y+'-'+String(n).padStart(6,'0');
+}
+
+function patientBalance(pid){
+  var p=read('patients',[]).find(x=>String(x.id)===String(pid));
+  if(!p)return 0;
+  return Number(p.balance||0);
+}
+
+/* 1) رصيد الخزينة حسب وسيلة الدفع */
+window.getTreasuryBalance = function(method){
+  var tms=read('treasuryMovements',[]);
+  var key=(method||'كاش').trim();
+  var bal=0;
+  tms.forEach(function(x){
+    var m=(x.method||'كاش').trim();
+    var match = key==='كاش'
+      ? (!m.includes('شبكة') && !m.includes('تحويل') && !m.includes('بنك'))
+      : m.includes(key);
+    if(match){
+      bal += x.type==='صرف' ? -Number(x.amount||0) : Number(x.amount||0);
+    }
+  });
+  return bal;
+};
+window.getTotalTreasuryBalance = function(){
+  return read('treasuryMovements',[]).reduce(function(s,x){
+    return s + (x.type==='صرف' ? -Number(x.amount||0) : Number(x.amount||0));
+  },0);
+};
+
+function methodKey(method){
+  method=String(method||'كاش');
+  if(method.includes('شبكة'))return 'شبكة';
+  if(method.includes('تحويل'))return 'تحويل';
+  if(method.includes('بنك'))return 'بنك';
+  return 'كاش';
+}
+
+/* 2) حماية addTreasuryMove من الصرف بالسالب */
+var originalAddTreasuryMove = window.addTreasuryMove;
+window.addTreasuryMove = function(type, amount, method, treasury, desc, patientId){
+  amount=Number(amount)||0;
+  method=method||'كاش';
+  treasury=treasury||'الخزينة الرئيسية';
+
+  if(type==='صرف'){
+    var key=methodKey(method);
+    var bal=window.getTreasuryBalance(key);
+    if(amount<=0){
+      alert('⚠️ مبلغ الصرف غير صحيح');
+      return null;
+    }
+    if(amount>bal){
+      alert(
+        '🚫 لا يمكن الصرف بالسالب\n' +
+        'المبلغ المطلوب: ' + money(amount) + '\n' +
+        'رصيد ' + key + ' المتاح: ' + money(bal)
+      );
+      return null;
+    }
+  }
+
+  // منع تكرار نفس الحركة لو اتنادت مرتين بسرعة بنفس البيانات
+  var tms=read('treasuryMovements',[]);
+  var last=tms[tms.length-1];
+  var signature=[type,amount,method,treasury,desc||'',patientId||''].join('|');
+  var lastSignature=last ? [last.type,Number(last.amount||0),last.method,last.treasury,last.desc||'',last.patientId||''].join('|') : '';
+  if(last && lastSignature===signature && (new Date()-new Date(last.date||0))<2500){
+    console.warn('V51 prevented duplicate treasury movement', signature);
+    return last;
+  }
+
+  if(typeof originalAddTreasuryMove==='function'){
+    var res=originalAddTreasuryMove(type,amount,method,treasury,desc,patientId);
+    // بعض النسخ القديمة لا تحفظ في localStorage فورًا
+    try{
+      if(window.treasuryMovements) write('treasuryMovements', window.treasuryMovements);
+    }catch(e){}
+    return res;
+  }
+
+  var r={id:'TM-'+Date.now(),date:now(),type:type,amount:amount,method:method,treasury:treasury,desc:desc||'',patientId:patientId||null};
+  tms.push(r); write('treasuryMovements',tms);
+  return r;
+};
+
+/* 3) حماية addExpense قبل التنفيذ */
+var originalAddExpense = window.addExpense;
+window.addExpense = function(){
+  var amount = Number(document.getElementById('expenseAmount')?.value || document.getElementById('linkedAmount')?.value || 0);
+  var method = document.getElementById('expenseMethod')?.value || document.getElementById('linkedMethod')?.value || 'كاش';
+  if(amount>0){
+    var key=methodKey(method);
+    var bal=window.getTreasuryBalance(key);
+    if(amount>bal){
+      alert('🚫 لا يمكن تسجيل المصروف لأن رصيد '+key+' غير كافٍ\nالمتاح: '+money(bal)+'\nالمطلوب: '+money(amount));
+      return;
+    }
+  }
+  if(typeof originalAddExpense==='function') return originalAddExpense.apply(this,arguments);
+};
+
+/* 4) حماية سداد المريض من دفع أكثر من الرصيد */
+var originalPayPartial = window.payPartial;
+window.payPartial = function(){
+  var pid = document.getElementById('payPatient')?.value || document.getElementById('cashierPatient')?.value;
+  var amount = Number(document.getElementById('payAmount')?.value || document.getElementById('cashAmount')?.value || 0);
+  if(pid && amount>0){
+    var bal=patientBalance(pid);
+    if(amount>bal){
+      alert('🚫 لا يمكن تحصيل مبلغ أكبر من رصيد المريض\nالرصيد المستحق: '+money(bal)+'\nالمبلغ المدخل: '+money(amount));
+      return;
+    }
+  }
+  var res;
+  if(typeof originalPayPartial==='function') res=originalPayPartial.apply(this,arguments);
+  setTimeout(function(){
+    v51RecalculateStaffDues();
+    v51RenderLogicAlerts();
+  },120);
+  return res;
+};
+
+/* 5) بناء مستحقات الطبيب/التمريض على المحصل فقط */
+function paidByPatientMap(){
+  var map={};
+  read('payments',[]).forEach(function(p){
+    var pid=String(p.patientId||'');
+    map[pid]=(map[pid]||0)+Number(p.amount||0);
+  });
+  read('treasuryMovements',[]).forEach(function(m){
+    if(m.type==='قبض' && m.patientId){
+      var pid=String(m.patientId);
+      // لو مفيش payments للمريض، نستخدم الخزينة كمصدر احتياطي
+      if(!map[pid]) map[pid]=(map[pid]||0)+Number(m.amount||0);
+    }
+  });
+  return map;
+}
+
+function buildChargeRows(){
+  var rows=[];
+  var staff=read('staff',[]);
+  var patients=read('patients',[]);
+  function discount(pid){
+    var p=patients.find(x=>String(x.id)===String(pid));
+    return p?Number(p.discount||0):0;
+  }
+  function addRow(base, staffId, rate, role){
+    var st=staff.find(x=>String(x.id)===String(staffId));
+    if(!st || Number(rate||0)<=0 || Number(base.gross||0)<=0)return;
+    rows.push(Object.assign({},base,{
+      staffId:st.id,
+      staffName:st.name,
+      role:role||st.role,
+      rate:Number(rate||0)
+    }));
+  }
+
+  read('visits',[]).forEach(function(v){
+    var gross=Number(v.fee||v.netFee||v.total||0);
+    var doc=staff.find(x=>String(x.id)===String(v.doctorId));
+    var nurse=staff.find(x=>String(x.id)===String(v.nurseId));
+    var base={date:v.date||now(),patientId:v.patientId,patientName:patientName(v.patientId),source:'كشف زيارة #'+(v.id||''),service:'كشف',gross:gross};
+    if(doc)addRow(base,doc.id,Number(doc.feeRate||0),doc.role);
+    if(nurse)addRow(base,nurse.id,Number(nurse.feeRate||0),nurse.role);
+  });
+
+  read('services',[]).forEach(function(srv){
+    if(srv.status && srv.status!=='تم التنفيذ')return;
+    var visits=read('visits',[]);
+    var v=visits.find(x=>String(x.id)===String(srv.visitId));
+    if(!v)return;
+    var items=read('items',[]);
+    var item=items.find(x=>String(x.id)===String(srv.itemId));
+    var gross=Number(srv.net||srv.amount||item?.price||0)*(1-discount(v.patientId)/100);
+    var doc=staff.find(x=>String(x.id)===String(v.doctorId));
+    var base={date:srv.date||v.date||now(),patientId:v.patientId,patientName:patientName(v.patientId),source:(item?.name||'خدمة')+' / زيارة #'+v.id,service:item?.type||'خدمة',gross:gross};
+    if(doc)addRow(base,doc.id,Number(doc.srvRate||0),doc.role);
+  });
+
+  read('admissions',[]).forEach(function(a){
+    var gross=Number(a.total||a.dailyRate||0);
+    var doc=staff.find(x=>String(x.id)===String(a.doctorId));
+    var base={date:a.date||now(),patientId:a.patientId,patientName:patientName(a.patientId),source:'إقامة داخلية '+(a.room||a.bed||''),service:'إقامة داخلية',gross:gross};
+    if(doc)addRow(base,doc.id,Number(doc.srvRate||doc.feeRate||0),doc.role);
+  });
+
+  read('transfers',[]).forEach(function(t){
+    var gross=Number(t.fee||0);
+    var doc=staff.find(x=>String(x.id)===String(t.doctorId));
+    var base={date:t.date||now(),patientId:t.patientId,patientName:patientName(t.patientId),source:'تحويل داخلي',service:'تحويل داخلي',gross:gross};
+    if(doc)addRow(base,doc.id,Number(doc.srvRate||0),doc.role);
+  });
+
+  rows.sort(function(a,b){return new Date(a.date)-new Date(b.date);});
+  return rows;
+}
+
+window.v51BuildStaffEarnedPending = function(){
+  var paid=paidByPatientMap();
+  var used={};
+  var output=[];
+  buildChargeRows().forEach(function(r){
+    var pid=String(r.patientId||'');
+    used[pid]=used[pid]||0;
+    var available=Math.max(0,Number(paid[pid]||0)-used[pid]);
+    var collected=Math.min(Number(r.gross||0), available);
+    var pending=Math.max(0,Number(r.gross||0)-collected);
+    used[pid]+=collected;
+    var earned=collected*Number(r.rate||0)/100;
+    var pendingDue=pending*Number(r.rate||0)/100;
+    output.push(Object.assign({},r,{
+      collected:collected,
+      pending:pending,
+      earned:earned,
+      pendingDue:pendingDue,
+      status: collected<=0 ? 'معلق' : (pending>0 ? 'محصل جزئي' : 'مكتسب')
+    }));
+  });
+  return output;
+};
+
+window.v51RecalculateStaffDues = function(){
+  var ledger=window.v51BuildStaffEarnedPending();
+  write('staffLedgerV51',ledger);
+  var totals={};
+  ledger.forEach(function(r){
+    totals[r.staffId]=(totals[r.staffId]||0)+Number(r.earned||0);
+  });
+  var staff=read('staff',[]);
+  staff.forEach(function(s){
+    s.due=Number(totals[s.id]||0);
+  });
+  write('staff',staff);
+  return ledger;
+};
+
+/* 6) تكلفة الإقامة اليومية بدون تكرار في نفس اليوم */
+window.v51AccrueAdmissionDailyCosts = function(){
+  var admissions=read('admissions',[]);
+  var patients=read('patients',[]);
+  var journal=read('journal',[]);
+  var changed=false, count=0, total=0;
+  var t=today();
+
+  admissions.forEach(function(a){
+    var open=(a.status||'مفتوحة')==='مفتوحة'||(a.status||'open')==='open';
+    if(!open)return;
+    if((a.lastDailyChargeDate||'')===t)return;
+    var amount=Number(a.dailyRate||a.dailyCost||0);
+    if(amount<=0)return;
+    var p=patients.find(x=>String(x.id)===String(a.patientId));
+    if(!p)return;
+
+    p.balance=Number(p.balance||0)+amount;
+    a.total=Number(a.total||0)+amount;
+    a.lastDailyChargeDate=t;
+    journal.push({
+      id:'JV-'+Date.now()+'-'+Math.floor(Math.random()*999),
+      no:nextSeq('journalSeq','JV'),
+      date:now(),
+      description:'إقامة داخلية يومية - '+p.name+' - سرير '+(a.room||a.bed||'-'),
+      auto:true,
+      posted:true,
+      lines:[
+        {acc:'حساب المريض #'+p.id,dr:amount,cr:0},
+        {acc:'إيراد إقامة داخلية',dr:0,cr:amount}
+      ]
+    });
+    changed=true; count++; total+=amount;
+  });
+
+  if(changed){
+    write('patients',patients);
+    write('admissions',admissions);
+    write('journal',journal);
+    if(window.patients) window.patients=patients;
+    if(window.admissions) window.admissions=admissions;
+    if(window.journal) window.journal=journal;
+  }
+  return {changed:changed,count:count,total:total};
+};
+
+var originalPostTodayCharges=window.v46PostTodayCharges || window.v47PostTodayCharges || window.v49PostTodayCharges;
+window.v51PostTodayAdmissionCosts = function(){
+  var res=window.v51AccrueAdmissionDailyCosts();
+  if(res.changed) alert('تم تحميل تكلفة اليوم لعدد '+res.count+' حالة بإجمالي '+money(res.total));
+  else alert('لا توجد تكلفة جديدة للتحميل اليوم أو تم تحميلها بالفعل.');
+  if(typeof window.v49RenderBedMaps==='function') window.v49RenderBedMaps();
+  if(typeof window.renderDashboard==='function') window.renderDashboard();
+};
+
+/* 7) تنبيهات منطقية في الرئيسية */
+window.v51RenderLogicAlerts = function(){
+  var ledger=window.v51RecalculateStaffDues();
+  var pendingRows=ledger.filter(x=>Number(x.pending||0)>0);
+  var pendingAmount=pendingRows.reduce((s,x)=>s+Number(x.pending||0),0);
+  var openPatientCount=read('patients',[]).filter(p=>Number(p.balance||0)>0).length;
+
+  var target=document.getElementById('dashboard') || document.getElementById('home') || document.querySelector('.page.active');
+  if(!target)return;
+
+  var box=document.getElementById('v51LogicAlerts');
+  if(!box){
+    box=document.createElement('div');
+    box.id='v51LogicAlerts';
+    box.className='card';
+    box.innerHTML='<h2>⚠️ تنبيهات محاسبية</h2><div id="v51LogicAlertsBody"></div>';
+    // قبل آخر الزيارات أو قبل خريطة الأسرة لو موجودة
+    var before=document.getElementById('v49DashboardBedMapCard') || target.querySelector('.card:nth-of-type(3)');
+    target.insertBefore(box,before||null);
+  }
+  var body=document.getElementById('v51LogicAlertsBody');
+  if(!body)return;
+  var html='';
+  if(openPatientCount){
+    html+='<div class="v51-logic-alert">مديونيات مرضى مفتوحة: عدد المرضى '+openPatientCount+'</div>';
+  }
+  if(pendingRows.length){
+    html+='<div class="v51-logic-alert">خدمات غير محصلة مرتبطة بمستحقات أطباء/تمريض: عدد الحركات '+pendingRows.length+' | غير المحصل '+money(pendingAmount)+'</div>';
+  }
+  if(!html) html='<div class="v51-ok-alert">لا توجد تنبيهات محاسبية حالية.</div>';
+  body.innerHTML=html;
+};
+
+/* ربط بعد العمليات المؤثرة */
+var originalAddVisit=window.addVisit;
+window.addVisit=function(){
+  var res;
+  if(typeof originalAddVisit==='function') res=originalAddVisit.apply(this,arguments);
+  setTimeout(function(){
+    window.v51RecalculateStaffDues();
+    var pay=document.getElementById('vPay')?.value||'';
+    if(pay && pay!=='كاش'){
+      alert('تنبيه محاسبي: تم تحميل الخدمة على حساب المريض، ولن تُكتسب نسبة الطبيب/التمريض إلا بعد التحصيل.');
+    }
+    window.v51RenderLogicAlerts();
+  },150);
+  return res;
+};
+
+var originalExecuteSrv=window.executeSrv;
+window.executeSrv=function(){
+  var res;
+  if(typeof originalExecuteSrv==='function') res=originalExecuteSrv.apply(this,arguments);
+  setTimeout(function(){window.v51RecalculateStaffDues(); window.v51RenderLogicAlerts();},150);
+  return res;
+};
+
+var originalDischarge=window.v46Discharge || window.dischargePatient;
+window.v51DischargePatientGuard=function(admId){
+  var res;
+  if(typeof originalDischarge==='function') res=originalDischarge.apply(this,arguments);
+  setTimeout(function(){window.v51AccrueAdmissionDailyCosts(); window.v51RecalculateStaffDues(); window.v51RenderLogicAlerts();},150);
+  return res;
+};
+
+/* تحديث تقارير مستحقات الأطباء لو موجودة */
+var originalV44RenderDues=window.v44RenderDues;
+window.v44RenderDues=function(){
+  var ledger=window.v51BuildStaffEarnedPending();
+  var from=document.getElementById('v44DuesFrom')?.value||'';
+  var to=document.getElementById('v44DuesTo')?.value||'';
+  var role=document.getElementById('v44DuesRole')?.value||'all';
+  var name=document.getElementById('v44DuesName')?.value||'all';
+  var rows=ledger.filter(function(r){
+    var d=dOnly(r.date);
+    if(from&&d<from)return false;
+    if(to&&d>to)return false;
+    if(role==='doctor'&&r.role!=='طبيب')return false;
+    if(role==='nurse'&&r.role==='طبيب')return false;
+    if(name!=='all'&&String(r.staffId)!==String(name))return false;
+    return true;
+  });
+  var box=document.getElementById('v44DuesTable');
+  var sum=document.getElementById('v44DuesSummary');
+  if(!box||!sum){
+    if(typeof originalV44RenderDues==='function') return originalV44RenderDues();
+    return;
+  }
+  var gross=0,collected=0,pending=0,earned=0;
+  rows.forEach(r=>{gross+=Number(r.gross||0);collected+=Number(r.collected||0);pending+=Number(r.pending||0);earned+=Number(r.earned||0);});
+  sum.innerHTML='<div class="grid grid-4"><div class="stat-box"><div class="label">قيمة الخدمات</div><div class="value">'+money(gross)+'</div></div><div class="stat-box"><div class="label">المحصل</div><div class="value">'+money(collected)+'</div></div><div class="stat-box"><div class="label">المؤجل</div><div class="value">'+money(pending)+'</div></div><div class="stat-box"><div class="label">المستحق المكتسب</div><div class="value">'+money(earned)+'</div></div></div>';
+  if(!rows.length){box.innerHTML='<div class="no-data">لا توجد مستحقات طبقًا للفلتر</div>';return;}
+  var h='<table><tr><th>التاريخ</th><th>الاسم</th><th>الوظيفة</th><th>المريض</th><th>الخدمة</th><th>قيمة الخدمة</th><th>محصل</th><th>مؤجل</th><th>النسبة</th><th>مستحق مكتسب</th><th>الحالة</th></tr>';
+  rows.forEach(function(r){
+    h+='<tr><td>'+new Date(r.date).toLocaleDateString('ar-EG')+'</td><td>'+r.staffName+'</td><td>'+r.role+'</td><td>'+r.patientName+'</td><td>'+r.source+'</td><td>'+money(r.gross)+'</td><td class="amount-in">'+money(r.collected)+'</td><td class="amount-out">'+money(r.pending)+'</td><td>'+r.rate+'%</td><td><b>'+money(r.earned)+'</b></td><td><span class="badge '+(r.status==='مكتسب'?'badge-success':r.status==='محصل جزئي'?'badge-warn':'badge-danger')+'">'+r.status+'</span></td></tr>';
+  });
+  box.innerHTML=h+'</table>';
+};
+
+function initV51(){
+  window.v51RecalculateStaffDues();
+  window.v51RenderLogicAlerts();
+
+  // أزرار تحميل تكلفة اليوم لو ظهرت في شاشة الإقامة
+  document.querySelectorAll('button').forEach(function(btn){
+    var txt=(btn.textContent||'').trim();
+    if(txt.includes('تحميل تكلفة اليوم')){
+      btn.onclick=function(e){e.preventDefault();window.v51PostTodayAdmissionCosts();};
+    }
+  });
+}
+
+var originalRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof originalRefresh==='function') originalRefresh(id);
+  setTimeout(initV51,180);
+};
+
+var originalRenderDashboard=window.renderDashboard;
+window.renderDashboard=function(){
+  if(typeof originalRenderDashboard==='function') originalRenderDashboard();
+  setTimeout(initV51,180);
+};
+
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(initV51,800);
+});
+
+})();
+</script>
+
+
+<script id="athar-v52-admission-accounting-logic">
+(function(){
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function money(v){return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function now(){return new Date().toISOString();}
+function today(){return new Date().toISOString().slice(0,10);}
+function patientName(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?p.name:'-';}
+function staffName(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.name:'-';}
+function nextSeq(key,prefix){var y=new Date().getFullYear();var k='athar_'+key+'_'+y;var n=Number(localStorage.getItem(k)||'0')+1;localStorage.setItem(k,String(n));return prefix+'-'+y+'-'+String(n).padStart(6,'0');}
+function openAdmissions(){return read('admissions',[]).filter(a=>(a.status||'مفتوحة')==='مفتوحة'||(a.status||'open')==='open');}
+function ensureRooms(){
+  var rooms=read('rooms',[]);
+  if(!rooms.length){
+    rooms=[101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120].map(n=>({id:String(n),number:String(n),status:'available',patientId:null,admissionId:null}));
+    write('rooms',rooms);
+  }
+  return rooms;
+}
+function syncRooms(){
+  var rooms=ensureRooms();
+  rooms.forEach(r=>{
+    if(r.status==='occupied'){
+      var still=openAdmissions().find(a=>String(a.id)===String(r.admissionId));
+      if(!still){r.status='available';r.patientId=null;r.admissionId=null;}
+    }
+  });
+  openAdmissions().forEach(a=>{
+    var no=String(a.room||a.bed||a.roomNo||'');
+    if(!no)return;
+    var r=rooms.find(x=>String(x.number)===no||String(x.id)===no);
+    if(r){r.status='occupied';r.patientId=a.patientId;r.admissionId=a.id;}
+  });
+  write('rooms',rooms);
+  return rooms;
+}
+function addJournal(desc, lines){
+  var journal=read('journal',[]);
+  var next=read('nextId',{j:journal.length+1});
+  if(!next.j)next.j=journal.length+1;
+  journal.push({id:next.j++,no:nextSeq('journalSeq','JV'),date:now(),description:desc,auto:true,posted:true,lines:lines});
+  write('journal',journal); write('nextId',next);
+}
+function patientBalance(pid){var p=read('patients',[]).find(x=>String(x.id)===String(pid));return p?Number(p.balance||0):0;}
+function addPatientDebit(pid, amount, desc, incomeAcc){
+  amount=Number(amount)||0;if(amount<=0)return;
+  var patients=read('patients',[]);
+  var p=patients.find(x=>String(x.id)===String(pid));
+  if(!p)return;
+  p.balance=Number(p.balance||0)+amount;
+  write('patients',patients);
+  addJournal(desc,[{acc:'حساب المريض #'+pid,dr:amount,cr:0},{acc:incomeAcc||'إيراد إقامة داخلية',dr:0,cr:amount}]);
+}
+function addPatientPayment(pid, amount, method, treasury, desc){
+  amount=Number(amount)||0;if(amount<=0)return false;
+  var bal=patientBalance(pid);
+  if(amount>bal){
+    alert('لا يمكن تحصيل أكبر من رصيد المريض.\nالرصيد: '+money(bal)+'\nالمبلغ: '+money(amount));
+    return false;
+  }
+  var patients=read('patients',[]);
+  var p=patients.find(x=>String(x.id)===String(pid));
+  if(p){p.balance=Math.max(0,Number(p.balance||0)-amount);write('patients',patients);}
+  var payments=read('payments',[]);
+  payments.push({id:'PAY-'+Date.now(),date:now(),patientId:pid,amount:amount,method:method||'كاش',treasury:treasury||'الخزينة الرئيسية',note:desc||'سداد إقامة'});
+  write('payments',payments);
+  if(typeof window.addTreasuryMove==='function')window.addTreasuryMove('قبض',amount,method||'كاش',treasury||'الخزينة الرئيسية',desc||'سداد إقامة',pid);
+  else{
+    var tm=read('treasuryMovements',[]);
+    tm.push({id:'TM-'+Date.now(),date:now(),type:'قبض',amount:amount,method:method||'كاش',treasury:treasury||'الخزينة الرئيسية',desc:desc||'سداد إقامة',patientId:pid});
+    write('treasuryMovements',tm);
+  }
+  addJournal('تحصيل من المريض - '+patientName(pid),[{acc:treasury||'الخزينة الرئيسية',dr:amount,cr:0},{acc:'حساب المريض #'+pid,dr:0,cr:amount}]);
+  return true;
+}
+function fillSelect(id, html){var el=document.getElementById(id);if(el)el.innerHTML=html;}
+window.v52FillAdmissionControls=function(){
+  syncRooms();
+  var patients=read('patients',[]);
+  var staff=read('staff',[]).filter(s=>s.role==='طبيب');
+  var deps=read('departments',[]);
+  var rooms=read('rooms',[]);
+  var pHtml=patients.map(p=>'<option value="'+p.id+'">#'+p.id+' - '+p.name+'</option>').join('');
+  var dHtml=staff.map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');
+  var depHtml=deps.map(d=>'<option value="'+(d.id||d.name)+'">'+(d.name||d.id)+'</option>').join('')||'<option value="إقامة داخلية">إقامة داخلية</option>';
+  var roomHtml='<option value="">-- اختر السرير --</option>'+rooms.map(r=>'<option value="'+r.number+'" '+(r.status==='occupied'?'disabled':'')+'>'+r.number+' - '+(r.status==='occupied'?'مشغول':'متاح')+'</option>').join('');
+  ['v46AdmPatient','admPatient','recAdmPatient'].forEach(id=>fillSelect(id,pHtml));
+  ['v46AdmDoctor','admDoctor','recAdmDoctor'].forEach(id=>fillSelect(id,dHtml));
+  ['v46AdmDept','admDept','recAdmDept'].forEach(id=>fillSelect(id,depHtml));
+  ['v46AdmRoom','admRoom','recAdmRoom'].forEach(id=>fillSelect(id,roomHtml));
+  var date=document.getElementById('v46AdmDate')||document.getElementById('admDate')||document.getElementById('recAdmDate');
+  if(date&&!date.value)date.value=today();
+};
+function getAdmissionFormData(){
+  var pid=document.getElementById('v46AdmPatient')?.value||document.getElementById('admPatient')?.value||document.getElementById('recAdmPatient')?.value;
+  var doctorId=document.getElementById('v46AdmDoctor')?.value||document.getElementById('admDoctor')?.value||document.getElementById('recAdmDoctor')?.value;
+  var dept=document.getElementById('v46AdmDept')?.value||document.getElementById('admDept')?.value||document.getElementById('recAdmDept')?.value||'إقامة داخلية';
+  var room=document.getElementById('v46AdmRoom')?.value||document.getElementById('admRoom')?.value||document.getElementById('recAdmRoom')?.value||document.getElementById('admBed')?.value||document.getElementById('recAdmBed')?.value;
+  var daily=Number(document.getElementById('v46AdmDaily')?.value||document.getElementById('admDailyRate')?.value||document.getElementById('recAdmDailyRate')?.value||0);
+  var date=document.getElementById('v46AdmDate')?.value||document.getElementById('admDate')?.value||today();
+  var pay=document.getElementById('v46AdmPay')?.value||document.getElementById('admPayStatus')?.value||document.getElementById('recAdmPay')?.value||'على الحساب';
+  var down=Number(document.getElementById('v46AdmPaid')?.value||document.getElementById('admPaid')?.value||0);
+  var note=document.getElementById('v46AdmReason')?.value||document.getElementById('admNote')?.value||document.getElementById('recAdmNote')?.value||'إقامة داخلية';
+  var insurance=document.getElementById('v46AdmInsurance')?.value||document.getElementById('admInsurance')?.value||'نقدي';
+  return {pid,doctorId,dept,room,daily,date,pay,down,note,insurance};
+}
+window.v52AdmitPatient=function(){
+  var f=getAdmissionFormData();
+  if(!f.pid)return alert('اختر المريض');
+  if(!f.room)return alert('اختر رقم الغرفة / السرير');
+  if(openAdmissions().some(a=>String(a.patientId)===String(f.pid)))return alert('المريض لديه إقامة مفتوحة بالفعل.');
+  var rooms=syncRooms();
+  var room=rooms.find(r=>String(r.number)===String(f.room)||String(r.id)===String(f.room));
+  if(room&&room.status==='occupied')return alert('السرير مشغول بالفعل.');
+  var admissions=read('admissions',[]);
+  var id='ADM-'+Date.now();
+  admissions.push({id:id,date:f.date,patientId:f.pid,doctorId:f.doctorId,dept:f.dept,room:f.room,bed:f.room,type:'إقامة داخلية',insurance:f.insurance,note:f.note,dailyRate:f.daily,days:1,total:f.daily,status:'مفتوحة',lastDailyChargeDate:f.date});
+  write('admissions',admissions);
+  if(room){room.status='occupied';room.patientId=f.pid;room.admissionId=id;write('rooms',rooms);}
+  if(f.daily>0)addPatientDebit(f.pid,f.daily,'تحميل إقامة يوم الدخول - '+patientName(f.pid)+' - سرير '+f.room,'إيراد إقامة داخلية');
+  if((f.pay==='كاش'||f.down>0)&&f.daily>0){
+    var amount=f.down>0?Math.min(f.down,f.daily):f.daily;
+    addPatientPayment(f.pid,amount,'كاش','الخزينة الرئيسية','تحصيل إقامة يوم الدخول - سرير '+f.room);
+  }
+  refreshAll();
+  alert('تم تسجيل الإقامة وقيودها وتحديث السرير.');
+};
+window.v52AccrueTodayAdmissionCosts=function(){
+  var t=today();
+  var admissions=read('admissions',[]);
+  var count=0,total=0;
+  admissions.forEach(a=>{
+    var open=(a.status||'مفتوحة')==='مفتوحة'||(a.status||'open')==='open';
+    if(!open)return;
+    if((a.lastDailyChargeDate||'')===t)return;
+    var amount=Number(a.dailyRate||0);
+    if(amount<=0)return;
+    addPatientDebit(a.patientId,amount,'تحميل إقامة يومية - '+patientName(a.patientId)+' - سرير '+(a.room||a.bed||'-'),'إيراد إقامة داخلية');
+    a.total=Number(a.total||0)+amount;
+    a.lastDailyChargeDate=t;
+    count++;total+=amount;
+  });
+  write('admissions',admissions);
+  refreshAll();
+  alert(count?'تم تحميل تكلفة اليوم لعدد '+count+' حالة بإجمالي '+money(total):'لا توجد تكلفة جديدة للتحميل اليوم.');
+};
+window.v52DischargePatient=function(admId){
+  var admissions=read('admissions',[]);
+  var a=admissions.find(x=>String(x.id)===String(admId));
+  if(!a)return alert('الإقامة غير موجودة');
+  if(!confirm('تأكيد خروج المريض وفتح السرير؟'))return;
+  // حمل تكلفة اليوم قبل الخروج لو لم تحمل
+  if((a.lastDailyChargeDate||'')!==today() && Number(a.dailyRate||0)>0){
+    addPatientDebit(a.patientId,Number(a.dailyRate||0),'تحميل إقامة يوم الخروج - '+patientName(a.patientId),'إيراد إقامة داخلية');
+    a.total=Number(a.total||0)+Number(a.dailyRate||0);
+    a.lastDailyChargeDate=today();
+  }
+  a.status='خرج';
+  a.dischargeDate=now();
+  write('admissions',admissions);
+  var rooms=read('rooms',[]);
+  rooms.forEach(r=>{if(String(r.admissionId)===String(admId)){r.status='available';r.patientId=null;r.admissionId=null;}});
+  write('rooms',rooms);
+  refreshAll();
+};
+function renderActiveAdmissions(){
+  var box=document.getElementById('v46ActiveAdmissionsTable')||document.getElementById('admissionTransferTable');
+  if(!box)return;
+  var list=openAdmissions();
+  if(!list.length){box.innerHTML='<div class="no-data">لا توجد حالات إقامة مفتوحة</div>';return;}
+  var h='<table><tr><th>المريض</th><th>الغرفة</th><th>القسم</th><th>الطبيب</th><th>تاريخ الدخول</th><th>تكلفة يومية</th><th>إجمالي</th><th>إجراء</th></tr>';
+  list.forEach(a=>{
+    h+='<tr><td>'+patientName(a.patientId)+'</td><td>'+(a.room||a.bed||'-')+'</td><td>'+a.dept+'</td><td>'+staffName(a.doctorId)+'</td><td>'+a.date+'</td><td>'+money(a.dailyRate)+'</td><td>'+money(a.total)+'</td><td><button class="btn btn-danger btn-sm" onclick="v52DischargePatient(\''+a.id+'\')">خروج</button></td></tr>';
+  });
+  box.innerHTML=h+'</table>';
+}
+function patchButtons(){
+  document.querySelectorAll('button').forEach(btn=>{
+    var t=(btn.textContent||'').trim();
+    if(t.includes('قبول المريض للإقامة')||t.includes('تسجيل الإقامة')||t.includes('دخول داخلي')){
+      btn.onclick=function(e){e.preventDefault();v52AdmitPatient();};
+    }
+    if(t.includes('تحميل تكلفة اليوم')){
+      btn.onclick=function(e){e.preventDefault();v52AccrueTodayAdmissionCosts();};
+    }
+  });
+}
+function refreshAll(){
+  v52FillAdmissionControls();
+  syncRooms();
+  renderActiveAdmissions();
+  patchButtons();
+  if(typeof window.v49RenderBedMaps==='function')window.v49RenderBedMaps();
+  if(typeof window.v48RenderDashboardBedMap==='function')window.v48RenderDashboardBedMap();
+  if(typeof window.renderDashboard==='function')setTimeout(window.renderDashboard,50);
+}
+window.v52RefreshAdmissionLogic=refreshAll;
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function')oldRefresh(id);
+  setTimeout(refreshAll,150);
+};
+document.addEventListener('DOMContentLoaded',function(){setTimeout(refreshAll,700);});
+})();
+</script>
+
+
+<script id="athar-v53-doctor-accrual-journals">
+(function(){
+/*
+ V53 Doctor Accrual Journals
+ بناءً على طلبك:
+ - الطبيب يبقى له مستحق تعاقدي بمجرد تنفيذ الخدمة، حتى لو المريض لم يسدد.
+ - القيد المحاسبي:
+   Dr مصروف أتعاب أطباء/تمريض
+   Cr مستحقات أطباء/تمريض
+ - مع استمرار عرض المحصل والمؤجل حتى تعرف القابل للصرف والمعلق.
+ - القيود Idempotent: لا تتكرر لنفس الخدمة/الطبيب.
+*/
+
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function money(v){return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function now(){return new Date().toISOString();}
+function dOnly(v){try{return new Date(v).toISOString().slice(0,10);}catch(e){return '';}}
+function patientName(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?p.name:'-';}
+function staffName(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.name:'-';}
+function staffRole(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.role:'-';}
+function nextSeq(key,prefix){
+  var y=new Date().getFullYear();
+  var k='athar_'+key+'_'+y;
+  var n=Number(localStorage.getItem(k)||'0')+1;
+  localStorage.setItem(k,String(n));
+  return prefix+'-'+y+'-'+String(n).padStart(6,'0');
+}
+
+function addJournalOnce(ref, desc, lines){
+  var journal=read('journal',[]);
+  if(journal.some(function(j){return String(j.ref||'')===String(ref);})){
+    return false;
+  }
+  var next=read('nextId',{j:journal.length+1});
+  if(!next.j)next.j=journal.length+1;
+  journal.push({
+    id:next.j++,
+    no:nextSeq('journalSeq','JV'),
+    ref:ref,
+    date:now(),
+    description:desc,
+    auto:true,
+    posted:true,
+    lines:lines
+  });
+  write('journal',journal);
+  write('nextId',next);
+  return true;
+}
+
+function paidByPatientMap(){
+  var map={};
+  read('payments',[]).forEach(function(p){
+    var pid=String(p.patientId||'');
+    map[pid]=(map[pid]||0)+Number(p.amount||0);
+  });
+  read('treasuryMovements',[]).forEach(function(m){
+    if(m.type==='قبض' && m.patientId){
+      var pid=String(m.patientId);
+      if(!map[pid]) map[pid]=(map[pid]||0)+Number(m.amount||0);
+    }
+  });
+  return map;
+}
+
+function buildDoctorChargeRows(){
+  var rows=[];
+  var staff=read('staff',[]);
+  var patients=read('patients',[]);
+  var visits=read('visits',[]);
+  var items=read('items',[]);
+
+  function discount(pid){
+    var p=patients.find(x=>String(x.id)===String(pid));
+    return p?Number(p.discount||0):0;
+  }
+  function addRow(base, staffId, rate, role){
+    var st=staff.find(x=>String(x.id)===String(staffId));
+    if(!st || Number(rate||0)<=0 || Number(base.gross||0)<=0)return;
+    var due=Number(base.gross||0)*Number(rate||0)/100;
+    rows.push(Object.assign({},base,{
+      staffId:st.id,
+      staffName:st.name,
+      role:role||st.role,
+      rate:Number(rate||0),
+      contractualDue:due,
+      accrualRef:'DOCACCR|'+base.sourceId+'|'+st.id
+    }));
+  }
+
+  visits.forEach(function(v){
+    var gross=Number(v.fee||v.netFee||v.total||0);
+    var base={
+      date:v.date||now(),
+      patientId:v.patientId,
+      patientName:patientName(v.patientId),
+      sourceId:'VISIT-'+(v.id||Date.parse(v.date||now())),
+      source:'كشف زيارة #'+(v.id||''),
+      service:'كشف',
+      gross:gross
+    };
+    var doc=staff.find(x=>String(x.id)===String(v.doctorId));
+    var nurse=staff.find(x=>String(x.id)===String(v.nurseId));
+    if(doc)addRow(base,doc.id,Number(doc.feeRate||0),doc.role);
+    if(nurse)addRow(Object.assign({},base,{sourceId:base.sourceId+'-NURSE',source:'تمريض زيارة #'+(v.id||'')}),nurse.id,Number(nurse.feeRate||0),nurse.role);
+  });
+
+  read('services',[]).forEach(function(srv){
+    if(srv.status && srv.status!=='تم التنفيذ')return;
+    var v=visits.find(x=>String(x.id)===String(srv.visitId));
+    if(!v)return;
+    var item=items.find(x=>String(x.id)===String(srv.itemId));
+    var gross=Number(srv.net||srv.amount||item?.price||0)*(1-discount(v.patientId)/100);
+    var doc=staff.find(x=>String(x.id)===String(v.doctorId));
+    var base={
+      date:srv.date||v.date||now(),
+      patientId:v.patientId,
+      patientName:patientName(v.patientId),
+      sourceId:'SERVICE-'+(srv.id||srv.visitId+'-'+srv.itemId),
+      source:(item?.name||'خدمة')+' / زيارة #'+v.id,
+      service:item?.type||'خدمة',
+      gross:gross
+    };
+    if(doc)addRow(base,doc.id,Number(doc.srvRate||0),doc.role);
+  });
+
+  read('admissions',[]).forEach(function(a){
+    var gross=Number(a.total||a.dailyRate||0);
+    var doc=staff.find(x=>String(x.id)===String(a.doctorId));
+    var base={
+      date:a.date||now(),
+      patientId:a.patientId,
+      patientName:patientName(a.patientId),
+      sourceId:'ADMISSION-'+(a.id||a.patientId+'-'+a.room),
+      source:'إقامة داخلية سرير '+(a.room||a.bed||''),
+      service:'إقامة داخلية',
+      gross:gross
+    };
+    if(doc)addRow(base,doc.id,Number(doc.srvRate||doc.feeRate||0),doc.role);
+  });
+
+  read('transfers',[]).forEach(function(t){
+    var gross=Number(t.fee||0);
+    var doc=staff.find(x=>String(x.id)===String(t.doctorId));
+    var base={
+      date:t.date||now(),
+      patientId:t.patientId,
+      patientName:patientName(t.patientId),
+      sourceId:'TRANSFER-'+(t.id||Date.parse(t.date||now())+'-'+t.patientId),
+      source:'تحويل داخلي',
+      service:'تحويل داخلي',
+      gross:gross
+    };
+    if(doc)addRow(base,doc.id,Number(doc.srvRate||0),doc.role);
+  });
+
+  rows.sort(function(a,b){return new Date(a.date)-new Date(b.date);});
+  return rows;
+}
+
+window.v53BuildDoctorAccrualLedger=function(){
+  var paid=paidByPatientMap();
+  var used={};
+  var rows=buildDoctorChargeRows().map(function(r){
+    var pid=String(r.patientId||'');
+    used[pid]=used[pid]||0;
+    var available=Math.max(0,Number(paid[pid]||0)-used[pid]);
+    var collected=Math.min(Number(r.gross||0),available);
+    var deferred=Math.max(0,Number(r.gross||0)-collected);
+    used[pid]+=collected;
+    var earnedByCollection=collected*Number(r.rate||0)/100;
+    var deferredDue=deferred*Number(r.rate||0)/100;
+    return Object.assign({},r,{
+      collected:collected,
+      deferred:deferred,
+      earnedByCollection:earnedByCollection,
+      deferredDue:deferredDue,
+      status: deferred<=0?'مستحق مكتسب ومحصل':(collected>0?'مستحق جزئي التحصيل':'مستحق غير محصل')
+    });
+  });
+  write('doctorAccrualLedgerV53',rows);
+  return rows;
+};
+
+window.v53PostDoctorAccrualJournals=function(){
+  var rows=window.v53BuildDoctorAccrualLedger();
+  var count=0,total=0;
+  rows.forEach(function(r){
+    var amount=Number(r.contractualDue||0);
+    if(amount<=0)return;
+    var expenseAcc = r.role==='طبيب' ? 'مصروف أتعاب الأطباء' : 'مصروف أتعاب التمريض/الفنيين';
+    var payableAcc = r.role==='طبيب' ? 'مستحقات الأطباء' : 'مستحقات التمريض/الفنيين';
+    var ok=addJournalOnce(
+      r.accrualRef,
+      'استحقاق '+r.role+' - '+r.staffName+' - '+r.source+' - '+r.patientName,
+      [
+        {acc:expenseAcc,dr:amount,cr:0},
+        {acc:payableAcc,dr:0,cr:amount}
+      ]
+    );
+    if(ok){count++;total+=amount;}
+  });
+
+  // تحديث staff balances: due = المستحق التعاقدي الكامل، payableNow = المحصل/قابل للصرف
+  var staff=read('staff',[]);
+  var totals={}, payableNow={}, deferredTotals={};
+  rows.forEach(function(r){
+    totals[r.staffId]=(totals[r.staffId]||0)+Number(r.contractualDue||0);
+    payableNow[r.staffId]=(payableNow[r.staffId]||0)+Number(r.earnedByCollection||0);
+    deferredTotals[r.staffId]=(deferredTotals[r.staffId]||0)+Number(r.deferredDue||0);
+  });
+  staff.forEach(function(s){
+    s.due=Number(totals[s.id]||0);
+    s.payableNow=Number(payableNow[s.id]||0);
+    s.deferredDue=Number(deferredTotals[s.id]||0);
+  });
+  write('staff',staff);
+
+  return {count:count,total:total};
+};
+
+/* قيد صرف مستحقات الطبيب/التمريض */
+var oldPaySalary=window.paySalary;
+window.paySalary=function(id){
+  var staff=read('staff',[]);
+  var s=staff.find(x=>String(x.id)===String(id));
+  if(!s)return alert('لم يتم العثور على الشخص');
+  var amount=Number(s.payableNow||s.due||0);
+  if(amount<=0)return alert('لا يوجد مستحق قابل للصرف حالياً');
+
+  var treasury='الخزينة الرئيسية';
+  var method='كاش';
+
+  if(typeof window.getTreasuryBalance==='function'){
+    var bal=window.getTreasuryBalance('كاش');
+    if(amount>bal)return alert('لا يمكن صرف المستحقات لأن رصيد الكاش غير كافٍ\nالمتاح: '+money(bal)+'\nالمطلوب: '+money(amount));
+  }
+
+  if(typeof window.addTreasuryMove==='function')window.addTreasuryMove('صرف',amount,method,treasury,'صرف مستحقات '+s.name,null);
+
+  var payableAcc = s.role==='طبيب' ? 'مستحقات الأطباء' : 'مستحقات التمريض/الفنيين';
+  addJournalOnce(
+    'DOCPAY|'+id+'|'+Date.now(),
+    'صرف مستحقات '+s.name,
+    [
+      {acc:payableAcc,dr:amount,cr:0},
+      {acc:treasury,dr:0,cr:amount}
+    ]
+  );
+
+  s.paidToDate=Number(s.paidToDate||0)+amount;
+  s.payableNow=0;
+  s.due=Math.max(0,Number(s.due||0)-amount);
+  staff=staff.map(x=>String(x.id)===String(id)?s:x);
+  write('staff',staff);
+
+  if(typeof window.renderStaff==='function')window.renderStaff();
+  if(typeof window.v44RenderDues==='function')window.v44RenderDues();
+  alert('تم صرف المستحق وقيده محاسبياً.');
+};
+
+/* تقرير مستحقات الأطباء والتمريض */
+var oldV44RenderDues=window.v44RenderDues;
+window.v44RenderDues=function(){
+  var rows=window.v53BuildDoctorAccrualLedger();
+  var from=document.getElementById('v44DuesFrom')?.value||'';
+  var to=document.getElementById('v44DuesTo')?.value||'';
+  var role=document.getElementById('v44DuesRole')?.value||'all';
+  var name=document.getElementById('v44DuesName')?.value||'all';
+
+  rows=rows.filter(function(r){
+    var d=dOnly(r.date);
+    if(from&&d<from)return false;
+    if(to&&d>to)return false;
+    if(role==='doctor'&&r.role!=='طبيب')return false;
+    if(role==='nurse'&&r.role==='طبيب')return false;
+    if(name!=='all'&&String(r.staffId)!==String(name))return false;
+    return true;
+  });
+
+  var sum=document.getElementById('v44DuesSummary');
+  var box=document.getElementById('v44DuesTable');
+  if(!sum||!box){
+    if(typeof oldV44RenderDues==='function')return oldV44RenderDues();
+    return;
+  }
+
+  var gross=0,contractual=0,collected=0,deferred=0,payable=0;
+  rows.forEach(function(r){
+    gross+=Number(r.gross||0);
+    contractual+=Number(r.contractualDue||0);
+    collected+=Number(r.collected||0);
+    deferred+=Number(r.deferred||0);
+    payable+=Number(r.earnedByCollection||0);
+  });
+
+  sum.innerHTML='<div class="grid grid-4">'+
+    '<div class="stat-box"><div class="label">قيمة الخدمات</div><div class="value">'+money(gross)+'</div></div>'+
+    '<div class="stat-box"><div class="label">مستحق تعاقدي للطبيب</div><div class="value">'+money(contractual)+'</div></div>'+
+    '<div class="stat-box"><div class="label">قابل للصرف حسب التحصيل</div><div class="value">'+money(payable)+'</div></div>'+
+    '<div class="stat-box"><div class="label">مؤجل بسبب عدم التحصيل</div><div class="value">'+money(contractual-payable)+'</div></div>'+
+    '</div><div class="v53-accrual-note">تم قيد استحقاق الأطباء محاسبياً: من حـ/ مصروف أتعاب إلى حـ/ مستحقات. ويظل التحصيل ظاهرًا لمعرفة القابل للصرف والمؤجل.</div>';
+
+  if(!rows.length){box.innerHTML='<div class="no-data">لا توجد مستحقات طبقاً للفلتر</div>';return;}
+  var h='<table><tr><th>التاريخ</th><th>الاسم</th><th>الوظيفة</th><th>المريض</th><th>الخدمة</th><th>قيمة الخدمة</th><th>نسبة</th><th>مستحق تعاقدي</th><th>محصل من الخدمة</th><th>قابل للصرف</th><th>مؤجل</th><th>الحالة</th></tr>';
+  rows.forEach(function(r){
+    h+='<tr><td>'+new Date(r.date).toLocaleDateString('ar-EG')+'</td><td>'+r.staffName+'</td><td>'+r.role+'</td><td>'+r.patientName+'</td><td>'+r.source+'</td><td>'+money(r.gross)+'</td><td>'+r.rate+'%</td><td><b>'+money(r.contractualDue)+'</b></td><td class="amount-in">'+money(r.collected)+'</td><td><b>'+money(r.earnedByCollection)+'</b></td><td class="amount-out">'+money(r.deferredDue)+'</td><td><span class="badge '+(r.deferredDue<=0?'badge-success':r.earnedByCollection>0?'badge-warn':'badge-danger')+'">'+r.status+'</span></td></tr>';
+  });
+  box.innerHTML=h+'</table>';
+};
+
+function addAccrualButton(){
+  var target=document.getElementById('doctorDues') || document.getElementById('staff');
+  if(!target || document.getElementById('v53PostAccrualBtn'))return;
+  var div=document.createElement('div');
+  div.className='v53-accrual-note';
+  div.innerHTML='قيد الاستحقاق: Dr مصروف أتعاب / Cr مستحقات أطباء. <button class="btn btn-primary btn-sm" id="v53PostAccrualBtn" onclick="var r=v53PostDoctorAccrualJournals(); alert(\\'تم إنشاء \\'+r.count+\\' قيد استحقاق بإجمالي \\'+r.total.toLocaleString(\\'ar-EG\\')+\\' ج\\'); if(typeof v44RenderDues===\\'function\\')v44RenderDues();">ترحيل قيود استحقاق الأطباء الآن</button>';
+  target.insertBefore(div,target.firstChild);
+}
+
+function initV53(){
+  window.v53PostDoctorAccrualJournals();
+  addAccrualButton();
+  if(typeof window.v44RenderDues==='function')window.v44RenderDues();
+}
+
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function')oldRefresh(id);
+  setTimeout(initV53,200);
+};
+
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(initV53,900);
+});
+})();
+</script>
+
+
+<script id="athar-v54-single-bedmap">
+(function(){
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function patientName(id){var p=read('patients',[]).find(function(x){return String(x.id)===String(id)});return p?p.name:'-'}
+function activeAdmissions(){return read('admissions',[]).filter(function(a){var s=a.status||'مفتوحة';return s==='مفتوحة'||s==='open'})}
+function ensureRooms(){
+  var rooms=read('rooms',[]);
+  if(!rooms.length){
+    rooms=[101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120].map(function(n){
+      return {id:String(n),number:String(n),status:'available',patientId:null,admissionId:null}
+    });
+    write('rooms',rooms);
+  }
+  return rooms;
+}
+function syncRooms(){
+  var rooms=ensureRooms();
+  rooms.forEach(function(r){
+    if(r.status==='occupied'){
+      var still=activeAdmissions().find(function(a){return String(a.id)===String(r.admissionId)});
+      if(!still){r.status='available';r.patientId=null;r.admissionId=null}
+    }
+  });
+  activeAdmissions().forEach(function(a){
+    var no=String(a.room||a.bed||a.roomNo||'');
+    if(!no)return;
+    var r=rooms.find(function(x){return String(x.number)===no||String(x.id)===no});
+    if(r){r.status='occupied';r.patientId=a.patientId;r.admissionId=a.id}
+  });
+  write('rooms',rooms);
+  return rooms;
+}
+function bedHtml(r){
+  var cls=r.status==='occupied'?'occupied':(r.status==='reserved'?'reserved':'available');
+  var st=r.status==='occupied'?'مشغول':(r.status==='reserved'?'محجوز':'متاح');
+  var pat=r.status==='occupied'?'<small>'+patientName(r.patientId)+'</small>':'';
+  return '<div class="v54-bed '+cls+'" onclick="v54SelectBed(\\''+r.number+'\\')"><div class="num">'+r.number+'</div><div class="status">'+st+'</div>'+pat+'</div>';
+}
+window.v54RenderSingleAdmissionBedMap=function(){
+  var box=document.getElementById('v54OperationalBedMap');
+  if(!box)return;
+  var rooms=syncRooms();
+  box.innerHTML=rooms.map(bedHtml).join('');
+
+  // Empty old duplicated containers so they don't show repeated beds if CSS unsupported
+  ['v46RoomMap','v47OperationalBedMap','v49OperationalBedMap'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){el.innerHTML='';el.style.display='none'}
+  });
+};
+window.v54SelectBed=function(no){
+  var rooms=syncRooms();
+  var r=rooms.find(function(x){return String(x.number)===String(no)});
+  if(r && r.status==='occupied'){
+    alert('السرير '+no+' مشغول بواسطة '+patientName(r.patientId));
+    return;
+  }
+  var ids=['v46AdmRoom','admRoom','recAdmRoom'];
+  ids.forEach(function(id){var el=document.getElementById(id);if(el)el.value=no});
+  if(typeof window.v46PreviewRoom==='function')window.v46PreviewRoom();
+};
+
+function patchRenderers(){
+  // Stop old map renderers inside admission from refilling duplicate containers
+  var oldV46=window.v46RenderRoomMap;
+  window.v46RenderRoomMap=function(){
+    if(typeof oldV46==='function'){
+      try{ oldV46.apply(this,arguments); }catch(e){}
+    }
+    setTimeout(window.v54RenderSingleAdmissionBedMap,50);
+  };
+
+  var oldV47=window.v47RenderOperationalBedMap;
+  window.v47RenderOperationalBedMap=function(){
+    setTimeout(window.v54RenderSingleAdmissionBedMap,20);
+  };
+
+  // Keep dashboard renderer working, but admission only uses V54
+  var oldV49=window.v49RenderBedMaps;
+  window.v49RenderBedMaps=function(){
+    if(typeof oldV49==='function'){
+      try{ oldV49.apply(this,arguments); }catch(e){}
+    }
+    setTimeout(window.v54RenderSingleAdmissionBedMap,50);
+  };
+}
+
+function cleanup(){
+  window.v54RenderSingleAdmissionBedMap();
+}
+
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function')oldRefresh(id);
+  setTimeout(cleanup,120);
+};
+
+document.addEventListener('DOMContentLoaded',function(){
+  patchRenderers();
+  setTimeout(cleanup,700);
+  setInterval(function(){
+    var active=document.querySelector('.page.active');
+    if(active && active.id==='admission')cleanup();
+  },1500);
+});
+})();
+</script>
+
+
+<script id="athar-v55-merge-alerts">
+(function(){
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function money(v){return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+
+function removeAccountingAlertCard(){
+  var old=document.getElementById('v51LogicAlerts');
+  if(old) old.remove();
+
+  // Remove any card with title تنبيهات محاسبية if created without id
+  document.querySelectorAll('.card').forEach(function(card){
+    var h=card.querySelector('h2');
+    if(h && (h.textContent||'').includes('تنبيهات محاسبية')){
+      card.remove();
+    }
+  });
+}
+
+function findSystemAlertsBody(){
+  // Prefer existing system alert card
+  var cards=Array.from(document.querySelectorAll('.card'));
+  for(var i=0;i<cards.length;i++){
+    var h=cards[i].querySelector('h2');
+    if(h && (h.textContent||'').includes('تنبيهات النظام')){
+      var body=cards[i].querySelector('#systemAlerts,#alertsBox,#dashboardAlerts,.alerts-body');
+      if(body) return body;
+      var div=cards[i].querySelector('div:not(h2)');
+      if(div) return div;
+      var newBody=document.createElement('div');
+      newBody.id='v55MergedAlertsBody';
+      cards[i].appendChild(newBody);
+      return newBody;
+    }
+  }
+
+  // If no system alert card exists, create one before visits/bedmap
+  var dashboard=document.getElementById('dashboard')||document.getElementById('home')||document.querySelector('.page.active');
+  if(!dashboard)return null;
+  var card=document.createElement('div');
+  card.className='card';
+  card.id='v55SystemAlertsCard';
+  card.innerHTML='<h2>🔔 تنبيهات النظام</h2><div id="v55MergedAlertsBody"></div>';
+  var before=Array.from(dashboard.querySelectorAll('.card')).find(function(c){
+    var h=c.querySelector('h2');
+    return h && ((h.textContent||'').includes('آخر الزيارات') || (h.textContent||'').includes('خريطة إشغال الأسرة'));
+  });
+  dashboard.insertBefore(card,before||null);
+  return card.querySelector('#v55MergedAlertsBody');
+}
+
+function buildAccountingAlerts(){
+  var alerts=[];
+
+  var openPatients=read('patients',[]).filter(function(p){return Number(p.balance||0)>0;});
+  var totalDebt=openPatients.reduce(function(s,p){return s+Number(p.balance||0);},0);
+  if(openPatients.length){
+    alerts.push('مديونيات مرضى مفتوحة: عدد المرضى '+openPatients.length+' | الإجمالي '+money(totalDebt));
+  }
+
+  var ledger=read('doctorAccrualLedgerV53',[]);
+  if(!ledger.length && typeof window.v53BuildDoctorAccrualLedger==='function'){
+    try{ledger=window.v53BuildDoctorAccrualLedger();}catch(e){}
+  }
+  if(!ledger.length && typeof window.v51BuildStaffEarnedPending==='function'){
+    try{ledger=window.v51BuildStaffEarnedPending();}catch(e){}
+  }
+
+  var uncollected=ledger.filter(function(x){
+    return Number(x.deferredDue||x.pendingDue||x.pending||0)>0;
+  });
+  var uncollectedAmount=uncollected.reduce(function(s,x){
+    return s+Number(x.deferredDue||x.pendingDue||x.pending||0);
+  },0);
+  if(uncollected.length){
+    alerts.push('خدمات غير محصلة مرتبطة بمستحقات أطباء/تمريض: عدد الحركات '+uncollected.length+' | غير المحصل '+money(uncollectedAmount));
+  }
+
+  if(typeof window.getTreasuryBalance==='function'){
+    ['كاش','شبكة','تحويل'].forEach(function(m){
+      var b=Number(window.getTreasuryBalance(m)||0);
+      if(b<0) alerts.push('رصيد '+m+' بالسالب: '+money(b));
+    });
+  }
+
+  return alerts;
+}
+
+window.v55MergeAlerts=function(){
+  removeAccountingAlertCard();
+  var body=findSystemAlertsBody();
+  if(!body)return;
+
+  // Keep existing operational alerts text, but remove duplicate accounting lines first
+  var existing=[];
+  Array.from(body.children).forEach(function(ch){
+    var txt=(ch.textContent||'').trim();
+    if(!txt)return;
+    if(txt.includes('مديونيات مرضى') || txt.includes('خدمات غير محصلة') || txt.includes('مستحقات أطباء')){
+      ch.remove();
+    }
+  });
+
+  var accounting=buildAccountingAlerts();
+  var html='';
+  if(accounting.length){
+    html+=accounting.map(function(a){return '<div class="v55-alert-line accounting">⚠️ '+a+'</div>';}).join('');
+  }
+
+  // If card became empty and no accounting, show ok
+  var hasExisting=Array.from(body.children).some(function(ch){return (ch.textContent||'').trim();});
+  if(!hasExisting && !accounting.length){
+    html='<div class="v55-alert-line ok">✅ لا توجد تنبيهات حالية.</div>';
+  }
+
+  if(html){
+    body.insertAdjacentHTML('beforeend',html);
+  }
+};
+
+var oldV51=window.v51RenderLogicAlerts;
+window.v51RenderLogicAlerts=function(){
+  // لا ننشئ كارت مستقل للتنبيهات المحاسبية بعد الآن
+  setTimeout(window.v55MergeAlerts,80);
+};
+
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function')oldRefresh(id);
+  setTimeout(window.v55MergeAlerts,150);
+};
+
+var oldDash=window.renderDashboard;
+window.renderDashboard=function(){
+  if(typeof oldDash==='function')oldDash();
+  setTimeout(window.v55MergeAlerts,150);
+};
+
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(window.v55MergeAlerts,800);
+});
 })();
 </script>
 
