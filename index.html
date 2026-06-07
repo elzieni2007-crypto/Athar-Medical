@@ -307,7 +307,7 @@ nav{
   <div class="card">
     <h2>سداد مديونية مريض</h2>
     <div class="grid grid-3">
-      <div class="field"><label>المريض</label><select id="payPatient" onchange="showPatientBalance(); updatePayBalanceNow();"></select></div>
+      <div class="field"><label>المريض</label><select id="payPatient" onchange="atharUpdatePatientBalance();"></select></div>
       <div class="field"><label>الرصيد المستحق</label><input id="payBalance" disabled style="background:#f8f9fa;font-weight:700;color:#dc3545;"></div>
       <div class="field"><label>المبلغ المراد سداده</label><input type="number" id="payAmount"></div>
       <div class="field"><label>طريقة الدفع</label><select id="payMethod"><option>كاش</option><option>شبكة</option><option>تحويل بنكي</option></select></div>
@@ -902,273 +902,249 @@ box-shadow:0 -4px 20px rgba(0,0,0,.12);
 
 
 
-<script id="athar-cashier-old-table-fix">
+
+
+
+
+
+
+<script id="athar-cashier-force-fix">
 (function(){
-function money(v){
-  return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' ج';
-}
-function patientName(id){
-  const p=(window.patients||[]).find(x=>String(x.id)===String(id));
-  return p?p.name:'-';
-}
-function getPatientBalance(id){
-  const p=(window.patients||[]).find(x=>String(x.id)===String(id));
-  return p?Number(p.balance||0):0;
-}
+  function read(key, def){
+    try { return JSON.parse(localStorage.getItem('athar_' + key) || JSON.stringify(def)); }
+    catch(e){ return def; }
+  }
+  function write(key, val){
+    try { localStorage.setItem('athar_' + key, JSON.stringify(val)); } catch(e){}
+  }
+  function money(v){
+    return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' ج';
+  }
+  function getPatients(){ return read('patients', []); }
+  function getPayments(){ return read('payments', []); }
+  function getExpenses(){ return read('expenses', []); }
+  function getTreasuryMovements(){ return read('treasuryMovements', []); }
+  function getPatientName(id){
+    var p = getPatients().find(function(x){ return String(x.id) === String(id); });
+    return p ? p.name : '-';
+  }
+  function getPatientBalance(id){
+    var p = getPatients().find(function(x){ return String(x.id) === String(id); });
+    return p ? Number(p.balance || 0) : 0;
+  }
 
-window.updatePayBalanceNow = window.showPatientBalance = function(){
-  const sel=document.getElementById('payPatient');
-  const balInput=document.getElementById('payBalance');
-  if(!sel || !balInput) return;
-  const bal=getPatientBalance(sel.value);
-  balInput.value=money(bal);
-  balInput.style.color= bal>0 ? '#dc3545' : '#198754';
-  balInput.style.fontWeight='900';
-  balInput.style.background='#fff';
-  const amt=document.getElementById('payAmount');
-  if(amt){ amt.placeholder = bal>0 ? ('المستحق: '+money(bal)) : 'لا يوجد مديونية'; }
-};
+  window.atharUpdatePatientBalance = window.showPatientBalance = function(){
+    var sel = document.getElementById('payPatient');
+    var box = document.getElementById('payBalance');
+    if(!sel || !box) return;
 
-function getAllTreasuryRows(){
-  const rows = [];
-  const addRow = function(row){ rows.push(row); };
+    var bal = getPatientBalance(sel.value);
+    box.value = money(bal);
+    box.setAttribute('value', money(bal));
+    box.style.color = bal > 0 ? '#dc3545' : '#198754';
+    box.style.fontWeight = '900';
+    box.style.background = '#fff';
 
-  (window.treasuryMovements||[]).forEach(function(m){
-    addRow({
-      date:m.date || new Date().toISOString(),
-      type:m.type || 'قبض',
-      party:m.patientId ? patientName(m.patientId) : (m.party || '-'),
-      desc:m.desc || m.note || '-',
-      method:m.method || 'كاش',
-      treasury:m.treasury || 'الخزينة الرئيسية',
-      amount:Number(m.amount)||0
-    });
-  });
+    var amount = document.getElementById('payAmount');
+    if(amount) amount.placeholder = bal > 0 ? ('المستحق: ' + money(bal)) : 'لا يوجد مديونية';
 
-  (window.payments||[]).forEach(function(p){
-    const exists = rows.some(function(r){
-      return r.date===p.date && Number(r.amount)===Number(p.amount) && r.type==='قبض' && r.party===patientName(p.patientId);
-    });
-    if(!exists){
-      addRow({
-        date:p.date || new Date().toISOString(),
-        type:'قبض',
-        party:patientName(p.patientId),
-        desc:p.note || 'سداد مريض',
-        method:p.method || 'كاش',
-        treasury:p.treasury || 'الخزينة الرئيسية',
-        amount:Number(p.amount)||0
-      });
+    // label helper beside field if needed
+    var parent = box.closest('.field');
+    if(parent && !parent.querySelector('.live-balance-note')){
+      var note = document.createElement('div');
+      note.className = 'live-balance-note';
+      note.style.cssText = 'font-size:12px;margin-top:5px;font-weight:800;';
+      parent.appendChild(note);
     }
-  });
-
-  (window.expenses||[]).forEach(function(e){
-    const exists = rows.some(function(r){
-      return r.date===e.date && Number(r.amount)===Number(e.amount) && r.type==='صرف';
-    });
-    if(!exists){
-      addRow({
-        date:e.date || new Date().toISOString(),
-        type:'صرف',
-        party:e.type || 'مصروف',
-        desc:e.note || e.type || '-',
-        method:e.method || 'كاش',
-        treasury:e.treasury || 'الخزينة الرئيسية',
-        amount:Number(e.amount)||0
-      });
+    var noteEl = parent ? parent.querySelector('.live-balance-note') : null;
+    if(noteEl){
+      noteEl.textContent = bal > 0 ? ('المستحق على المريض: ' + money(bal)) : 'لا توجد مديونية';
+      noteEl.style.color = bal > 0 ? '#dc3545' : '#198754';
     }
-  });
+  };
 
-  return rows.sort(function(a,b){ return new Date(a.date)-new Date(b.date); });
-}
+  function allRows(){
+    var rows = [];
+    var tms = getTreasuryMovements();
+    var pays = getPayments();
+    var exps = getExpenses();
 
-function calcBalances(rows){
-  let cash=0, card=0, bank=0, total=0;
-  rows.forEach(function(r){
-    const sign = r.type==='صرف' ? -1 : 1;
-    const amount = Number(r.amount)||0;
-    if((r.method||'').includes('شبكة')) card += sign*amount;
-    else if((r.method||'').includes('تحويل')) bank += sign*amount;
-    else cash += sign*amount;
-    total = cash + card + bank;
-    r.cashBal = cash;
-    r.cardBal = card;
-    r.bankBal = bank;
-    r.totalBal = total;
-  });
-  return {cash:cash,card:card,bank:bank,total:total};
-}
-
-window.renderTreasurySummaryCards = function(){
-  const box=document.getElementById('treasurySummaryCards');
-  if(!box) return;
-  const rows=getAllTreasuryRows();
-  const b=calcBalances(rows);
-  box.innerHTML =
-    '<div class="stat-box"><div class="label">💵 رصيد كاش</div><div class="value">'+money(b.cash)+'</div></div>' +
-    '<div class="stat-box"><div class="label">💳 رصيد شبكة</div><div class="value">'+money(b.card)+'</div></div>' +
-    '<div class="stat-box"><div class="label">🏦 رصيد تحويلات</div><div class="value">'+money(b.bank)+'</div></div>' +
-    '<div class="stat-box"><div class="label">💰 إجمالي الرصيد</div><div class="value">'+money(b.total)+'</div></div>';
-};
-
-window.renderCashier = function(){
-  updatePayBalanceNow();
-  const box=document.getElementById('cashierTable');
-  if(!box) return;
-
-  const today=new Date().toDateString();
-  const allRows=getAllTreasuryRows();
-  const todayRows=allRows.filter(function(r){ return new Date(r.date).toDateString()===today; });
-  calcBalances(todayRows);
-  renderTreasurySummaryCards();
-
-  if(!todayRows.length){
-    box.innerHTML='<div class="no-data">لا توجد حركات خزينة اليوم</div>';
-    return;
-  }
-
-  let html = '<table><tr>' +
-    '<th>نوع</th><th>الطرف</th><th>البيان</th><th>حالة الدفع</th>' +
-    '<th>مقبوض</th><th>منصرف</th><th>رصيد كاش</th><th>رصيد شبكة</th>' +
-    '<th>رصيد تحويل</th><th>إجمالي الرصيد</th><th>التاريخ</th></tr>';
-
-  todayRows.forEach(function(r){
-    const isOut=r.type==='صرف';
-    html += '<tr>' +
-      '<td><span class="badge '+(isOut?'badge-danger':'badge-success')+'">'+r.type+'</span></td>' +
-      '<td>'+(r.party||'-')+'</td>' +
-      '<td>'+(r.desc||'-')+'</td>' +
-      '<td><span class="badge badge-success">'+(r.method||'كاش')+'</span></td>' +
-      '<td style="color:#198754;font-weight:800;">'+(!isOut?money(r.amount):'-')+'</td>' +
-      '<td style="color:#dc3545;font-weight:800;">'+(isOut?money(r.amount):'-')+'</td>' +
-      '<td>'+money(r.cashBal)+'</td>' +
-      '<td>'+money(r.cardBal)+'</td>' +
-      '<td>'+money(r.bankBal)+'</td>' +
-      '<td style="color:#0d7377;font-weight:900;">'+money(r.totalBal)+'</td>' +
-      '<td>'+new Date(r.date).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'})+'</td>' +
-    '</tr>';
-  });
-  html += '</table>';
-  box.innerHTML = html;
-};
-
-const oldFillPatientSelects = window.fillPatientSelects;
-window.fillPatientSelects = function(){
-  if(typeof oldFillPatientSelects==='function') oldFillPatientSelects();
-  const sel=document.getElementById('payPatient');
-  if(sel){
-    sel.setAttribute('onchange','showPatientBalance(); updatePayBalanceNow();');
-    setTimeout(updatePayBalanceNow,50);
-  }
-};
-
-const oldPayPartial = window.payPartial;
-window.payPartial = function(){
-  const sel=document.getElementById('payPatient');
-  const patientId=sel?sel.value:null;
-  const amount=Number(document.getElementById('payAmount')?.value)||0;
-  const method=document.getElementById('payMethod')?.value || 'كاش';
-  const treasury=document.getElementById('payTreasury')?.value || 'الخزينة الرئيسية';
-  const note=document.getElementById('payNote')?.value || 'سداد مريض';
-  const before = (window.payments||[]).length;
-
-  if(typeof oldPayPartial==='function') oldPayPartial();
-
-  const after = (window.payments||[]).length;
-  if(after>before && amount>0){
-    window.treasuryMovements = window.treasuryMovements || [];
-    window.treasuryMovements.push({
-      id:'TM-'+Date.now(),
-      date:new Date().toISOString(),
-      type:'قبض',
-      amount:amount,
-      method:method,
-      treasury:treasury,
-      desc:note,
-      patientId:patientId
+    tms.forEach(function(m){
+      rows.push({
+        date: m.date || new Date().toISOString(),
+        type: m.type || 'قبض',
+        party: m.patientId ? getPatientName(m.patientId) : (m.party || '-'),
+        desc: m.desc || m.note || '-',
+        method: m.method || 'كاش',
+        treasury: m.treasury || 'الخزينة الرئيسية',
+        amount: Number(m.amount)||0
+      });
     });
-    try{localStorage.setItem('athar_treasuryMovements', JSON.stringify(window.treasuryMovements));}catch(e){}
-  }
-  updatePayBalanceNow();
-  renderCashier();
-};
 
-const oldRefreshPage = window.refreshPage;
-window.refreshPage = function(id){
-  if(typeof oldRefreshPage==='function') oldRefreshPage(id);
-  if(id==='cashier'){
-    setTimeout(function(){
-      updatePayBalanceNow();
-      renderCashier();
-    },80);
-  }
-};
-
-document.addEventListener('DOMContentLoaded', function(){
-  setTimeout(function(){
-    const sel=document.getElementById('payPatient');
-    if(sel) sel.setAttribute('onchange','showPatientBalance(); updatePayBalanceNow();');
-    updatePayBalanceNow();
-    renderTreasurySummaryCards();
-  },300);
-});
-})();
-</script>
-
-
-<script id="athar-balance-live-fix">
-(function(){
-function money(v){
- return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';
-}
-
-window.showPatientBalance = function(){
- const sel=document.getElementById('payPatient');
- const bal=document.getElementById('payBalance');
-
- if(!sel || !bal) return;
-
- let patient = null;
-
- if(window.patients && Array.isArray(window.patients)){
-   patient = window.patients.find(function(p){
-      return String(p.id) === String(sel.value);
-   });
- }
-
- let amount = 0;
-
- if(patient){
-    amount = Number(
-      patient.balance ||
-      patient.remaining ||
-      patient.debt ||
-      patient.totalDue ||
-      0
-    );
- }
-
- bal.value = money(amount);
-
- bal.style.fontWeight = '900';
- bal.style.color = amount > 0 ? '#dc3545' : '#198754';
- bal.style.background = '#ffffff';
-
- console.log("Patient balance:", amount);
-};
-
-document.addEventListener('DOMContentLoaded', function(){
-   setTimeout(function(){
-      const sel = document.getElementById('payPatient');
-      if(sel){
-         sel.addEventListener('change', function(){
-            showPatientBalance();
-         });
-
-         showPatientBalance();
+    pays.forEach(function(p){
+      var exists = rows.some(function(r){
+        return r.type === 'قبض' && String(r.party) === String(getPatientName(p.patientId)) && Number(r.amount) === Number(p.amount) && String(r.date) === String(p.date);
+      });
+      if(!exists){
+        rows.push({
+          date: p.date || new Date().toISOString(),
+          type: 'قبض',
+          party: getPatientName(p.patientId),
+          desc: p.note || 'سداد مريض',
+          method: p.method || 'كاش',
+          treasury: p.treasury || 'الخزينة الرئيسية',
+          amount: Number(p.amount)||0
+        });
       }
-   }, 500);
-});
+    });
+
+    exps.forEach(function(e){
+      var exists = rows.some(function(r){
+        return r.type === 'صرف' && Number(r.amount) === Number(e.amount) && String(r.date) === String(e.date);
+      });
+      if(!exists){
+        rows.push({
+          date: e.date || new Date().toISOString(),
+          type: 'صرف',
+          party: e.type || 'مصروف',
+          desc: e.note || e.type || '-',
+          method: e.method || 'كاش',
+          treasury: e.treasury || 'الخزينة الرئيسية',
+          amount: Number(e.amount)||0
+        });
+      }
+    });
+
+    rows.sort(function(a,b){ return new Date(a.date) - new Date(b.date); });
+
+    var cash=0, card=0, bank=0;
+    rows.forEach(function(r){
+      var sign = r.type === 'صرف' ? -1 : 1;
+      if((r.method||'').indexOf('شبكة') >= 0) card += sign * r.amount;
+      else if((r.method||'').indexOf('تحويل') >= 0) bank += sign * r.amount;
+      else cash += sign * r.amount;
+      r.cashBal = cash;
+      r.cardBal = card;
+      r.bankBal = bank;
+      r.totalBal = cash + card + bank;
+    });
+
+    return rows;
+  }
+
+  window.atharRenderTreasuryCards = function(){
+    var box = document.getElementById('treasurySummaryCards');
+    if(!box) return;
+    var rows = allRows();
+    var last = rows.length ? rows[rows.length-1] : {cashBal:0,cardBal:0,bankBal:0,totalBal:0};
+    box.innerHTML =
+      '<div class="stat-box"><div class="label">💵 رصيد كاش</div><div class="value">'+money(last.cashBal)+'</div></div>' +
+      '<div class="stat-box"><div class="label">💳 رصيد شبكة</div><div class="value">'+money(last.cardBal)+'</div></div>' +
+      '<div class="stat-box"><div class="label">🏦 رصيد تحويل بنكي</div><div class="value">'+money(last.bankBal)+'</div></div>' +
+      '<div class="stat-box"><div class="label">💰 إجمالي الرصيد</div><div class="value">'+money(last.totalBal)+'</div></div>';
+  };
+
+  window.renderCashier = window.atharRenderCashier = function(){
+    window.atharUpdatePatientBalance();
+    window.atharRenderTreasuryCards();
+
+    var box = document.getElementById('cashierTable');
+    if(!box) return;
+
+    var today = new Date().toDateString();
+    var rows = allRows().filter(function(r){ return new Date(r.date).toDateString() === today; });
+
+    if(!rows.length){
+      box.innerHTML = '<div class="no-data">لا توجد حركات خزينة اليوم</div>';
+      return;
+    }
+
+    var html = '<table><tr>' +
+      '<th>نوع</th><th>الطرف</th><th>البيان</th><th>حالة الدفع</th>' +
+      '<th>مقبوض</th><th>منصرف</th><th>رصيد كاش</th><th>رصيد شبكة</th>' +
+      '<th>رصيد تحويل</th><th>إجمالي الرصيد</th><th>التاريخ</th>' +
+      '</tr>';
+
+    rows.forEach(function(r){
+      var out = r.type === 'صرف';
+      html += '<tr>' +
+        '<td><span class="badge '+(out?'badge-danger':'badge-success')+'">'+r.type+'</span></td>' +
+        '<td>'+r.party+'</td>' +
+        '<td>'+r.desc+'</td>' +
+        '<td><span class="badge badge-success">'+r.method+'</span></td>' +
+        '<td style="color:#198754;font-weight:800;">'+(!out ? money(r.amount) : '-')+'</td>' +
+        '<td style="color:#dc3545;font-weight:800;">'+(out ? money(r.amount) : '-')+'</td>' +
+        '<td>'+money(r.cashBal)+'</td>' +
+        '<td>'+money(r.cardBal)+'</td>' +
+        '<td>'+money(r.bankBal)+'</td>' +
+        '<td style="color:#0d7377;font-weight:900;">'+money(r.totalBal)+'</td>' +
+        '<td>'+new Date(r.date).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'})+'</td>' +
+        '</tr>';
+    });
+    html += '</table>';
+    box.innerHTML = html;
+  };
+
+  // Make sure patient balance updates after original fillPatientSelects changes options
+  var oldFill = window.fillPatientSelects;
+  window.fillPatientSelects = function(){
+    if(typeof oldFill === 'function') oldFill();
+    var sel = document.getElementById('payPatient');
+    if(sel){
+      sel.onchange = function(){ window.atharUpdatePatientBalance(); };
+      setTimeout(window.atharUpdatePatientBalance, 50);
+    }
+  };
+
+  // After saving payment, force redraw
+  var oldPay = window.payPartial;
+  window.payPartial = function(){
+    if(typeof oldPay === 'function') oldPay();
+    setTimeout(function(){
+      window.atharUpdatePatientBalance();
+      window.atharRenderCashier();
+    }, 80);
+  };
+
+  var oldRefresh = window.refreshPage;
+  window.refreshPage = function(id){
+    if(typeof oldRefresh === 'function') oldRefresh(id);
+    if(id === 'cashier'){
+      setTimeout(function(){
+        window.atharUpdatePatientBalance();
+        window.atharRenderCashier();
+      }, 120);
+    }
+  };
+
+  document.addEventListener('change', function(e){
+    if(e.target && e.target.id === 'payPatient') window.atharUpdatePatientBalance();
+  });
+
+  document.addEventListener('click', function(e){
+    var txt = (e.target && e.target.textContent || '');
+    if(txt.indexOf('الخزينة') >= 0){
+      setTimeout(function(){
+        window.atharUpdatePatientBalance();
+        window.atharRenderCashier();
+      }, 200);
+    }
+  });
+
+  setInterval(function(){
+    if(document.getElementById('cashier') && document.getElementById('cashier').classList.contains('active')){
+      window.atharUpdatePatientBalance();
+      window.atharRenderCashier();
+    }
+  }, 1000);
+
+  setTimeout(function(){
+    window.atharUpdatePatientBalance();
+    window.atharRenderTreasuryCards();
+    if(document.getElementById('cashier') && document.getElementById('cashier').classList.contains('active')){
+      window.atharRenderCashier();
+    }
+  }, 400);
 })();
 </script>
 
