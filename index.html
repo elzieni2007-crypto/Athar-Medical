@@ -377,7 +377,32 @@ nav{
   <div class="card"><h2>ميزان المراجعة</h2><div id="trialBalance"></div></div>
   <div class="card"><h2>قائمة الدخل المبسطة</h2><div id="incomeStatement"></div></div>
   <div class="card"><h2>💰 تقرير رصيد وحركة الخزينة</h2><div id="treasuryReport"></div></div>
-  <div class="card"><h2>👨‍⚕️ كشف حساب الأطباء</h2><div id="doctorAccountReport"></div></div>
+  
+
+<div class="card" id="staffReportFiltersCard">
+  <h2>🔎 فلاتر تحليلية للتقارير</h2>
+  <div class="grid grid-4">
+    <div class="field"><label>من تاريخ</label><input type="date" id="staffRptFrom"></div>
+    <div class="field"><label>إلى تاريخ</label><input type="date" id="staffRptTo"></div>
+    <div class="field"><label>المستوى الأول</label>
+      <select id="staffRptLevel1" onchange="fillSmartReportLevel2(); renderStaffAccountReports();">
+        <option value="all">الكل</option>
+        <option value="doctor">أطباء</option>
+        <option value="department">قسم</option>
+        <option value="service">خدمة</option>
+        <option value="patient">مريض</option>
+        <option value="nurse">تمريض / فنيين</option>
+      </select>
+    </div>
+    <div class="field"><label>المستوى الثاني</label><select id="staffRptLevel2"></select></div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" onclick="renderStaffAccountReports()">🔍 تطبيق الفلتر</button>
+    <button class="btn btn-warn" onclick="resetStaffReportFilters()">🔄 إلغاء الفلتر</button>
+  </div>
+</div>
+
+<div class="card"><h2>👨‍⚕️ كشف حساب الأطباء</h2><div id="doctorAccountReport"></div></div>
   <div class="card"><h2>👩‍⚕️ كشف حساب التمريض ومساعد التمريض</h2><div id="nurseAccountReport"></div></div>
   <div class="card"><h2>💊 كشف حساب الصيدلية ومجمل الربح</h2><div id="pharmacyProfitReport"></div></div>
   <div class="card"><h2>🧪 كشف حساب المعمل والأشعة ومجمل الربح</h2><div id="labProfitReport"></div></div>
@@ -1145,6 +1170,323 @@ box-shadow:0 -4px 20px rgba(0,0,0,.12);
       window.atharRenderCashier();
     }
   }, 400);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script id="athar-smart-two-level-filter">
+(function(){
+
+function read(key, def){
+  try { return JSON.parse(localStorage.getItem('athar_' + key) || JSON.stringify(def)); }
+  catch(e){ return def; }
+}
+function money(v){
+  return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' ج';
+}
+function dt(v){
+  try { return new Date(v).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'}); }
+  catch(e){ return '-'; }
+}
+function dOnly(v){
+  try { return new Date(v).toISOString().slice(0,10); }
+  catch(e){ return ''; }
+}
+function patientName(id){
+  var p = read('patients',[]).find(function(x){ return String(x.id) === String(id); });
+  return p ? p.name : '-';
+}
+function staffName(id){
+  var s = read('staff',[]).find(function(x){ return String(x.id) === String(id); });
+  return s ? s.name : '-';
+}
+function staffRole(id){
+  var s = read('staff',[]).find(function(x){ return String(x.id) === String(id); });
+  return s ? s.role : '-';
+}
+function serviceName(code){
+  var map = {visit:'كشف', pharmacy:'صيدلية', lab:'تحاليل', xray:'أشعة'};
+  return map[code] || code || '-';
+}
+
+function getDepartments(){
+  var deps = read('departments',[]);
+  if(deps && deps.length) return deps;
+  var visits = read('visits',[]);
+  var names = {};
+  visits.forEach(function(v){
+    if(v.departmentName) names[v.departmentName] = true;
+    else if(v.departmentId) names['قسم #' + v.departmentId] = true;
+  });
+  return Object.keys(names).map(function(n,i){ return {id:n,name:n}; });
+}
+
+window.fillSmartReportLevel2 = function(){
+  var l1 = document.getElementById('staffRptLevel1');
+  var l2 = document.getElementById('staffRptLevel2');
+  if(!l1 || !l2) return;
+
+  var val = l1.value;
+  var html = '<option value="all">الكل</option>';
+
+  if(val === 'doctor'){
+    read('staff',[]).filter(function(s){return s.role === 'طبيب';}).forEach(function(s){
+      html += '<option value="'+s.id+'">'+s.name+'</option>';
+    });
+  } else if(val === 'nurse'){
+    read('staff',[]).filter(function(s){return s.role !== 'طبيب';}).forEach(function(s){
+      html += '<option value="'+s.id+'">'+s.name+' - '+s.role+'</option>';
+    });
+  } else if(val === 'patient'){
+    read('patients',[]).forEach(function(p){
+      html += '<option value="'+p.id+'">'+p.name+'</option>';
+    });
+  } else if(val === 'department'){
+    getDepartments().forEach(function(d){
+      html += '<option value="'+d.id+'">'+(d.name || d.id)+'</option>';
+    });
+  } else if(val === 'service'){
+    html += '<option value="visit">كشف</option>';
+    html += '<option value="pharmacy">صيدلية</option>';
+    html += '<option value="lab">تحاليل</option>';
+    html += '<option value="xray">أشعة</option>';
+  }
+
+  l2.innerHTML = html;
+};
+
+window.resetStaffReportFilters = function(){
+  ['staffRptFrom','staffRptTo'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  var l1=document.getElementById('staffRptLevel1'); if(l1) l1.value='all';
+  fillSmartReportLevel2();
+  var l2=document.getElementById('staffRptLevel2'); if(l2) l2.value='all';
+  renderStaffAccountReports();
+};
+
+function getFilters(){
+  return {
+    from: document.getElementById('staffRptFrom') ? document.getElementById('staffRptFrom').value : '',
+    to: document.getElementById('staffRptTo') ? document.getElementById('staffRptTo').value : '',
+    level1: document.getElementById('staffRptLevel1') ? document.getElementById('staffRptLevel1').value : 'all',
+    level2: document.getElementById('staffRptLevel2') ? document.getElementById('staffRptLevel2').value : 'all'
+  };
+}
+
+function depNameByVisit(v){
+  if(v.departmentName) return v.departmentName;
+  var deps = read('departments',[]);
+  var d = deps.find(function(x){ return String(x.id) === String(v.departmentId); });
+  return d ? d.name : (v.departmentId ? 'قسم #' + v.departmentId : '-');
+}
+
+function buildRows(){
+  var rows = [];
+  var staff = read('staff',[]);
+  var visits = read('visits',[]);
+  var staffLedger = read('staffLedger',[]);
+
+  // staffLedger rows
+  staffLedger.forEach(function(r){
+    rows.push({
+      date:r.date || new Date().toISOString(),
+      staffId:r.staffId,
+      staff:staffName(r.staffId),
+      role:staffRole(r.staffId),
+      patientId:r.patientId,
+      patient:patientName(r.patientId),
+      departmentId:r.departmentId || '',
+      department:r.departmentName || '-',
+      serviceCode:r.serviceCode || 'visit',
+      service:r.source || r.service || 'كشف',
+      gross:Number(r.gross)||0,
+      rate:Number(r.rate)||0,
+      net:Number(r.net)||0
+    });
+  });
+
+  // fallback from visits
+  if(!rows.length){
+    visits.forEach(function(v){
+      var doc = staff.find(function(s){ return String(s.id)===String(v.doctorId); });
+      var nurse = staff.find(function(s){ return String(s.id)===String(v.nurseId); });
+      var dep = depNameByVisit(v);
+      if(doc){
+        rows.push({
+          date:v.date, staffId:doc.id, staff:doc.name, role:doc.role,
+          patientId:v.patientId, patient:patientName(v.patientId),
+          departmentId:v.departmentId || dep, department:dep,
+          serviceCode:'visit', service:'كشف',
+          gross:Number(v.fee)||0, rate:Number(doc.feeRate)||0,
+          net:(Number(v.fee)||0)*(Number(doc.feeRate)||0)/100
+        });
+      }
+      if(nurse){
+        rows.push({
+          date:v.date, staffId:nurse.id, staff:nurse.name, role:nurse.role,
+          patientId:v.patientId, patient:patientName(v.patientId),
+          departmentId:v.departmentId || dep, department:dep,
+          serviceCode:'visit', service:'تمريض كشف',
+          gross:Number(v.fee)||0, rate:Number(nurse.feeRate)||0,
+          net:(Number(v.fee)||0)*(Number(nurse.feeRate)||0)/100
+        });
+      }
+    });
+  }
+
+  var f = getFilters();
+
+  rows = rows.filter(function(r){
+    var rd = dOnly(r.date);
+    if(f.from && rd < f.from) return false;
+    if(f.to && rd > f.to) return false;
+
+    if(f.level1 === 'doctor'){
+      if(r.role !== 'طبيب') return false;
+      if(f.level2 !== 'all' && String(r.staffId) !== String(f.level2)) return false;
+    }
+
+    if(f.level1 === 'nurse'){
+      if(r.role === 'طبيب') return false;
+      if(f.level2 !== 'all' && String(r.staffId) !== String(f.level2)) return false;
+    }
+
+    if(f.level1 === 'patient'){
+      if(f.level2 !== 'all' && String(r.patientId) !== String(f.level2)) return false;
+    }
+
+    if(f.level1 === 'department'){
+      if(f.level2 !== 'all' && String(r.departmentId) !== String(f.level2) && String(r.department) !== String(f.level2)) return false;
+    }
+
+    if(f.level1 === 'service'){
+      if(f.level2 !== 'all' && String(r.serviceCode) !== String(f.level2)) {
+        if(f.level2 === 'lab' && r.service.indexOf('تحليل') < 0) return false;
+        if(f.level2 === 'xray' && r.service.indexOf('أشعة') < 0) return false;
+        if(f.level2 === 'pharmacy' && r.service.indexOf('صيدلية') < 0) return false;
+        if(f.level2 === 'visit' && r.service.indexOf('كشف') < 0) return false;
+      }
+    }
+
+    return true;
+  });
+
+  rows.sort(function(a,b){ return new Date(a.date)-new Date(b.date); });
+  return rows;
+}
+
+function renderTable(targetId, rows, emptyMsg){
+  var box = document.getElementById(targetId);
+  if(!box) return;
+
+  if(!rows.length){
+    box.innerHTML = '<div class="no-data">'+emptyMsg+'</div>';
+    return;
+  }
+
+  var totalGross=0,totalNet=0;
+  var byStaff = {};
+  var html = `<table>
+    <tr>
+      <th>التاريخ</th><th>الاسم</th><th>الوظيفة</th><th>المريض</th><th>القسم</th><th>الخدمة</th>
+      <th>المبلغ المدفوع/المحمّل</th><th>النسبة</th><th>الصافي المستحق</th><th>رصيد الشخص</th>
+    </tr>`;
+
+  rows.forEach(function(r){
+    byStaff[r.staffId] = (byStaff[r.staffId] || 0) + r.net;
+    totalGross += r.gross;
+    totalNet += r.net;
+
+    html += `<tr>
+      <td>${dt(r.date)}</td>
+      <td>${r.staff}</td>
+      <td>${r.role}</td>
+      <td>${r.patient}</td>
+      <td>${r.department}</td>
+      <td>${r.service}</td>
+      <td>${money(r.gross)}</td>
+      <td>${r.rate}%</td>
+      <td style="color:#0d7377;font-weight:900;">${money(r.net)}</td>
+      <td style="font-weight:900;">${money(byStaff[r.staffId])}</td>
+    </tr>`;
+  });
+
+  html += `<tr style="background:#e8f5f4;font-weight:900;">
+    <td colspan="6">الإجمالي</td>
+    <td>${money(totalGross)}</td>
+    <td>-</td>
+    <td>${money(totalNet)}</td>
+    <td>${money(totalNet)}</td>
+  </tr></table>`;
+
+  var f = getFilters();
+  var filterTxt = [];
+  if(f.from) filterTxt.push('من: '+f.from);
+  if(f.to) filterTxt.push('إلى: '+f.to);
+  if(f.level1 !== 'all') filterTxt.push('المستوى الأول: '+document.getElementById('staffRptLevel1').selectedOptions[0].text);
+  if(f.level2 !== 'all') filterTxt.push('المستوى الثاني: '+document.getElementById('staffRptLevel2').selectedOptions[0].text);
+
+  var summary = `
+    <div class="alert alert-info">${filterTxt.length ? filterTxt.join(' | ') : 'كل الفترات وكل المستويات'}</div>
+    <div class="grid grid-4" style="margin-bottom:15px;">
+      <div class="stat-box"><div class="label">عدد الأفراد</div><div class="value">${Object.keys(byStaff).length}</div></div>
+      <div class="stat-box"><div class="label">عدد الحركات</div><div class="value">${rows.length}</div></div>
+      <div class="stat-box"><div class="label">إجمالي المبالغ</div><div class="value">${money(totalGross)}</div></div>
+      <div class="stat-box"><div class="label">إجمالي الصافي المستحق</div><div class="value">${money(totalNet)}</div></div>
+    </div>`;
+
+  box.innerHTML = summary + html;
+}
+
+window.renderStaffAccountReports = function(){
+  fillSmartReportLevel2();
+
+  var f = getFilters();
+  var allRows = buildRows();
+
+  var doctorRows = allRows.filter(function(r){ return r.role === 'طبيب'; });
+  var nurseRows = allRows.filter(function(r){ return r.role !== 'طبيب'; });
+
+  if(f.level1 === 'doctor'){
+    renderTable('doctorAccountReport', doctorRows, 'لا توجد حركات للأطباء طبقًا للفلاتر');
+    var n = document.getElementById('nurseAccountReport'); if(n) n.innerHTML = '<div class="no-data">فلتر الأطباء مفعل</div>';
+  } else if(f.level1 === 'nurse'){
+    var d = document.getElementById('doctorAccountReport'); if(d) d.innerHTML = '<div class="no-data">فلتر التمريض/الفنيين مفعل</div>';
+    renderTable('nurseAccountReport', nurseRows, 'لا توجد حركات للتمريض طبقًا للفلاتر');
+  } else {
+    renderTable('doctorAccountReport', doctorRows, 'لا توجد حركات للأطباء');
+    renderTable('nurseAccountReport', nurseRows, 'لا توجد حركات للتمريض/الفنيين');
+  }
+};
+
+var oldRefresh = window.refreshPage;
+window.refreshPage = function(id){
+  if(typeof oldRefresh === 'function') oldRefresh(id);
+  if(id === 'reports'){
+    setTimeout(function(){
+      fillSmartReportLevel2();
+      renderStaffAccountReports();
+      if(typeof window.renderTreasuryReport === 'function') window.renderTreasuryReport();
+      if(typeof window.renderProfitReports === 'function') window.renderProfitReports();
+    },80);
+  }
+};
+
+document.addEventListener('DOMContentLoaded', function(){
+  setTimeout(function(){
+    fillSmartReportLevel2();
+    ['staffRptFrom','staffRptTo','staffRptLevel2'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el) el.addEventListener('change', renderStaffAccountReports);
+    });
+  },300);
+});
+
 })();
 </script>
 
