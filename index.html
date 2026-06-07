@@ -201,40 +201,66 @@ nav{
 </style>
 
 
-<style id="athar-v41-dropdown-fix">
-/* Fix dropdowns not opening: prevent hidden print/overlay areas from catching taps */
+<style id="athar-v43-real-native-dropdown-fix">
+/* Native dropdown fix */
+select{
+  appearance:auto !important;
+  -webkit-appearance:menulist !important;
+  -moz-appearance:auto !important;
+  pointer-events:auto !important;
+  touch-action:auto !important;
+  user-select:auto !important;
+  position:relative !important;
+  z-index:20 !important;
+  background:#fff !important;
+  color:#222 !important;
+  min-height:40px !important;
+}
+
+/* Hidden print containers must never cover the UI */
 #atharPrintArea,
 #receiptPrintArea{
   display:none !important;
+  visibility:hidden !important;
   pointer-events:none !important;
+  z-index:-1 !important;
 }
 
-/* Keep native select behavior stable on desktop/mobile */
-select{
+/* Make sure no invisible element blocks forms */
+.page.active,
+.card,
+.field,
+main,
+nav,
+header{
   pointer-events:auto !important;
-  user-select:auto !important;
-  position:relative;
-  z-index:5;
-  min-height:38px;
-  background:#fff;
-  color:#222;
 }
 
-/* Make sure cards/pages don't create invisible overlays above form fields */
-.card, .field, main, .page{
-  pointer-events:auto;
+/* Mobile: keep grid but allow form controls to receive touch normally */
+@media(max-width:900px){
+  select,input,textarea,button{
+    pointer-events:auto !important;
+  }
 }
 
 @media print{
   #atharPrintArea,
   #receiptPrintArea{
     display:block !important;
+    visibility:visible !important;
     pointer-events:auto !important;
+    z-index:999999 !important;
   }
-  body *{visibility:hidden!important;}
-  #atharPrintArea, #atharPrintArea *,
-  #receiptPrintArea, #receiptPrintArea *{visibility:visible!important;}
 }
+</style>
+
+
+<style id="athar-v44-reports-fix-style">
+.v44-summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0}
+@media(max-width:800px){.v44-summary-grid{grid-template-columns:repeat(2,1fr)}}
+.v44-positive{color:#198754;font-weight:900}
+.v44-negative{color:#dc3545;font-weight:900}
+.v44-warning{color:#856404;font-weight:900}
 </style>
 
 </head>
@@ -781,7 +807,34 @@ select{
 </div>
 
 <!-- V40 DOCTOR DUES -->
+
+<!-- V44 DOCTOR DUES FIXED -->
 <div id="doctorDues" class="page">
+  <div class="card">
+    <h2>🩺 مستحقات الأطباء والتمريض — محصل / مؤجل</h2>
+    <div class="grid grid-4">
+      <div class="field"><label>من تاريخ</label><input type="date" id="v44DuesFrom" onchange="v44RenderDues()"></div>
+      <div class="field"><label>إلى تاريخ</label><input type="date" id="v44DuesTo" onchange="v44RenderDues()"></div>
+      <div class="field"><label>النوع</label>
+        <select id="v44DuesRole" onchange="v44FillDuesNames();v44RenderDues()">
+          <option value="all">الكل</option>
+          <option value="doctor">أطباء</option>
+          <option value="nurse">تمريض / فنيين</option>
+        </select>
+      </div>
+      <div class="field"><label>الاسم</label><select id="v44DuesName" onchange="v44RenderDues()"></select></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="v44RenderDues()">🔍 عرض التقرير</button>
+      <button class="btn btn-warn" onclick="v44ResetDuesFilters()">🔄 إلغاء الفلتر</button>
+    </div>
+    <div id="v44DuesSummary" style="margin-top:15px;"></div>
+    <div id="v44DuesTable"></div>
+  </div>
+</div>
+
+
+<div id="doctorDues_old" class="page" style="display:none">
   <div class="card">
     <h2>🩺 مستحقات الأطباء والتمريض</h2>
     <div class="grid grid-4">
@@ -796,7 +849,35 @@ select{
 </div>
 
 <!-- V40 SMART REPORTS -->
+
 <div id="smartReports" class="page">
+  <div class="card">
+    <h2>🔎 التقارير الذكية العامة</h2>
+    <div class="grid grid-4">
+      <div class="field"><label>من تاريخ</label><input type="date" id="v44ReportFrom" onchange="v44RenderSmartReports()"></div>
+      <div class="field"><label>إلى تاريخ</label><input type="date" id="v44ReportTo" onchange="v44RenderSmartReports()"></div>
+      <div class="field"><label>المستوى الأول</label>
+        <select id="v44ReportLevel1" onchange="v44FillReportLevel2();v44RenderSmartReports()">
+          <option value="all">الكل</option>
+          <option value="doctor">طبيب</option>
+          <option value="nurse">تمريض / فنيين</option>
+          <option value="patient">مريض</option>
+          <option value="service">خدمة</option>
+          <option value="department">قسم</option>
+        </select>
+      </div>
+      <div class="field"><label>المستوى الثاني</label><select id="v44ReportLevel2" onchange="v44RenderSmartReports()"></select></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="v44RenderSmartReports()">🔍 عرض التقرير</button>
+      <button class="btn btn-warn" onclick="v44ResetSmartFilters()">🔄 إلغاء الفلتر</button>
+    </div>
+    <div id="v44SmartSummary" style="margin-top:15px;"></div>
+    <div id="v44SmartTable"></div>
+  </div>
+</div>
+
+<div id="smartReports_old" class="page" style="display:none">
   <div class="card">
     <h2>🔎 التقارير الذكية العامة</h2>
     <div class="grid grid-4">
@@ -3650,72 +3731,460 @@ document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){v4
 </script>
 
 
-<script id="athar-v41-dropdown-fix">
+<script id="athar-v43-real-native-dropdown-fix">
 (function(){
   function hidePrintAreas(){
-    ['atharPrintArea','receiptPrintArea'].forEach(function(id){
+    ['atharPrintArea','receiptPrintArea','atharSelectPickerOverlay'].forEach(function(id){
       var el=document.getElementById(id);
       if(el){
         el.style.display='none';
+        el.style.visibility='hidden';
         el.style.pointerEvents='none';
+        el.style.zIndex='-1';
       }
     });
   }
 
-  // Before print, allow print area to show. After print, hide it again.
-  window.addEventListener('beforeprint', function(){
-    ['atharPrintArea','receiptPrintArea'].forEach(function(id){
-      var el=document.getElementById(id);
-      if(el){
-        el.style.display='block';
-        el.style.pointerEvents='auto';
-      }
-    });
-  });
-  window.addEventListener('afterprint', hidePrintAreas);
+  function restoreNativeSelects(){
+    document.querySelectorAll('select').forEach(function(sel){
+      // Remove custom picker traces if any old cached script touched it
+      sel.classList.remove('athar-picker-enabled');
+      delete sel.dataset.atharPicker;
 
-  // Fix duplicate/empty select cases after page navigation by refreshing relevant data.
-  function safeCall(fn){
-    try{ if(typeof window[fn]==='function') window[fn](); }catch(e){ console.warn(fn,e); }
+      sel.disabled = false;
+      sel.style.pointerEvents = 'auto';
+      sel.style.touchAction = 'auto';
+      sel.style.position = 'relative';
+      sel.style.zIndex = '20';
+      sel.style.webkitAppearance = 'menulist';
+      sel.style.appearance = 'auto';
+
+      // Important: do NOT preventDefault on click/touch.
+    });
+  }
+
+  // If an older custom picker overlay was created by cache, remove it completely
+  function removeOldCustomPicker(){
+    var old=document.getElementById('atharSelectPickerOverlay');
+    if(old) old.remove();
   }
 
   var oldShowPage = window.showPage;
   window.showPage = function(id, btn){
     if(typeof oldShowPage === 'function') oldShowPage(id, btn);
-    hidePrintAreas();
-
     setTimeout(function(){
-      // General dropdown refreshers used across different versions
-      safeCall('fillPatientSelects');
-      safeCall('fillStaffSelects');
-      safeCall('fillVisitSelect');
-      safeCall('fillDrugSelect');
-      safeCall('fillServiceSelect');
-      safeCall('fillSmartReportLevel2');
-      safeCall('v40FillAcc');
-      safeCall('v40FillCatalogSelect');
-      safeCall('v40FillDuesNames');
-      safeCall('v40FillReportLevel2');
+      removeOldCustomPicker();
+      hidePrintAreas();
+      restoreNativeSelects();
 
-      // Force selects to be usable even if an old style/script touched them
-      document.querySelectorAll('select').forEach(function(s){
-        s.disabled = false;
-        s.style.pointerEvents='auto';
-        s.style.zIndex='5';
-        s.style.position='relative';
+      // Refresh dropdown options after navigation, without hijacking click
+      ['fillPatientSelects','fillStaffSelects','fillVisitSelect','fillDrugSelect','fillServiceSelect',
+       'v40FillAcc','v40FillCatalogSelect','v40FillDuesNames','v40FillReportLevel2'].forEach(function(fn){
+        try{ if(typeof window[fn]==='function') window[fn](); }catch(e){}
       });
-    }, 100);
+    },100);
   };
 
-  document.addEventListener('DOMContentLoaded', function(){
-    hidePrintAreas();
-    setTimeout(function(){
-      document.querySelectorAll('select').forEach(function(s){
-        s.disabled=false;
-        s.style.pointerEvents='auto';
-      });
-    }, 300);
+  window.addEventListener('beforeprint', function(){
+    ['atharPrintArea','receiptPrintArea'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){
+        el.style.display='block';
+        el.style.visibility='visible';
+        el.style.pointerEvents='auto';
+        el.style.zIndex='999999';
+      }
+    });
   });
+  window.addEventListener('afterprint', function(){
+    hidePrintAreas();
+    restoreNativeSelects();
+  });
+
+  document.addEventListener('DOMContentLoaded', function(){
+    removeOldCustomPicker();
+    hidePrintAreas();
+    restoreNativeSelects();
+    setTimeout(restoreNativeSelects,500);
+  });
+})();
+</script>
+
+
+<script id="athar-v44-reports-fix">
+(function(){
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function money(v){return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function dt(v){try{return new Date(v).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'});}catch(e){return '-';}}
+function dOnly(v){try{return new Date(v).toISOString().slice(0,10);}catch(e){return '';}}
+function patientName(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?p.name:'-';}
+function staffName(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.name:'-';}
+function staffRole(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.role:'-';}
+function itemName(id){var i=read('items',[]).find(x=>String(x.id)===String(id));return i?i.name:'-';}
+function itemObj(id){return read('items',[]).find(x=>String(x.id)===String(id));}
+function visitObj(id){return read('visits',[]).find(x=>String(x.id)===String(id));}
+function departmentNameFromVisit(v){return v.departmentName || v.department || v.departmentId || v.clinic || 'عيادات';}
+
+function totalPaidByPatient(){
+  var map={};
+  read('payments',[]).forEach(function(p){
+    var id=String(p.patientId||'');
+    map[id]=(map[id]||0)+Number(p.amount||0);
+  });
+  // Include treasury movements with patientId if payments were not written by some new flows
+  read('treasuryMovements',[]).forEach(function(m){
+    if(m.type==='قبض' && m.patientId){
+      var id=String(m.patientId);
+      var amount=Number(m.amount||0);
+      // avoid obvious duplicate if payments already have same total? keep conservative: add only if no payments exist for patient
+      if(!map[id]) map[id]=(map[id]||0)+amount;
+    }
+  });
+  return map;
+}
+
+function buildChargeEvents(){
+  var events=[];
+  var visits=read('visits',[]);
+  var staff=read('staff',[]);
+  var patients=read('patients',[]);
+
+  function discount(pid){
+    var p=patients.find(x=>String(x.id)===String(pid));
+    return p?Number(p.discount||0):0;
+  }
+  function addStaffEvent(base, staffId, rate, roleOverride){
+    var s=staff.find(x=>String(x.id)===String(staffId));
+    if(!s || Number(rate||0)<=0 || Number(base.amount||0)<=0) return;
+    events.push(Object.assign({}, base, {
+      staffId:s.id, staff:s.name, role:roleOverride||s.role, rate:Number(rate||0)
+    }));
+  }
+
+  visits.forEach(function(v){
+    var amount=Number(v.fee||v.total||v.originalFee||0);
+    var base={date:v.date||new Date().toISOString(),patientId:v.patientId,patient:patientName(v.patientId),service:'كشف',serviceCode:'visit',department:departmentNameFromVisit(v),amount:amount,visitId:v.id};
+    var doc=staff.find(s=>String(s.id)===String(v.doctorId));
+    var nurse=staff.find(s=>String(s.id)===String(v.nurseId));
+    if(doc) addStaffEvent(base,doc.id,Number(doc.feeRate||0),doc.role);
+    if(nurse) addStaffEvent(base,nurse.id,Number(nurse.feeRate||0),nurse.role);
+  });
+
+  read('services',[]).forEach(function(srv){
+    if(srv.status && srv.status!=='تم التنفيذ') return;
+    var v=visitObj(srv.visitId); if(!v) return;
+    var it=itemObj(srv.itemId); if(!it) return;
+    var amount=Number(it.price||0)*(1-discount(v.patientId)/100);
+    var serviceCode = String(it.type||'').indexOf('أشعة')>=0 ? 'xray' : 'lab';
+    var base={date:srv.date||v.date||new Date().toISOString(),patientId:v.patientId,patient:patientName(v.patientId),service:it.name||it.type||'خدمة',serviceCode:serviceCode,department:it.type||departmentNameFromVisit(v),amount:amount,visitId:v.id};
+    var doc=staff.find(x=>String(x.id)===String(v.doctorId));
+    if(doc) addStaffEvent(base,doc.id,Number(doc.srvRate||0),doc.role);
+  });
+
+  read('admissions',[]).forEach(function(a){
+    var amount=Number(a.total||0);
+    var base={date:a.date||new Date().toISOString(),patientId:a.patientId,patient:patientName(a.patientId),service:a.type||'إقامة داخلية',serviceCode:'admission',department:a.dept||'إقامة داخلية',amount:amount};
+    var doc=staff.find(x=>String(x.id)===String(a.doctorId));
+    if(doc) addStaffEvent(base,doc.id,Number(doc.srvRate||doc.feeRate||0),doc.role);
+  });
+
+  read('transfers',[]).forEach(function(t){
+    var amount=Number(t.fee||0);
+    var base={date:t.date||new Date().toISOString(),patientId:t.patientId,patient:patientName(t.patientId),service:'تحويل داخلي',serviceCode:'transfer',department:t.toDept||'تحويل',amount:amount};
+    var doc=staff.find(x=>String(x.id)===String(t.doctorId));
+    if(doc) addStaffEvent(base,doc.id,Number(doc.srvRate||0),doc.role);
+  });
+
+  events.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  return events;
+}
+
+function buildDuesRows(){
+  var paidMap=totalPaidByPatient();
+  var used={};
+  return buildChargeEvents().map(function(e){
+    var pid=String(e.patientId||'');
+    used[pid]=used[pid]||0;
+    var available=Math.max(0,(paidMap[pid]||0)-used[pid]);
+    var paid=Math.min(Number(e.amount||0), available);
+    var unpaid=Math.max(0,Number(e.amount||0)-paid);
+    used[pid]+=paid;
+    var due=paid*Number(e.rate||0)/100;
+    return Object.assign({},e,{paid:paid,unpaid:unpaid,due:due,status:paid<=0?'غير محصل':(unpaid>0?'محصل جزئي':'محصل')});
+  });
+}
+
+window.v44FillDuesNames=function(){
+  var sel=document.getElementById('v44DuesName'); if(!sel) return;
+  var role=document.getElementById('v44DuesRole')?.value||'all';
+  var list=read('staff',[]).filter(function(s){
+    if(role==='doctor') return s.role==='طبيب';
+    if(role==='nurse') return s.role!=='طبيب';
+    return true;
+  });
+  sel.innerHTML='<option value="all">كل الأسماء</option>'+list.map(s=>'<option value="'+s.id+'">'+s.name+' - '+s.role+'</option>').join('');
+};
+
+window.v44ResetDuesFilters=function(){
+  ['v44DuesFrom','v44DuesTo'].forEach(id=>{var el=document.getElementById(id);if(el)el.value='';});
+  var r=document.getElementById('v44DuesRole'); if(r)r.value='all';
+  v44FillDuesNames();
+  var n=document.getElementById('v44DuesName'); if(n)n.value='all';
+  v44RenderDues();
+};
+
+window.v44RenderDues=function(){
+  v44FillDuesNames();
+  var from=document.getElementById('v44DuesFrom')?.value||'';
+  var to=document.getElementById('v44DuesTo')?.value||'';
+  var role=document.getElementById('v44DuesRole')?.value||'all';
+  var name=document.getElementById('v44DuesName')?.value||'all';
+  var rows=buildDuesRows().filter(function(r){
+    var d=dOnly(r.date);
+    if(from&&d<from)return false;
+    if(to&&d>to)return false;
+    if(role==='doctor'&&r.role!=='طبيب')return false;
+    if(role==='nurse'&&r.role==='طبيب')return false;
+    if(name!=='all'&&String(r.staffId)!==String(name))return false;
+    return true;
+  });
+  var gross=0,paid=0,unpaid=0,due=0;
+  rows.forEach(r=>{gross+=Number(r.amount||0);paid+=Number(r.paid||0);unpaid+=Number(r.unpaid||0);due+=Number(r.due||0);});
+  var summary=document.getElementById('v44DuesSummary');
+  if(summary) summary.innerHTML='<div class="v44-summary-grid"><div class="stat-box"><div class="label">قيمة الخدمات</div><div class="value">'+money(gross)+'</div></div><div class="stat-box"><div class="label">المحصل</div><div class="value">'+money(paid)+'</div></div><div class="stat-box"><div class="label">المؤجل</div><div class="value">'+money(unpaid)+'</div></div><div class="stat-box"><div class="label">المستحق الفعلي</div><div class="value">'+money(due)+'</div></div></div>';
+  var box=document.getElementById('v44DuesTable'); if(!box) return;
+  if(!rows.length){box.innerHTML='<div class="no-data">لا توجد مستحقات طبقًا للفلتر</div>';return;}
+  var h='<table><tr><th>التاريخ</th><th>الاسم</th><th>الوظيفة</th><th>المريض</th><th>القسم</th><th>الخدمة</th><th>القيمة</th><th>محصل</th><th>مؤجل</th><th>النسبة</th><th>المستحق</th><th>الحالة</th></tr>';
+  rows.forEach(r=>{
+    h+='<tr><td>'+dt(r.date)+'</td><td>'+r.staff+'</td><td>'+r.role+'</td><td>'+r.patient+'</td><td>'+r.department+'</td><td>'+r.service+'</td><td>'+money(r.amount)+'</td><td class="v44-positive">'+money(r.paid)+'</td><td class="v44-negative">'+money(r.unpaid)+'</td><td>'+r.rate+'%</td><td><b>'+money(r.due)+'</b></td><td><span class="badge '+(r.status==='غير محصل'?'badge-danger':r.status==='محصل جزئي'?'badge-warn':'badge-success')+'">'+r.status+'</span></td></tr>';
+  });
+  box.innerHTML=h+'</table>';
+};
+
+function baseReportRows(){
+  var rows=[];
+  read('visits',[]).forEach(v=>rows.push({date:v.date,patientId:v.patientId,patient:patientName(v.patientId),doctorId:v.doctorId,nurseId:v.nurseId,doctor:staffName(v.doctorId),nurse:staffName(v.nurseId),department:departmentNameFromVisit(v),service:'كشف',serviceCode:'visit',amount:Number(v.fee||0)}));
+  read('services',[]).forEach(srv=>{
+    var v=visitObj(srv.visitId); if(!v) return;
+    var it=itemObj(srv.itemId); if(!it) return;
+    var serviceCode=String(it.type||'').indexOf('أشعة')>=0?'xray':'lab';
+    rows.push({date:srv.date||v.date,patientId:v.patientId,patient:patientName(v.patientId),doctorId:v.doctorId,nurseId:v.nurseId,doctor:staffName(v.doctorId),nurse:staffName(v.nurseId),department:it.type||departmentNameFromVisit(v),service:it.name||it.type,serviceCode:serviceCode,amount:Number(it.price||0)});
+  });
+  read('admissions',[]).forEach(a=>rows.push({date:a.date,patientId:a.patientId,patient:patientName(a.patientId),doctorId:a.doctorId,doctor:staffName(a.doctorId),department:a.dept||'إقامة داخلية',service:a.type||'إقامة داخلية',serviceCode:'admission',amount:Number(a.total||0)}));
+  read('transfers',[]).forEach(t=>rows.push({date:t.date,patientId:t.patientId,patient:patientName(t.patientId),doctorId:t.doctorId,doctor:staffName(t.doctorId),department:t.toDept||'تحويل',service:'تحويل داخلي',serviceCode:'transfer',amount:Number(t.fee||0)}));
+  return rows;
+}
+
+window.v44FillReportLevel2=function(){
+  var sel=document.getElementById('v44ReportLevel2'); if(!sel) return;
+  var l1=document.getElementById('v44ReportLevel1')?.value||'all';
+  var html='<option value="all">الكل</option>';
+  if(l1==='doctor') html+=read('staff',[]).filter(s=>s.role==='طبيب').map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');
+  else if(l1==='nurse') html+=read('staff',[]).filter(s=>s.role!=='طبيب').map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');
+  else if(l1==='patient') html+=read('patients',[]).map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join('');
+  else if(l1==='service') html+='<option value="visit">كشف</option><option value="lab">معمل/تحاليل</option><option value="xray">أشعة</option><option value="admission">إقامة داخلية</option><option value="transfer">تحويل داخلي</option>';
+  else if(l1==='department'){
+    var deps={};
+    baseReportRows().forEach(r=>{if(r.department)deps[r.department]=true;});
+    html+=Object.keys(deps).map(d=>'<option value="'+d+'">'+d+'</option>').join('');
+  }
+  sel.innerHTML=html;
+};
+
+window.v44ResetSmartFilters=function(){
+  ['v44ReportFrom','v44ReportTo'].forEach(id=>{var el=document.getElementById(id);if(el)el.value='';});
+  var l1=document.getElementById('v44ReportLevel1'); if(l1)l1.value='all';
+  v44FillReportLevel2();
+  v44RenderSmartReports();
+};
+
+window.v44RenderSmartReports=function(){
+  v44FillReportLevel2();
+  var from=document.getElementById('v44ReportFrom')?.value||'';
+  var to=document.getElementById('v44ReportTo')?.value||'';
+  var l1=document.getElementById('v44ReportLevel1')?.value||'all';
+  var l2=document.getElementById('v44ReportLevel2')?.value||'all';
+  var rows=baseReportRows().filter(function(r){
+    var d=dOnly(r.date);
+    if(from&&d<from)return false;
+    if(to&&d>to)return false;
+    if(l1==='doctor'&&l2!=='all'&&String(r.doctorId)!==String(l2))return false;
+    if(l1==='nurse'&&l2!=='all'&&String(r.nurseId)!==String(l2))return false;
+    if(l1==='patient'&&l2!=='all'&&String(r.patientId)!==String(l2))return false;
+    if(l1==='service'&&l2!=='all'&&String(r.serviceCode)!==String(l2))return false;
+    if(l1==='department'&&l2!=='all'&&String(r.department)!==String(l2))return false;
+    return true;
+  });
+  var total=rows.reduce((s,r)=>s+Number(r.amount||0),0);
+  var summary=document.getElementById('v44SmartSummary');
+  if(summary) summary.innerHTML='<div class="v44-summary-grid"><div class="stat-box"><div class="label">عدد الحركات</div><div class="value">'+rows.length+'</div></div><div class="stat-box"><div class="label">إجمالي القيمة</div><div class="value">'+money(total)+'</div></div><div class="stat-box"><div class="label">متوسط الحركة</div><div class="value">'+money(rows.length?total/rows.length:0)+'</div></div><div class="stat-box"><div class="label">نوع الفلتر</div><div class="value">'+l1+'</div></div></div>';
+  var box=document.getElementById('v44SmartTable'); if(!box) return;
+  if(!rows.length){box.innerHTML='<div class="no-data">لا توجد بيانات طبقًا للفلتر</div>';return;}
+  var h='<table><tr><th>التاريخ</th><th>المريض</th><th>الطبيب</th><th>التمريض</th><th>القسم</th><th>الخدمة</th><th>المبلغ</th></tr>';
+  rows.forEach(r=>h+='<tr><td>'+dt(r.date)+'</td><td>'+r.patient+'</td><td>'+(r.doctor||'-')+'</td><td>'+(r.nurse||'-')+'</td><td>'+r.department+'</td><td>'+r.service+'</td><td><b>'+money(r.amount)+'</b></td></tr>');
+  box.innerHTML=h+'</table>';
+};
+
+function refreshV44(id){
+  if(id==='doctorDues'){v44FillDuesNames();v44RenderDues();}
+  if(id==='smartReports'){v44FillReportLevel2();v44RenderSmartReports();}
+}
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function') oldRefresh(id);
+  setTimeout(()=>refreshV44(id),120);
+};
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(function(){
+    if(document.getElementById('v44DuesName')){v44FillDuesNames();v44RenderDues();}
+    if(document.getElementById('v44ReportLevel2')){v44FillReportLevel2();v44RenderSmartReports();}
+  },500);
+});
+})();
+</script>
+
+
+<script id="athar-v45-filter-selection-fix">
+(function(){
+
+function keepSelectValue(selectId, htmlOptions){
+  var sel = document.getElementById(selectId);
+  if(!sel) return;
+  var old = sel.value || 'all';
+  sel.innerHTML = htmlOptions;
+  var exists = Array.from(sel.options).some(function(o){ return String(o.value) === String(old); });
+  sel.value = exists ? old : 'all';
+}
+
+// Fix: مستحقات الأطباء — اسم الطبيب/التمريض ما يرجعش كل مرة إلى "الكل"
+window.v44FillDuesNames = function(forceReset){
+  var sel = document.getElementById('v44DuesName');
+  if(!sel) return;
+
+  var role = document.getElementById('v44DuesRole')?.value || 'all';
+  var staff = JSON.parse(localStorage.getItem('athar_staff') || '[]');
+
+  var list = staff.filter(function(s){
+    if(role === 'doctor') return s.role === 'طبيب';
+    if(role === 'nurse') return s.role !== 'طبيب';
+    return true;
+  });
+
+  var html = '<option value="all">كل الأسماء</option>' + list.map(function(s){
+    return '<option value="'+s.id+'">'+s.name+' - '+s.role+'</option>';
+  }).join('');
+
+  if(forceReset){
+    sel.innerHTML = html;
+    sel.value = 'all';
+  } else {
+    keepSelectValue('v44DuesName', html);
+  }
+};
+
+// Fix: التقارير الذكية — المستوى الثاني ما يرجعش كل مرة إلى "الكل"
+window.v44FillReportLevel2 = function(forceReset){
+  var sel = document.getElementById('v44ReportLevel2');
+  if(!sel) return;
+
+  var l1 = document.getElementById('v44ReportLevel1')?.value || 'all';
+  var html = '<option value="all">الكل</option>';
+
+  var staff = JSON.parse(localStorage.getItem('athar_staff') || '[]');
+  var patients = JSON.parse(localStorage.getItem('athar_patients') || '[]');
+  var visits = JSON.parse(localStorage.getItem('athar_visits') || '[]');
+  var services = JSON.parse(localStorage.getItem('athar_services') || '[]');
+  var admissions = JSON.parse(localStorage.getItem('athar_admissions') || '[]');
+  var transfers = JSON.parse(localStorage.getItem('athar_transfers') || '[]');
+  var departments = JSON.parse(localStorage.getItem('athar_departments') || '[]');
+
+  if(l1 === 'doctor'){
+    html += staff.filter(function(s){return s.role === 'طبيب';})
+      .map(function(s){return '<option value="'+s.id+'">'+s.name+'</option>';}).join('');
+  } else if(l1 === 'nurse'){
+    html += staff.filter(function(s){return s.role !== 'طبيب';})
+      .map(function(s){return '<option value="'+s.id+'">'+s.name+' - '+s.role+'</option>';}).join('');
+  } else if(l1 === 'patient'){
+    html += patients.map(function(p){return '<option value="'+p.id+'">'+p.name+'</option>';}).join('');
+  } else if(l1 === 'service'){
+    html += '<option value="visit">كشف</option>';
+    html += '<option value="lab">معمل/تحاليل</option>';
+    html += '<option value="xray">أشعة</option>';
+    html += '<option value="admission">إقامة داخلية</option>';
+    html += '<option value="transfer">تحويل داخلي</option>';
+  } else if(l1 === 'department'){
+    var deps = {};
+    departments.forEach(function(d){ deps[d.id || d.name] = d.name || d.id; });
+    visits.forEach(function(v){ var d = v.departmentName || v.department || v.departmentId || v.clinic; if(d) deps[d]=d; });
+    admissions.forEach(function(a){ if(a.dept) deps[a.dept]=a.dept; });
+    transfers.forEach(function(t){ if(t.toDept) deps[t.toDept]=t.toDept; });
+    html += Object.keys(deps).map(function(k){ return '<option value="'+k+'">'+deps[k]+'</option>'; }).join('');
+  }
+
+  if(forceReset){
+    sel.innerHTML = html;
+    sel.value = 'all';
+  } else {
+    keepSelectValue('v44ReportLevel2', html);
+  }
+};
+
+// Override render functions so they don't refill/reset the second dropdown on every render
+var oldV44RenderDues = window.v44RenderDues;
+window.v44RenderDues = function(){
+  // no forced reset here
+  if(typeof oldV44RenderDues === 'function') oldV44RenderDues();
+  // restore selected after old function if it reset
+};
+
+var oldV44RenderSmartReports = window.v44RenderSmartReports;
+window.v44RenderSmartReports = function(){
+  var oldVal = document.getElementById('v44ReportLevel2')?.value || 'all';
+  if(typeof oldV44RenderSmartReports === 'function') oldV44RenderSmartReports();
+  var sel = document.getElementById('v44ReportLevel2');
+  if(sel && Array.from(sel.options).some(function(o){return o.value === oldVal;})){
+    sel.value = oldVal;
+  }
+};
+
+// Patch onchange behavior directly: reset only when المستوى الأول يتغير
+document.addEventListener('DOMContentLoaded', function(){
+  setTimeout(function(){
+    var duesRole = document.getElementById('v44DuesRole');
+    if(duesRole){
+      duesRole.onchange = function(){
+        v44FillDuesNames(true);
+        if(typeof v44RenderDues === 'function') v44RenderDues();
+      };
+    }
+
+    var duesName = document.getElementById('v44DuesName');
+    if(duesName){
+      duesName.onchange = function(){
+        if(typeof v44RenderDues === 'function') v44RenderDues();
+      };
+    }
+
+    var reportL1 = document.getElementById('v44ReportLevel1');
+    if(reportL1){
+      reportL1.onchange = function(){
+        v44FillReportLevel2(true);
+        if(typeof v44RenderSmartReports === 'function') v44RenderSmartReports();
+      };
+    }
+
+    var reportL2 = document.getElementById('v44ReportLevel2');
+    if(reportL2){
+      reportL2.onchange = function(){
+        if(typeof v44RenderSmartReports === 'function') v44RenderSmartReports();
+      };
+    }
+
+    v44FillDuesNames(false);
+    v44FillReportLevel2(false);
+  }, 500);
+});
+
 })();
 </script>
 
