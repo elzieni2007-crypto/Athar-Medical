@@ -538,6 +538,64 @@ select{
 }
 </style>
 
+
+<style id="athar-v56-home-bedmap-only-style">
+/* V56: الرئيسية تعرض خريطة الأسرة فقط بدون جدول الإقامة الأخير */
+#dashboard #v49DashboardAdmissionList,
+#dashboard #v48DashboardAdmissionTable,
+#dashboard #v47DashboardAdmissionsMini,
+#dashboard #v46DashboardAdmissionList,
+#home #v49DashboardAdmissionList,
+#home #v48DashboardAdmissionTable,
+#home #v47DashboardAdmissionsMini,
+#home #v46DashboardAdmissionList{
+  display:none!important;
+}
+
+/* لا نخفي جدول الإقامة داخل شاشة الإقامة */
+#admission #v49DashboardAdmissionList,
+#admission #v48DashboardAdmissionTable,
+#admission #v47DashboardAdmissionsMini,
+#admission #v46DashboardAdmissionList,
+#admission #v46ActiveAdmissionsTable,
+#admission #admissionTransferTable{
+  display:block!important;
+}
+</style>
+
+
+<style id="athar-v57-admission-map-only-style">
+/* V57: لا تلمس الرئيسية — إصلاح خريطة الإقامة فقط */
+#admission #v57AdmissionBedMap{
+  display:grid!important;
+}
+#admission #v54OperationalBedMap,
+#admission #v46RoomMap,
+#admission #v47OperationalBedMap,
+#admission #v49OperationalBedMap{
+  display:none!important;
+}
+.v57-legend{display:flex;gap:18px;align-items:center;justify-content:flex-end;margin:12px 0;flex-wrap:wrap;font-weight:800}
+.v57-dot{display:inline-block;width:14px;height:14px;border-radius:4px;margin-left:6px;border:2px solid}
+.v57-dot.available{border-color:#28a745;background:#eaffef}
+.v57-dot.occupied{border-color:#dc3545;background:#dc3545}
+.v57-dot.reserved{border-color:#ffc107;background:#fff3cd}
+.v57-bed-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;direction:ltr;margin-top:10px}
+.v57-bed{
+  border:2px solid #28a745;background:#f8fff9;color:#0d7377;
+  border-radius:12px;min-height:68px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;font-weight:900;direction:rtl;text-align:center;
+  box-shadow:0 5px 14px rgba(0,0,0,.04);cursor:pointer;
+}
+.v57-bed .num{font-size:20px;line-height:1}
+.v57-bed .status{font-size:11px;margin-top:4px}
+.v57-bed small{font-size:10px;margin-top:3px;max-width:95%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v57-bed.occupied{background:linear-gradient(135deg,#ef4444,#b91c1c);border-color:#dc3545;color:#fff}
+.v57-bed.reserved{background:#fff8e1;border-color:#ffc107;color:#856404}
+.v57-bed.available{background:linear-gradient(135deg,#f7fff9,#e4ffeb);border-color:#28a745}
+@media(max-width:900px){.v57-bed-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+
 </head>
 <body>
 
@@ -712,6 +770,7 @@ select{
   <h2>🗺️ خريطة الأسرة</h2>
   <div class="v54-legend"><span><b class="v54-dot available"></b> متاح</span><span><b class="v54-dot occupied"></b> مشغول</span><span><b class="v54-dot reserved"></b> محجوز</span></div>
   <div id="v54OperationalBedMap" class="v54-bed-grid"></div>
+<div id="v57AdmissionBedMap" class="v57-bed-grid"></div>
 </div>
 <div id="v46ActiveAdmissionsTable"></div>
   </div>
@@ -6480,6 +6539,186 @@ window.renderDashboard=function(){
 
 document.addEventListener('DOMContentLoaded',function(){
   setTimeout(window.v55MergeAlerts,800);
+});
+})();
+</script>
+
+
+<script id="athar-v56-home-bedmap-only">
+(function(){
+
+function removeHomeAdmissionTables(){
+  var home = document.getElementById('dashboard') || document.getElementById('home');
+  if(!home) return;
+
+  // إخفاء الجداول المعروفة في الرئيسية فقط
+  [
+    'v49DashboardAdmissionList',
+    'v48DashboardAdmissionTable',
+    'v47DashboardAdmissionsMini',
+    'v46DashboardAdmissionList'
+  ].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el && home.contains(el)){
+      el.innerHTML = '';
+      el.style.display = 'none';
+    }
+  });
+
+  // احتياطي: أي جدول داخل كارت خريطة الأسرة في الرئيسية يتم إخفاؤه
+  ['v49DashboardBedMapCard','v48DashboardBottomBedMapCard','v47DashboardBedMapCard','v46DashboardAdmissionCard'].forEach(function(cardId){
+    var card = document.getElementById(cardId);
+    if(card && home.contains(card)){
+      card.querySelectorAll('table').forEach(function(tbl){
+        tbl.style.display = 'none';
+      });
+    }
+  });
+
+  // إعادة رسم الخريطة نفسها لو متاحة
+  if(typeof window.v49RenderBedMaps === 'function'){
+    try{ window.v49RenderBedMaps(); }catch(e){}
+  }
+  if(typeof window.v48RenderDashboardBedMap === 'function'){
+    try{ window.v48RenderDashboardBedMap(); }catch(e){}
+  }
+
+  // بعد الرسم يتم إخفاء الجدول مرة أخرى لأن بعض الدوال بتعيد توليده
+  setTimeout(function(){
+    [
+      'v49DashboardAdmissionList',
+      'v48DashboardAdmissionTable',
+      'v47DashboardAdmissionsMini',
+      'v46DashboardAdmissionList'
+    ].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el && home.contains(el)){
+        el.innerHTML = '';
+        el.style.display = 'none';
+      }
+    });
+  }, 80);
+}
+
+var oldRefresh = window.refreshPage;
+window.refreshPage = function(id){
+  if(typeof oldRefresh === 'function') oldRefresh(id);
+  setTimeout(removeHomeAdmissionTables, 150);
+};
+
+var oldDash = window.renderDashboard;
+window.renderDashboard = function(){
+  if(typeof oldDash === 'function') oldDash();
+  setTimeout(removeHomeAdmissionTables, 150);
+};
+
+document.addEventListener('DOMContentLoaded', function(){
+  setTimeout(removeHomeAdmissionTables, 800);
+  setInterval(function(){
+    var active = document.querySelector('.page.active');
+    if(active && (active.id === 'dashboard' || active.id === 'home')){
+      removeHomeAdmissionTables();
+    }
+  }, 1500);
+});
+
+})();
+</script>
+
+
+<script id="athar-v57-admission-map-only">
+(function(){
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function patientName(id){var p=read('patients',[]).find(function(x){return String(x.id)===String(id)});return p?p.name:'-';}
+function activeAdmissions(){
+  return read('admissions',[]).filter(function(a){
+    var st=a.status||'مفتوحة';
+    return st==='مفتوحة'||st==='open';
+  });
+}
+function ensureRooms(){
+  var rooms=read('rooms',[]);
+  if(!rooms.length){
+    rooms=[101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120].map(function(n){
+      return {id:String(n),number:String(n),status:'available',patientId:null,admissionId:null};
+    });
+    write('rooms',rooms);
+  }
+  return rooms;
+}
+function syncRooms(){
+  var rooms=ensureRooms();
+  rooms.forEach(function(r){
+    if(r.status==='occupied'){
+      var still=activeAdmissions().find(function(a){return String(a.id)===String(r.admissionId);});
+      if(!still){r.status='available';r.patientId=null;r.admissionId=null;}
+    }
+  });
+  activeAdmissions().forEach(function(a){
+    var no=String(a.room||a.bed||a.roomNo||'');
+    if(!no)return;
+    var r=rooms.find(function(x){return String(x.number)===no||String(x.id)===no;});
+    if(r){r.status='occupied';r.patientId=a.patientId;r.admissionId=a.id;}
+  });
+  write('rooms',rooms);
+  return rooms;
+}
+function bedHtml(r){
+  var cls=r.status==='occupied'?'occupied':(r.status==='reserved'?'reserved':'available');
+  var status=r.status==='occupied'?'مشغول':(r.status==='reserved'?'محجوز':'متاح');
+  var pat=r.status==='occupied'?'<small>'+patientName(r.patientId)+'</small>':'';
+  return '<div class="v57-bed '+cls+'" onclick="v57SelectAdmissionBed(\\''+r.number+'\\')"><div class="num">'+r.number+'</div><div class="status">'+status+'</div>'+pat+'</div>';
+}
+window.v57RenderAdmissionBedMap=function(){
+  var box=document.getElementById('v57AdmissionBedMap');
+  if(!box)return;
+  var rooms=syncRooms();
+  box.innerHTML=rooms.map(bedHtml).join('');
+
+  // نظّف الكونتينرات القديمة داخل الإقامة فقط حتى لا تتكرر الخريطة
+  ['v54OperationalBedMap','v46RoomMap','v47OperationalBedMap','v49OperationalBedMap'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el && (document.getElementById('admission')||document.body).contains(el)){
+      el.innerHTML='';
+      el.style.display='none';
+    }
+  });
+};
+window.v57SelectAdmissionBed=function(no){
+  var rooms=syncRooms();
+  var r=rooms.find(function(x){return String(x.number)===String(no);});
+  if(r && r.status==='occupied'){
+    alert('السرير '+no+' مشغول بواسطة '+patientName(r.patientId));
+    return;
+  }
+  ['v46AdmRoom','admRoom','recAdmRoom'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.value=no;
+  });
+  if(typeof window.v46PreviewRoom==='function')window.v46PreviewRoom();
+};
+
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function')oldRefresh(id);
+  if(id==='admission')setTimeout(window.v57RenderAdmissionBedMap,150);
+};
+
+var oldShow=window.showPage;
+if(typeof oldShow==='function'){
+  window.showPage=function(id,btn){
+    oldShow(id,btn);
+    if(id==='admission')setTimeout(window.v57RenderAdmissionBedMap,180);
+  };
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(window.v57RenderAdmissionBedMap,900);
+  setInterval(function(){
+    var active=document.querySelector('.page.active');
+    if(active && active.id==='admission')window.v57RenderAdmissionBedMap();
+  },1500);
 });
 })();
 </script>
