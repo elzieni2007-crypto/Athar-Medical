@@ -617,6 +617,75 @@ select{
 .athar-v66-credit{color:#198754!important;font-weight:900}
 </style>
 
+<style id="athar-v67-medical-cleanup-style">
+.athar-v67-search{width:100%;padding:8px 10px;border:1px solid #d0d7de;border-radius:8px;font-size:12px;background:#fff;direction:rtl;margin-bottom:5px}
+.athar-v67-alert{background:#fff8e1;color:#856404;border-right:5px solid #ffc107;border-radius:10px;padding:10px 14px;margin:10px 0;font-weight:800}
+.athar-v67-rx-table input,.athar-v67-rx-table select{width:100%;padding:7px;border:1px solid #ddd;border-radius:7px;font-size:12px}
+</style>
+
+<style id="athar-v69-v67-admission-map-style">
+/* V69: V67 stable + admission bed map only */
+#atharV69AdmissionMapCard{display:block!important;visibility:visible!important}
+#atharV69AdmissionMap{display:grid!important;visibility:visible!important}
+.athar-v69-legend{display:flex;gap:18px;align-items:center;justify-content:flex-end;margin:12px 0;flex-wrap:wrap;font-weight:800}
+.athar-v69-dot{display:inline-block;width:14px;height:14px;border-radius:4px;margin-left:6px;border:2px solid}
+.athar-v69-dot.available{border-color:#28a745;background:#eaffef}
+.athar-v69-dot.occupied{border-color:#dc3545;background:#dc3545}
+.athar-v69-dot.reserved{border-color:#ffc107;background:#fff3cd}
+.athar-v69-bed-grid{grid-template-columns:repeat(6,1fr);gap:10px;direction:ltr;margin-top:10px}
+.athar-v69-bed{
+  border:2px solid #28a745;background:#f8fff9;color:#0d7377;border-radius:12px;
+  min-height:68px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-weight:900;direction:rtl;text-align:center;box-shadow:0 5px 14px rgba(0,0,0,.04);cursor:pointer;
+}
+.athar-v69-bed .num{font-size:20px;line-height:1}
+.athar-v69-bed .status{font-size:11px;margin-top:4px}
+.athar-v69-bed small{font-size:10px;margin-top:3px;max-width:95%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.athar-v69-bed.occupied{background:linear-gradient(135deg,#ef4444,#b91c1c);border-color:#dc3545;color:#fff}
+.athar-v69-bed.reserved{background:#fff8e1;border-color:#ffc107;color:#856404}
+.athar-v69-bed.available{background:linear-gradient(135deg,#f7fff9,#e4ffeb);border-color:#28a745}
+@media(max-width:900px){.athar-v69-bed-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+
+
+
+
+
+
+
+<style id="athar-v73-hospital-manager-completion-style">
+.v73-note{background:#e8f5f4;color:#0d7377;border-right:5px solid #0d7377;border-radius:10px;padding:10px 14px;margin:10px 0;font-weight:800}
+.v73-warn{background:#fff8e1;color:#856404;border-right:5px solid #ffc107;border-radius:10px;padding:10px 14px;margin:10px 0;font-weight:800}
+.v73-search{width:100%;padding:8px 10px;border:1px solid #d0d7de;border-radius:8px;font-size:12px;background:#fff;direction:rtl;margin-bottom:5px}
+.v73-rx-table input,.v73-rx-table select{width:100%;padding:7px;border:1px solid #ddd;border-radius:7px;font-size:12px}
+.v73-cash{background:#28a745;color:#fff}
+.v73-credit{background:#ffc107;color:#222}
+</style>
+
+
+
+
+<style id="athar-v75-clean-leaked-js-style">
+#admission #atharV65AdmissionMapCard,#admission #atharV69AdmissionMapCard,#admission #v46RoomMap,#admission #v47OperationalBedMap,#admission #v49OperationalBedMap,#admission #v54OperationalBedMap{display:none!important;visibility:hidden!important}
+#atharV75AdmissionMapCard{display:block!important;visibility:visible!important}
+#atharV75AdmissionMap{display:grid!important;grid-template-columns:repeat(6,1fr);gap:10px;direction:ltr;margin-top:10px}
+.v75-bed{border:2px solid #28a745;background:#f8fff9;color:#0d7377;border-radius:12px;min-height:68px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;direction:rtl;text-align:center;box-shadow:0 5px 14px rgba(0,0,0,.04);cursor:pointer}
+.v75-bed .num{font-size:20px;line-height:1}.v75-bed .status{font-size:11px;margin-top:4px}.v75-bed small{font-size:10px;margin-top:3px;max-width:95%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v75-bed.occupied{background:linear-gradient(135deg,#ef4444,#b91c1c);border-color:#dc3545;color:#fff}.v75-bed.reserved{background:#fff8e1;border-color:#ffc107;color:#856404}.v75-bed.available{background:linear-gradient(135deg,#f7fff9,#e4ffeb);border-color:#28a745}
+.v75-legend{display:flex;gap:18px;align-items:center;justify-content:flex-end;margin:12px 0;flex-wrap:wrap;font-weight:800}.v75-dot{display:inline-block;width:14px;height:14px;border-radius:4px;margin-left:6px;border:2px solid}.v75-dot.available{border-color:#28a745;background:#eaffef}.v75-dot.occupied{border-color:#dc3545;background:#dc3545}.v75-dot.reserved{border-color:#ffc107;background:#fff3cd}
+@media(max-width:900px){#atharV75AdmissionMap{grid-template-columns:repeat(3,1fr)}}
+</style>
+
+<style id="athar-v77-final-demo-core-style">
+.v77-maint-card{background:#f7fffe;border:1px solid #cfeeee;border-right:5px solid #0d7377;border-radius:14px;padding:12px;margin:10px 0}
+.v77-maint-card .btn{margin:3px}
+.v77-ok{background:#e8f5f4;color:#0d7377;border-right:5px solid #0d7377;border-radius:10px;padding:10px 14px;margin:8px 0;font-weight:800}
+.v77-warn{background:#fff8e1;color:#856404;border-right:5px solid #ffc107;border-radius:10px;padding:10px 14px;margin:8px 0;font-weight:800}
+.v77-danger{background:#f8d7da;color:#721c24;border-right:5px solid #dc3545;border-radius:10px;padding:10px 14px;margin:8px 0;font-weight:800}
+.v77-pill{display:inline-block;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:800}
+.v77-pill.ok{background:#d4edda;color:#155724}.v77-pill.warn{background:#fff3cd;color:#856404}.v77-pill.bad{background:#f8d7da;color:#721c24}
+</style>
+
 </head>
 <body>
 
@@ -793,6 +862,17 @@ select{
   </div>
   <div id="atharV65AdmissionMap" class="athar-v65-bed-grid"></div>
 </div>
+<div class="card" id="atharV69AdmissionMapCard">
+  <h2>🗺️ خريطة الأسرة</h2>
+  <div class="athar-v69-legend">
+    <span><b class="athar-v69-dot available"></b> متاح</span>
+    <span><b class="athar-v69-dot occupied"></b> مشغول</span>
+    <span><b class="athar-v69-dot reserved"></b> محجوز</span>
+  </div>
+  <div id="atharV69AdmissionMap" class="athar-v69-bed-grid"></div>
+</div>
+
+
 
 
   <div class="card">
@@ -1382,6 +1462,15 @@ function refreshPage(id) {
   if (id==='staff') renderStaff();
   if (id==='accounts') { renderCOA(); renderJournal(); }
   if (id==='reports') { renderTrialBalance(); renderIncomeStatement(); }
+  // [v71-BASE] render admission bed maps directly
+  if (id==='admission') {
+    [100, 300, 700, 1500].forEach(function(ms){
+      setTimeout(function(){
+        if(typeof window.v54RenderSingleAdmissionBedMap==='function')
+          window.v54RenderSingleAdmissionBedMap();
+      }, ms);
+    });
+  }
 }
 
 function addPatient() {
@@ -1816,26 +1905,6 @@ box-shadow:0 -4px 20px rgba(0,0,0,.12);
     ">
   </div>
 </footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script id="athar-smart-two-level-filter">
 (function(){
 
@@ -2145,8 +2214,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
 })();
 </script>
-
-
 <script id="athar-receipts-system">
 (function(){
 function read(key, def){ try { return JSON.parse(localStorage.getItem('athar_' + key) || JSON.stringify(def)); } catch(e){ return def; } }
@@ -2288,8 +2355,6 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 })();
 </script>
-
-
 <script id="athar-catalog-transfer-system">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -2348,8 +2413,6 @@ var oldRefresh=window.refreshPage;window.refreshPage=function(id){if(typeof oldR
 document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){renderCatalogItems();refreshAdmission();},400);});
 })();
 </script>
-
-
 <script id="athar-deferred-staff-dues">
 (function(){
 
@@ -2553,7 +2616,7 @@ window.payPartial=function(){
     recalculateStaffDuesOnCollection();
     if(typeof renderStaff==='function') renderStaff();
     if(document.getElementById('reports')?.classList.contains('active')) renderStaffAccountReports();
-    alert('تم تحديث مستحقات الأطباء/التمريض على أساس المبلغ المحصل فقط.');
+    // [FIX-v71] Alert removed — update is silent now
   },120);
 };
 
@@ -2563,7 +2626,7 @@ window.addVisit=function(){
   setTimeout(function(){
     recalculateStaffDuesOnCollection();
     var p=document.getElementById('vPay')?.value||'';
-    if(p!=='كاش') alert('تنبيه: تم تحميل الخدمة على حساب المريض، ولن يتم احتساب نسبة الطبيب/التمريض إلا بعد السداد.');
+    // [FIX-v71] Silent — no alert on deferred visit
   },120);
 };
 
@@ -2572,7 +2635,7 @@ window.executeSrv=function(id){
   if(typeof oldExecuteSrv==='function') oldExecuteSrv(id);
   setTimeout(function(){
     recalculateStaffDuesOnCollection();
-    alert('تنبيه: أي نسبة طبيب/تمريض لهذه الخدمة ستُحسب فقط بعد تحصيل المبلغ من المريض.');
+    // [FIX-v71] Silent — no alert on service execution
   },120);
 };
 
@@ -2591,8 +2654,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
 })();
 </script>
-
-
 <script id="athar-single-treasury-source-fix">
 (function(){
 
@@ -2820,44 +2881,22 @@ window.renderTreasuryReport = function(){
   box.innerHTML=html;
 };
 
-// Patch original pay/add visit/add expense without adding duplicate treasury movements.
+// [FIX-v71] v38 payPartial wrapper DISABLED — treasury recording handled by v70 guard
+// Kept: showPatientBalance + renderCashier side-effects only
 var oldPayPartial = window.payPartial;
 window.payPartial = function(){
-  var patientId=document.getElementById('payPatient')?.value;
-  var amount=Number(document.getElementById('payAmount')?.value)||0;
-  var method=document.getElementById('payMethod')?.value||'كاش';
-  var treasury=document.getElementById('payTreasury')?.value||'الخزينة الرئيسية';
-  var note=document.getElementById('payNote')?.value||'سداد مريض';
-
-  var before = read('payments',[]).length;
   if(typeof oldPayPartial==='function') oldPayPartial();
-  var after = read('payments',[]).length;
-
-  // If original payment succeeded, record exactly once in treasuryMovements.
-  if(after > before && amount > 0){
-    addTreasuryMove('قبض', amount, method, treasury, note, patientId);
-  }
-  setTimeout(function(){ showPatientBalance(); renderCashier(); },80);
+  setTimeout(function(){ 
+    if(typeof showPatientBalance==='function') showPatientBalance();
+    if(typeof renderCashier==='function') renderCashier();
+  },80);
 };
 
+// [FIX-v71] v38 addVisit wrapper DISABLED — treasury handled by v14 original + v70 guard
 var oldAddVisit = window.addVisit;
 window.addVisit = function(){
-  var patientId=document.getElementById('vPatient')?.value;
-  var pay=document.getElementById('vPay')?.value||'';
-  var fee=Number(document.getElementById('vFee')?.value)||0;
-  var patients=read('patients',[]);
-  var p=patients.find(function(x){return String(x.id)===String(patientId);});
-  var discount=p?Number(p.discount||0):0;
-  var net=fee*(1-discount/100);
-  var before=read('visits',[]).length;
-
   if(typeof oldAddVisit==='function') oldAddVisit();
-
-  var after=read('visits',[]).length;
-  if(after > before && pay === 'كاش' && net > 0){
-    addTreasuryMove('قبض', net, 'كاش', 'الخزينة الرئيسية', 'كشف طبي', patientId);
-  }
-  setTimeout(function(){ renderTreasurySummaryCards(); },80);
+  setTimeout(function(){ if(typeof renderTreasurySummaryCards==='function') renderTreasurySummaryCards(); },80);
 };
 
 var oldAddExpense = window.addExpense;
@@ -2895,8 +2934,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
 })();
 </script>
-
-
 <script id="athar-safety-notifications-fix">
 (function(){
 
@@ -3114,8 +3151,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
 })();
 </script>
-
-
 <script id="athar-admission-reception-clinic-fix">
 (function(){
 
@@ -3320,8 +3355,6 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 })();
 </script>
-
-
 <script id="athar-print-daily-admission-refdoctor-journal-numbers">
 (function(){
 
@@ -3595,8 +3628,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
 })();
 </script>
-
-
 <script id="athar-users-permissions-hospital-settings">
 (function(){
 
@@ -3893,8 +3924,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
 })();
 </script>
-
-
 <script id="athar-v38-core-finance-fix">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -3937,8 +3966,6 @@ var oldRefresh=window.refreshPage;window.refreshPage=function(id){if(typeof oldR
 document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){renderCOAManage();fillJournalAccountSelects();fillDepEdit();},500);});
 })();
 </script>
-
-
 <script id="athar-v39-remaining-reports-links">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -4091,8 +4118,6 @@ window.refreshPage=function(id){
 };
 })();
 </script>
-
-
 <script id="athar-v40-visible-fixes">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -4140,8 +4165,6 @@ var oldRefresh=window.refreshPage;window.refreshPage=function(id){if(typeof oldR
 document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){v40RenderCOA();v40FillAcc();v40FillCatalogSelect();v40FillDuesNames();v40FillReportLevel2()},500)})
 })();
 </script>
-
-
 <script id="athar-v43-real-native-dropdown-fix">
 (function(){
   function hidePrintAreas(){
@@ -4220,8 +4243,6 @@ document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){v4
   });
 })();
 </script>
-
-
 <script id="athar-v44-reports-fix">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -4453,8 +4474,6 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 })();
 </script>
-
-
 <script id="athar-v45-filter-selection-fix">
 (function(){
 
@@ -4598,8 +4617,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
 })();
 </script>
-
-
 <script id="athar-v46-room-map-dashboard">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -4640,36 +4657,11 @@ window.v46PreviewRoom=function(){
 window.v46RenderRoomMap=function(){
  syncRoomsFromAdmissions();var box=document.getElementById('v46RoomMap');if(!box)return;var selected=document.getElementById('v46AdmRoom')?.value||'', rooms=read('rooms',[]);
  box.innerHTML=rooms.map(r=>{var cls=r.status==='occupied'?'occupied':(r.status==='reserved'?'reserved':'available'), st=r.status==='occupied'?'مشغول':(r.status==='reserved'?'محجوز':'متاح'), pat=r.status==='occupied'?'<small>'+patientName(r.patientId)+'</small>':'';return '<div class="v46-room '+cls+' '+(String(selected)===String(r.number)?'selected':'')+'" onclick="v46SelectRoom(\\''+r.number+'\\')"><div class="num">'+r.number+'</div><div class="status">'+st+'</div>'+pat+'</div>'}).join('')
-}
-window.v46SelectRoom=function(no){var r=read('rooms',[]).find(x=>String(x.number)===String(no));if(r&&r.status==='occupied'){alert('السرير '+no+' مشغول بالفعل بواسطة '+patientName(r.patientId));return}var sel=document.getElementById('v46AdmRoom');if(sel){sel.value=no;v46PreviewRoom()}v46RenderRoomMap()}
-function addPatientCharge(pid,amount,desc,account){
- var patients=read('patients',[]), p=patients.find(x=>String(x.id)===String(pid));amount=Number(amount)||0;if(!p||amount<=0)return;p.balance=Number(p.balance||0)+amount;write('patients',patients);
- var journal=read('journal',[]), next=read('nextId',{j:journal.length+1});if(!next.j)next.j=journal.length+1;journal.push({id:next.j++,date:now(),description:desc,auto:true,posted:true,lines:[{acc:'حساب المريض #'+pid,dr:amount,cr:0},{acc:account||'إيراد إقامة داخلية',dr:0,cr:amount}]});write('journal',journal);write('nextId',next)
-}
-window.v46AdmitPatient=function(){
- var pid=document.getElementById('v46AdmPatient')?.value, roomNo=document.getElementById('v46AdmRoom')?.value, doctorId=document.getElementById('v46AdmDoctor')?.value, dept=document.getElementById('v46AdmDept')?.value, date=document.getElementById('v46AdmDate')?.value||today(), insurance=document.getElementById('v46AdmInsurance')?.value||'نقدي', reason=document.getElementById('v46AdmReason')?.value||'إقامة داخلية', daily=Number(document.getElementById('v46AdmDaily')?.value)||0;
- if(!pid)return alert('اختر المريض'); if(!roomNo)return alert('اختر رقم الغرفة / السرير');var rooms=read('rooms',[]), room=rooms.find(x=>String(x.number)===String(roomNo));if(room&&room.status==='occupied')return alert('لا يمكن قبول المريض: السرير مشغول.');
- var admissions=read('admissions',[]), id='ADM-'+Date.now();admissions.push({id:id,date:date,patientId:pid,doctorId:doctorId,dept:dept,room:roomNo,bed:roomNo,type:'إقامة داخلية',insurance:insurance,note:reason,dailyRate:daily,days:1,total:daily,status:'مفتوحة',lastDailyChargeDate:date});write('admissions',admissions);
- if(room){room.status='occupied';room.patientId=pid;room.admissionId=id;write('rooms',rooms)} if(daily>0)addPatientCharge(pid,daily,'تكلفة إقامة داخلية يوم الدخول - سرير '+roomNo,'إيراد إقامة داخلية');
- v46FillAdmissionSelects();v46RenderRoomMap();v46RenderActiveAdmissions();v46RenderDashboardAdmissions();alert('تم قبول المريض، وتم إغلاق السرير باللون الأحمر.')
-}
-window.v46Discharge=function(admId){if(!confirm('تأكيد خروج المريض وفتح السرير؟'))return;var admissions=read('admissions',[]), a=admissions.find(x=>String(x.id)===String(admId));if(!a)return;a.status='خرج';a.dischargeDate=now();write('admissions',admissions);var rooms=read('rooms',[]);rooms.forEach(r=>{if(String(r.admissionId)===String(admId)){r.status='available';r.patientId=null;r.admissionId=null}});write('rooms',rooms);v46FillAdmissionSelects();v46RenderRoomMap();v46RenderActiveAdmissions();v46RenderDashboardAdmissions()}
-window.v46PostTodayCharges=function(){var t=today(), admissions=activeAdmissions(), count=0,total=0;admissions.forEach(a=>{if((a.lastDailyChargeDate||'')===t)return;var amount=Number(a.dailyRate||0);if(amount>0){addPatientCharge(a.patientId,amount,'تكلفة إقامة يومية - سرير '+(a.room||a.bed||'-'),'إيراد إقامة داخلية');a.lastDailyChargeDate=t;a.total=Number(a.total||0)+amount;a.days=daysBetween(a.date,t);count++;total+=amount}});var all=read('admissions',[]).map(x=>admissions.find(a=>String(a.id)===String(x.id))||x);write('admissions',all);if(count)alert('تم تحميل تكلفة اليوم لعدد '+count+' حالة بإجمالي '+money(total));v46RenderActiveAdmissions();v46RenderDashboardAdmissions()}
-window.v46RenderActiveAdmissions=function(){
- syncRoomsFromAdmissions();var admissions=activeAdmissions(), rooms=read('rooms',[]), stats=document.getElementById('v46AdmissionStats');if(stats)stats.innerHTML='<div class="grid grid-4"><div class="stat-box"><div class="label">إجمالي المرضى</div><div class="value">'+admissions.length+'</div></div><div class="stat-box"><div class="label">أسرة مشغولة</div><div class="value">'+rooms.filter(r=>r.status==="occupied").length+'</div></div><div class="stat-box"><div class="label">أسرة متاحة</div><div class="value">'+rooms.filter(r=>r.status==="available").length+'</div></div><div class="stat-box"><div class="label">محجوز</div><div class="value">'+rooms.filter(r=>r.status==="reserved").length+'</div></div></div><div class="actions"><button class="btn btn-primary" onclick="v46PostTodayCharges()">تحميل تكلفة اليوم للإقامات</button></div>';
- var box=document.getElementById('v46ActiveAdmissionsTable');if(!box)return;if(!admissions.length){box.innerHTML='<div class="no-data">لا توجد حالات إقامة حاليًا</div>';return}
- var h='<table><tr><th>رقم</th><th>المريض</th><th>الغرفة</th><th>القسم</th><th>الطبيب</th><th>تاريخ الدخول</th><th>الأيام</th><th>تكلفة يومية</th><th>إجمالي التكلفة</th><th>التأمين</th><th>إجراءات</th></tr>';admissions.forEach((a,i)=>{var days=daysBetween(a.date,new Date()), total=Math.max(Number(a.total||0),days*Number(a.dailyRate||0));h+='<tr><td>#'+(i+1)+'</td><td>'+patientName(a.patientId)+'</td><td><span class="v46-badge-room">'+(a.room||a.bed||'-')+'</span></td><td>'+depName(a.dept)+'</td><td>'+staffName(a.doctorId)+'</td><td>'+dt(a.date)+'</td><td>'+days+' يوم</td><td>'+money(a.dailyRate)+'</td><td class="v44-negative">'+money(total)+'</td><td>'+(a.insurance||'نقدي')+'</td><td><button class="btn btn-danger btn-sm" onclick="v46Discharge(\\''+a.id+'\\')">خروج</button></td></tr>'});box.innerHTML=h+'</table>'
-}
-window.v46RenderDashboardAdmissions=function(){var card=document.getElementById('v46DashboardAdmissionCard');if(!card)return;var admissions=activeAdmissions(), summary=document.getElementById('v46DashboardAdmissionSummary'), list=document.getElementById('v46DashboardAdmissionList'), rooms=read('rooms',[]);if(summary)summary.innerHTML='<div class="grid grid-4"><div class="stat-box"><div class="label">مرضى إقامة</div><div class="value">'+admissions.length+'</div></div><div class="stat-box"><div class="label">أسرة مشغولة</div><div class="value">'+rooms.filter(r=>r.status==="occupied").length+'</div></div><div class="stat-box"><div class="label">أسرة متاحة</div><div class="value">'+rooms.filter(r=>r.status==="available").length+'</div></div><div class="stat-box"><div class="label">إجمالي يومي</div><div class="value">'+money(admissions.reduce((s,a)=>s+Number(a.dailyRate||0),0))+'</div></div></div>';if(!list)return;if(!admissions.length){list.innerHTML='<div class="no-data">لا توجد حالات إقامة مفتوحة</div>';return}var h='<table><tr><th>المريض</th><th>الغرفة</th><th>القسم</th><th>الطبيب</th><th>تاريخ الدخول</th><th>تكلفة يومية</th><th>إجراء</th></tr>';admissions.forEach(a=>{h+='<tr><td>'+patientName(a.patientId)+'</td><td><span class="v46-badge-room">'+(a.room||a.bed||'-')+'</span></td><td>'+depName(a.dept)+'</td><td>'+staffName(a.doctorId)+'</td><td>'+dt(a.date)+'</td><td>'+money(a.dailyRate)+'</td><td><button class="btn btn-danger btn-sm" onclick="showPage(\\'admission\\')">متابعة</button></td></tr>'});list.innerHTML=h+'</table>'}
-function refreshV46(id){v46SeedRooms();if(id==='admission'){v46FillAdmissionSelects();v46RenderRoomMap();v46RenderActiveAdmissions()}if(id==='dashboard'||id==='home'){v46RenderDashboardAdmissions()}}
-var oldRefresh=window.refreshPage;window.refreshPage=function(id){if(typeof oldRefresh==='function')oldRefresh(id);setTimeout(()=>refreshV46(id),120)}
-var oldRenderDashboard=window.renderDashboard;window.renderDashboard=function(){if(typeof oldRenderDashboard==='function')oldRenderDashboard();setTimeout(v46RenderDashboardAdmissions,120)}
-document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){v46SeedRooms();v46RenderDashboardAdmissions()},600)})
-})();
-</script>
-
-
-<script id="athar-v47-dashboard-bedmap">
+ // [v71] after v46 renders, also render v65/v69 maps
+ setTimeout(function(){
+   if(typeof window.atharV65RenderAdmissionMap==='function') window.atharV65RenderAdmissionMap();
+   if(typeof window.atharV69RenderAdmissionMap==='function') window.atharV69RenderAdmissionMap();
+   if(typeof <script id="athar-v47-dashboard-bedmap">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
 function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
@@ -4842,8 +4834,6 @@ window.renderDashboard=function(){
 document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){v47RenderDashboardBedMap();v47RenderOperationalBedMap()},700)})
 })();
 </script>
-
-
 <script id="athar-v48-nav-merge-bedmap">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -5008,8 +4998,6 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 })();
 </script>
-
-
 <script id="athar-v49-final-bedmap-dropdown">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -5236,8 +5224,6 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 })();
 </script>
-
-
 <script id="athar-v50-dashboard-cleanup">
 (function(){
 
@@ -5317,8 +5303,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
 })();
 </script>
-
-
 <script id="athar-v51-safe-logic-merge">
 (function(){
 /*
@@ -5682,7 +5666,7 @@ window.addVisit=function(){
     window.v51RecalculateStaffDues();
     var pay=document.getElementById('vPay')?.value||'';
     if(pay && pay!=='كاش'){
-      alert('تنبيه محاسبي: تم تحميل الخدمة على حساب المريض، ولن تُكتسب نسبة الطبيب/التمريض إلا بعد التحصيل.');
+      // [FIX-v71] Silent accounting note
     }
     window.v51RenderLogicAlerts();
   },150);
@@ -5770,8 +5754,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
 })();
 </script>
-
-
 <script id="athar-v52-admission-accounting-logic">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -5977,8 +5959,6 @@ window.refreshPage=function(id){
 document.addEventListener('DOMContentLoaded',function(){setTimeout(refreshAll,700);});
 })();
 </script>
-
-
 <script id="athar-v53-doctor-accrual-journals">
 (function(){
 /*
@@ -6317,8 +6297,6 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 })();
 </script>
-
-
 <script id="athar-v54-single-bedmap">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -6363,12 +6341,34 @@ window.v54RenderSingleAdmissionBedMap=function(){
   if(!box)return;
   var rooms=syncRooms();
   box.innerHTML=rooms.map(bedHtml).join('');
-
-  // Empty old duplicated containers so they don't show repeated beds if CSS unsupported
+  // Hide old duplicates only
   ['v46RoomMap','v47OperationalBedMap','v49OperationalBedMap'].forEach(function(id){
     var el=document.getElementById(id);
     if(el){el.innerHTML='';el.style.display='none'}
   });
+
+  // [v71-FINAL] Render v65 and v69 maps using v54's own room data
+  function patN(id){try{var p=JSON.parse(localStorage.getItem('athar_patients')||'[]').find(function(x){return String(x.id)===String(id);});return p?p.name:'-';}catch(e){return '-';}}
+  function bedV65(r){
+    var cls=r.status==='occupied'?'occupied':(r.status==='reserved'?'reserved':'available');
+    var st=r.status==='occupied'?'مشغول':(r.status==='reserved'?'محجوز':'متاح');
+    var pat=r.status==='occupied'?('<small>'+patN(r.patientId)+'</small>'):'';
+    return '<div class="athar-v65-bed '+cls+'" onclick="atharV65SelectBed(\'' + r.number + '\')">"+"<div class="num">'+r.number+'</div><div class="status">'+st+'</div>'+pat+'</div>';
+  }
+  function bedV69(r){
+    var cls=r.status==='occupied'?'occupied':(r.status==='reserved'?'reserved':'available');
+    var st=r.status==='occupied'?'مشغول':(r.status==='reserved'?'محجوز':'متاح');
+    var pat=r.status==='occupied'?('<small>'+patN(r.patientId)+'</small>'):'';
+    return '<div class="athar-v69-bed '+cls+'" onclick="atharV69SelectBed(''+r.number+'')"><div class="num">'+r.number+'</div><div class="status">'+st+'</div>'+pat+'</div>';
+  }
+  var map65=document.getElementById('atharV65AdmissionMap');
+  var map69=document.getElementById('atharV69AdmissionMap');
+  if(map65){map65.innerHTML=rooms.map(bedV65).join('');map65.style.display='grid';map65.style.visibility='visible';}
+  if(map69){map69.innerHTML=rooms.map(bedV69).join('');map69.style.display='grid';map69.style.visibility='visible';}
+  var card65=document.getElementById('atharV65AdmissionMapCard');
+  var card69=document.getElementById('atharV69AdmissionMapCard');
+  if(card65){card65.style.display='block';card65.style.visibility='visible';}
+  if(card69){card69.style.display='block';card69.style.visibility='visible';}
 };
 window.v54SelectBed=function(no){
   var rooms=syncRooms();
@@ -6420,15 +6420,10 @@ window.refreshPage=function(id){
 document.addEventListener('DOMContentLoaded',function(){
   patchRenderers();
   setTimeout(cleanup,700);
-  setInterval(function(){
-    var active=document.querySelector('.page.active');
-    if(active && active.id==='admission')cleanup();
-  },1500);
+  // [FIX-v71] setInterval removed — v71 unified renderer handles admission map
 });
 })();
 </script>
-
-
 <script id="athar-v55-merge-alerts">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -6571,8 +6566,6 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 })();
 </script>
-
-
 <script id="athar-v56-home-bedmap-only">
 (function(){
 
@@ -6653,30 +6646,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
 })();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script id="athar-v65-direct-admission-map">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -6770,12 +6739,10 @@ window.refreshPage=function(id){
 
 document.addEventListener('DOMContentLoaded',function(){
   setTimeout(window.atharV65RenderAdmissionMap,700);
-  setInterval(window.atharV65RenderAdmissionMap,1200);
+  // [FIX-v71] setInterval removed — v71 unified renderer handles this
 });
 })();
 </script>
-
-
 <script id="athar-v66-hospital-feedback">
 (function(){
 function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
@@ -6925,6 +6892,1638 @@ function initV66(){enableSearchableSelects();ensureRxPanel();fillRxSelects();fil
 var oldRefresh=window.refreshPage; window.refreshPage=function(id){if(typeof oldRefresh==='function')oldRefresh(id);setTimeout(initV66,200)}
 var oldShow=window.showPage; if(typeof oldShow==='function')window.showPage=function(id,btn){oldShow(id,btn);setTimeout(initV66,200)}
 document.addEventListener('DOMContentLoaded',function(){setTimeout(initV66,1000);setInterval(enableSearchableSelects,2000)})
+})();
+</script>
+<script id="athar-v67-medical-cleanup">
+(function(){
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function now(){return new Date().toISOString()}
+function patientName(id){var p=read('patients',[]).find(x=>String(x.id)===String(id));return p?p.name:'-'}
+function staffName(id){var s=read('staff',[]).find(x=>String(x.id)===String(id));return s?s.name:'-'}
+
+/* 1 Archive-only deletion */
+function hasPatientRelations(pid){
+ pid=String(pid||''); if(!pid)return false;
+ var keys=['visits','services','payments','treasuryMovements','admissions','inpatients','prescriptions','journal','transfers','receipts','doctorAccrualLedgerV53','staffLedgerV51'];
+ for(var k of keys){
+  var arr=read(k,[]); if(!Array.isArray(arr))continue;
+  if(arr.some(x=>String(x.patientId||'')===pid||String(x.pid||'')===pid||String(x.clientId||'')===pid||JSON.stringify(x).includes('#'+pid)))return true;
+ }
+ var p=read('patients',[]).find(x=>String(x.id)===pid);
+ return !!(p&&Number(p.balance||0)!==0);
+}
+window.v67SafeDeletePatient=function(pid){
+ pid=String(pid||''); if(!pid)return alert('اختر المريض أولاً');
+ var patients=read('patients',[]), p=patients.find(x=>String(x.id)===pid);
+ if(!p)return alert('المريض غير موجود');
+ if(hasPatientRelations(pid)){
+  p.archived=true;p.archivedAt=now();p.archiveReason='له بيانات أو حركات مرتبطة';
+  write('patients',patients); if(window.patients)window.patients=patients;
+  alert('لا يمكن حذف مريض له بيانات أو حركة. تم أرشفته بدلاً من الحذف.');
+ }else if(confirm('لا توجد حركات مرتبطة. تأكيد حذف المريض نهائيًا؟')){
+  patients=patients.filter(x=>String(x.id)!==pid);write('patients',patients);if(window.patients)window.patients=patients;alert('تم حذف المريض');
+ }
+ if(typeof renderPatients==='function')setTimeout(renderPatients,80);
+ setTimeout(v67RefreshAll,150);
+};
+['deletePatient','removePatient','delPatient'].forEach(fn=>window[fn]=function(id){return v67SafeDeletePatient(id)});
+function patchDeleteButtons(){
+ document.querySelectorAll('button,a').forEach(btn=>{
+  var oc=btn.getAttribute('onclick')||'', txt=(btn.textContent||'').trim();
+  if((oc.includes('deletePatient')||oc.includes('removePatient')||oc.includes('delPatient'))){
+   var m=oc.match(/(?:deletePatient|removePatient|delPatient)\(['"]?([^'")]+)['"]?\)/);
+   if(m)btn.setAttribute('onclick',"v67SafeDeletePatient('"+String(m[1]).replace(/[^\w\-:.]/g,'')+"');return false;");
+  }
+ });
+}
+
+/* 2 Searchable dropdowns + hide archived */
+function selectType(sel){
+ var id=(sel.id||'').toLowerCase(), label=((sel.closest('.field')||{}).textContent||'').toLowerCase();
+ if(id.includes('patient')||label.includes('المريض')||label.includes('العميل'))return 'patient';
+ if(id.includes('doctor')||label.includes('الطبيب'))return 'doctor';
+ if(id.includes('drug')||id.includes('med')||label.includes('الدواء')||label.includes('العلاج'))return 'medicine';
+ if(id.includes('item')||id.includes('service')||label.includes('الخدمة')||label.includes('الصنف')||label.includes('تحليل')||label.includes('أشعة'))return 'item';
+ if(sel.options&&sel.options.length>25)return 'large';
+ return '';
+}
+function enableSearchForSelect(sel){
+ if(!sel||sel.dataset.v67Search==='1'||!selectType(sel))return;
+ sel.dataset.v67Search='1';
+ var input=document.createElement('input'); input.className='athar-v67-search'; input.placeholder='🔎 بحث سريع';
+ sel.parentNode.insertBefore(input,sel);
+ var orig=[]; function cap(){orig=Array.from(sel.options).map(o=>({value:o.value,text:o.textContent,disabled:o.disabled}))}
+ cap(); sel.addEventListener('focus',cap);
+ input.addEventListener('input',function(){
+  var q=input.value.trim().toLowerCase(), old=sel.value;
+  var list=!q?orig:orig.filter(o=>(o.text||'').toLowerCase().includes(q)||String(o.value||'').toLowerCase().includes(q)).slice(0,80);
+  sel.innerHTML=list.length?list.map(o=>'<option value="'+String(o.value).replace(/"/g,'&quot;')+'" '+(o.disabled?'disabled':'')+'>'+o.text+'</option>').join(''):'<option value="">لا توجد نتائج</option>';
+  if(list.some(o=>String(o.value)===String(old)))sel.value=old;
+ });
+}
+function enableSearchableSelects(){document.querySelectorAll('select').forEach(enableSearchForSelect)}
+function filterArchivedPatients(){
+ var archived={}; read('patients',[]).forEach(p=>{if(p.archived)archived[String(p.id)]=true});
+ document.querySelectorAll('select').forEach(sel=>{if(selectType(sel)==='patient')Array.from(sel.options).forEach(o=>{if(archived[String(o.value)])o.remove()})});
+}
+
+/* 3 Prescription detailed panel */
+function fillRx(){
+ var ps=document.getElementById('v67RxPatient'), ds=document.getElementById('v67RxDoctor');
+ if(ps)ps.innerHTML='<option value="">-- اختر المريض --</option>'+read('patients',[]).filter(p=>!p.archived).map(p=>'<option value="'+p.id+'">#'+p.id+' - '+p.name+(p.phone?' - '+p.phone:'')+'</option>').join('');
+ if(ds)ds.innerHTML='<option value="">-- اختر الطبيب --</option>'+read('staff',[]).filter(s=>s.role==='طبيب').map(d=>'<option value="'+d.id+'">'+d.name+'</option>').join('');
+ enableSearchableSelects();
+}
+function ensureRxPanel(){
+ var page=document.getElementById('clinic')||document.getElementById('doctor')||document.querySelector('.page.active');
+ if(!page||document.getElementById('v67RxPanel'))return;
+ var t=page.textContent||''; if(!t.includes('روشتة')&&!t.includes('العلاج')&&!t.includes('عيادة'))return;
+ var card=document.createElement('div');card.className='card';card.id='v67RxPanel';
+ card.innerHTML='<h2>💊 روشتة تفصيلية</h2><div class="athar-v67-alert">أدخل الجرعة وعدد المرات والمدة والملاحظات.</div><div class="grid grid-3"><div class="field"><label>المريض</label><select id="v67RxPatient"></select></div><div class="field"><label>الطبيب</label><select id="v67RxDoctor"></select></div><div class="field"><label>التشخيص</label><input id="v67RxDiagnosis" placeholder="تشخيص مختصر"></div></div><table class="athar-v67-rx-table"><thead><tr><th>العلاج</th><th>الجرعة</th><th>المرات</th><th>المدة</th><th>ملاحظات</th><th></th></tr></thead><tbody id="v67RxRows"></tbody></table><div class="actions"><button class="btn btn-primary" onclick="v67AddRxRow()">➕ إضافة علاج</button><button class="btn btn-success" onclick="v67SavePrescription()">💾 حفظ الروشتة</button><button class="btn btn-warn" onclick="v67PrintLastPrescription()">🖨️ طباعة آخر روشتة</button></div>';
+ page.appendChild(card); fillRx(); v67AddRxRow();
+}
+window.v67AddRxRow=function(){
+ var body=document.getElementById('v67RxRows'); if(!body)return;
+ var opts='<option value="">-- اختر العلاج --</option>'+read('items',[]).map(i=>'<option value="'+i.id+'">'+(i.name||i.itemName||i.id)+'</option>').join('');
+ var tr=document.createElement('tr');
+ tr.innerHTML='<td><select class="v67RxDrug">'+opts+'</select></td><td><input class="v67RxDose" placeholder="قرص / 5 مل"></td><td><input class="v67RxFreq" placeholder="كل 8 ساعات"></td><td><input class="v67RxDuration" placeholder="5 أيام"></td><td><input class="v67RxNotes" placeholder="بعد الأكل"></td><td><button class="btn btn-danger btn-sm" onclick="this.closest(\\'tr\\').remove()">حذف</button></td>';
+ body.appendChild(tr); enableSearchableSelects();
+};
+window.v67SavePrescription=function(){
+ var pid=document.getElementById('v67RxPatient')?.value, did=document.getElementById('v67RxDoctor')?.value;
+ if(!pid)return alert('اختر المريض أولاً'); if(!did)return alert('اختر الطبيب أولاً');
+ var rows=[];document.querySelectorAll('#v67RxRows tr').forEach(tr=>{var drug=tr.querySelector('.v67RxDrug')?.value,drugName=tr.querySelector('.v67RxDrug option:checked')?.textContent||'',dose=tr.querySelector('.v67RxDose')?.value.trim(),freq=tr.querySelector('.v67RxFreq')?.value.trim(),dur=tr.querySelector('.v67RxDuration')?.value.trim(),notes=tr.querySelector('.v67RxNotes')?.value.trim();if(drug&&dose&&freq&&dur)rows.push({drugId:drug,drugName,dose,frequency:freq,duration:dur,notes})});
+ if(!rows.length)return alert('أدخل العلاج مع الجرعة والمرات والمدة');
+ var arr=read('prescriptions',[]), rx={id:'RX-'+Date.now(),date:new Date().toISOString(),patientId:pid,doctorId:did,diagnosis:document.getElementById('v67RxDiagnosis')?.value||'',items:rows};
+ arr.push(rx);write('prescriptions',arr);window.lastPrescription=rx;alert('تم حفظ الروشتة التفصيلية');
+};
+window.v67PrintLastPrescription=function(){var rx=window.lastPrescription||read('prescriptions',[]).slice(-1)[0];if(!rx)return alert('لا توجد روشتة للطباعة');var h='<div dir="rtl" style="font-family:Tahoma;padding:25px"><h2>روشتة طبية</h2><p>المريض: '+patientName(rx.patientId)+'</p><p>الطبيب: '+staffName(rx.doctorId)+'</p><p>التشخيص: '+(rx.diagnosis||'-')+'</p><table border="1" cellspacing="0" cellpadding="8" width="100%"><tr><th>العلاج</th><th>الجرعة</th><th>المرات</th><th>المدة</th><th>ملاحظات</th></tr>';rx.items.forEach(i=>h+='<tr><td>'+i.drugName+'</td><td>'+i.dose+'</td><td>'+i.frequency+'</td><td>'+i.duration+'</td><td>'+(i.notes||'')+'</td></tr>');h+='</table></div>';var w=window.open("","_blank");w.document.write(h);w.document.close();w.print();};
+
+/* 4 Advance payments */
+var oldPayPartial=window.payPartial;
+window.payPartial=function(){
+ var pid=document.getElementById('payPatient')?.value||document.getElementById('cashierPatient')?.value;
+ var amount=Number(document.getElementById('payAmount')?.value||document.getElementById('cashAmount')?.value||0);
+ var method=document.getElementById('payMethod')?.value||document.getElementById('cashMethod')?.value||'كاش';
+ if(!pid)return alert('اختر المريض أولاً'); if(amount<=0)return alert('أدخل مبلغ صحيح');
+ var patients=read('patients',[]), p=patients.find(x=>String(x.id)===String(pid)), bal=Number(p?.balance||0);
+ if(amount>bal){if(!confirm('المبلغ أكبر من رصيد المريض. هل تريد تسجيل الفرق كمقدم / تحت الحساب؟'))return; if(p){p.balance=bal-amount;write('patients',patients)} var pays=read('payments',[]);pays.push({id:'ADV-'+Date.now(),date:new Date().toISOString(),patientId:pid,amount,method,note:'تحصيل ومقدم تحت الحساب',advance:true});write('payments',pays); if(typeof addTreasuryMove==='function')addTreasuryMove('قبض',amount,method,'الخزينة الرئيسية','مقدم / تحت الحساب',pid); return;}
+ if(typeof oldPayPartial==='function')return oldPayPartial.apply(this,arguments);
+};
+
+/* 5 Validation and admission sync */
+function firstVal(ids){for(var id of ids){var e=document.getElementById(id);if(e&&e.value)return e.value}return ''}
+function reqPatient(kind){if(!firstVal(['srvPatient','servicePatient','visitPatient','vPatient','cashierPatient','payPatient','v46AdmPatient','admPatient','recAdmPatient','v67RxPatient'])){alert('لا يمكن '+kind+' بدون اختيار المريض أولاً');return false}return true}
+['addService','executeSrv','addSrv','addVisitService'].forEach(fn=>{var old=window[fn];if(typeof old==='function')window[fn]=function(){if(!reqPatient('إدخال الخدمة'))return;return old.apply(this,arguments)}})
+var oldAddVisit=window.addVisit;if(typeof oldAddVisit==='function')window.addVisit=function(){if(!firstVal(['vPatient','visitPatient','patientSelect']))return alert('اختر المريض أولاً');if(!firstVal(['vDoctor','visitDoctor','doctorSelect']))return alert('اختر الطبيب أولاً');return oldAddVisit.apply(this,arguments)}
+window.v67SyncAdmissions=function(){var admissions=read('admissions',[]),inp=read('inpatients',[]);admissions.forEach(a=>{var open=(a.status||'مفتوحة')==='مفتوحة'||(a.status||'open')==='open';if(open&&!inp.some(i=>String(i.admissionId||i.id)===String(a.id)))inp.push({id:'IN-'+a.id,admissionId:a.id,patientId:a.patientId,doctorId:a.doctorId,room:a.room||a.bed,dept:a.dept,date:a.date,status:'مفتوحة'})});write('inpatients',inp)}
+
+window.v67RefreshAll=function(){patchDeleteButtons();enableSearchableSelects();filterArchivedPatients();ensureRxPanel();fillRx();window.v67SyncAdmissions();}
+var oldRefresh=window.refreshPage;window.refreshPage=function(id){if(typeof oldRefresh==='function')oldRefresh(id);setTimeout(v67RefreshAll,200)}
+var oldShow=window.showPage;if(typeof oldShow==='function')window.showPage=function(id,btn){oldShow(id,btn);setTimeout(v67RefreshAll,200)}
+document.addEventListener('DOMContentLoaded',function(){setTimeout(v67RefreshAll,900);setInterval(function(){patchDeleteButtons();enableSearchableSelects();filterArchivedPatients()},1500)})
+})();
+</script>
+<script id="athar-v69-v67-admission-map">
+(function(){
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){}}
+function patientName(id){var p=read('patients',[]).find(function(x){return String(x.id)===String(id)});return p?p.name:'-';}
+
+function activeAdmissions(){
+  return read('admissions',[]).filter(function(a){
+    var st=a.status||'مفتوحة';
+    return st==='مفتوحة'||st==='open';
+  });
+}
+function ensureRooms(){
+  var rooms=read('rooms',[]);
+  if(!rooms.length){
+    rooms=[101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120].map(function(n){
+      return {id:String(n),number:String(n),status:'available',patientId:null,admissionId:null};
+    });
+    write('rooms',rooms);
+  }
+  return rooms;
+}
+function syncRooms(){
+  var rooms=ensureRooms();
+  rooms.forEach(function(r){
+    if(r.status==='occupied'){
+      var still=activeAdmissions().find(function(a){return String(a.id)===String(r.admissionId);});
+      if(!still){r.status='available';r.patientId=null;r.admissionId=null;}
+    }
+  });
+  activeAdmissions().forEach(function(a){
+    var no=String(a.room||a.bed||a.roomNo||'');
+    if(!no)return;
+    var r=rooms.find(function(x){return String(x.number)===no||String(x.id)===no;});
+    if(r){r.status='occupied';r.patientId=a.patientId;r.admissionId=a.id;}
+  });
+  write('rooms',rooms);
+  return rooms;
+}
+function bedHtml(r){
+  var cls=r.status==='occupied'?'occupied':(r.status==='reserved'?'reserved':'available');
+  var status=r.status==='occupied'?'مشغول':(r.status==='reserved'?'محجوز':'متاح');
+  var pat=r.status==='occupied'?'<small>'+patientName(r.patientId)+'</small>':'';
+  return '<div class="athar-v69-bed '+cls+'" onclick="atharV69SelectBed(\\''+r.number+'\\')"><div class="num">'+r.number+'</div><div class="status">'+status+'</div>'+pat+'</div>';
+}
+window.atharV69RenderAdmissionMap=function(){
+  var map=document.getElementById('atharV69AdmissionMap');
+  if(!map)return;
+  map.innerHTML=syncRooms().map(bedHtml).join('');
+  map.style.display='grid';
+  map.style.visibility='visible';
+  var card=document.getElementById('atharV69AdmissionMapCard');
+  if(card){card.style.display='block';card.style.visibility='visible';}
+};
+window.atharV69SelectBed=function(no){
+  var r=syncRooms().find(function(x){return String(x.number)===String(no);});
+  if(r && r.status==='occupied'){
+    alert('السرير '+no+' مشغول بواسطة '+patientName(r.patientId));
+    return;
+  }
+  ['v46AdmRoom','admRoom','recAdmRoom'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.value=no;
+  });
+  if(typeof window.v46PreviewRoom==='function')window.v46PreviewRoom();
+};
+
+// Re-render after admissions changes
+['v52AdmitPatient','v52DischargePatient','v46AdmitPatient','v46Discharge','v67SyncAdmissions'].forEach(function(fn){
+  var old=window[fn];
+  if(typeof old==='function'){
+    window[fn]=function(){
+      var res=old.apply(this,arguments);
+      setTimeout(window.atharV69RenderAdmissionMap,120);
+      return res;
+    };
+  }
+});
+
+var oldShow=window.showPage;
+if(typeof oldShow==='function'){
+  window.showPage=function(id,btn){
+    oldShow(id,btn);
+    if(id==='admission')setTimeout(window.atharV69RenderAdmissionMap,150);
+  };
+}
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function')oldRefresh(id);
+  if(id==='admission')setTimeout(window.atharV69RenderAdmissionMap,150);
+};
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(window.atharV69RenderAdmissionMap,800);
+  // [FIX-v71] setInterval removed — v65 already handles this
+});
+})();
+</script>
+
+<script id="athar-v71-final-fix">
+/* ============================================================
+   ATHAR v71 — Final Accounting Fix
+   الإصلاحات: guard شامل + dedup قوي + إقامة يومية + أدوات صيانة
+   ============================================================ */
+(function(){
+'use strict';
+if(window.__ATHAR_V71__) return;
+window.__ATHAR_V71__ = true;
+
+// ── Helpers ──────────────────────────────────────────────────
+function R(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function W(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){console.error('[v71] storage error',k,e);}}
+function now(){return new Date().toISOString();}
+function today(){return now().slice(0,10);}
+function money(v){return (Number(v)||0).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function pName(id){var p=R('patients',[]).find(function(x){return String(x.id)===String(id);});return p?p.name:'-';}
+
+// ── Treasury Dedup Key (دقيق) ─────────────────────────────────
+function tmKey(x){
+  var ref = x.ref||x.reference||x.sourceId||x.receiptNo||x.no||'';
+  var note = String(x.desc||x.note||'').trim().slice(0,60);
+  return [
+    x.type||'',
+    Math.round((Number(x.amount)||0)*100),
+    String(x.patientId||x.pid||''),
+    String(x.method||'كاش').trim(),
+    String(x.treasury||'الخزينة الرئيسية').trim(),
+    ref||note,
+    (x.date||'').slice(0,16)
+  ].join('|');
+}
+
+// ── Dedup الخزينة + إعادة حساب الأرصدة ──────────────────────
+window.v71DedupeAndRecalc = function(silent){
+  var arr = R('treasuryMovements',[]);
+  var seen = {}, clean = [], removed = 0;
+  arr.forEach(function(x){
+    var k = tmKey(x);
+    if(seen[k]){ removed++; }
+    else { seen[k]=1; clean.push(x); }
+  });
+  // إعادة حساب running balances بالترتيب الصحيح
+  clean.sort(function(a,b){return new Date(a.date)-new Date(b.date);});
+  var cash=0, card=0, bank=0;
+  clean.forEach(function(m){
+    var sign = m.type==='صرف' ? -1 : 1;
+    var mt = String(m.method||'كاش');
+    if(mt.includes('شبكة'))                       card  += sign*(Number(m.amount)||0);
+    else if(mt.includes('تحويل')||mt.includes('بنك')) bank += sign*(Number(m.amount)||0);
+    else                                            cash  += sign*(Number(m.amount)||0);
+    m.cashBal  = Math.round(cash *100)/100;
+    m.cardBal  = Math.round(card *100)/100;
+    m.bankBal  = Math.round(bank *100)/100;
+    m.totalBal = Math.round((cash+card+bank)*100)/100;
+  });
+  W('treasuryMovements', clean);
+  if(window.treasuryMovements) window.treasuryMovements = clean;
+  if(!silent && removed>0)
+    console.log('[v71] Dedup: removed '+removed+' duplicate treasury entries');
+  return {removed:removed, cash:cash, card:card, bank:bank, total:cash+card+bank};
+};
+
+// ── Runtime guard ─────────────────────────────────────────────
+// حركة واحدة بنفس المفتاح مرتين في 5 ثواني = تكرار
+var _recentTM = {};
+var _origTM = window.addTreasuryMove;
+window.addTreasuryMove = function(type, amount, method, treasury, desc, patientId){
+  amount = Number(amount)||0;
+  if(amount <= 0) return null;
+  method   = method   || 'كاش';
+  treasury = treasury || 'الخزينة الرئيسية';
+
+  // منع صرف بالسالب
+  if(type === 'صرف'){
+    var mt = method.includes('شبكة')?'شبكة':method.includes('تحويل')||method.includes('بنك')?'تحويل':'كاش';
+    var bal = window.v71Balance(mt);
+    if(amount > bal + 0.01){
+      alert('🚫 لا يمكن الصرف بالسالب
+المتاح ('+mt+'): '+money(bal)+'
+المطلوب: '+money(amount));
+      return null;
+    }
+  }
+
+  // runtime duplicate check
+  var probe = {type:type, amount:amount, method:method, treasury:treasury, desc:desc||'', patientId:patientId||'', date:now()};
+  var k = tmKey(probe);
+  var t = Date.now();
+  if(_recentTM[k] && t - _recentTM[k] < 5000){
+    console.warn('[v71] Blocked runtime duplicate TM:', type, amount, method);
+    return null;
+  }
+  _recentTM[k] = t;
+  setTimeout(function(){delete _recentTM[k];}, 6000);
+
+  var result = (typeof _origTM==='function') ? _origTM.apply(this, arguments) : null;
+  return result;
+};
+
+// ── Balance helper ────────────────────────────────────────────
+window.v71Balance = function(method){
+  var arr = R('treasuryMovements',[]);
+  if(!arr.length) return 0;
+  var last = arr[arr.length-1];
+  if(!method || method==='كاش')  return Number(last.cashBal  || 0);
+  if(method.includes('شبكة'))    return Number(last.cardBal  || 0);
+  if(method.includes('تحويل')||method.includes('بنك')) return Number(last.bankBal||0);
+  return Number(last.totalBal || 0);
+};
+
+// ── payPartial guard (الأخير في السلسلة) ────────────────────
+var _payRunning = false;
+var _payBase = window.payPartial;
+window.payPartial = function(){
+  if(_payRunning){ console.warn('[v71] payPartial re-entry blocked'); return; }
+  _payRunning = true;
+  try{
+    return (typeof _payBase==='function') ? _payBase.apply(this, arguments) : undefined;
+  } finally {
+    setTimeout(function(){
+      _payRunning = false;
+      window.v71DedupeAndRecalc(true);
+      if(typeof renderCashier==='function') try{renderCashier();}catch(e){}
+    }, 200);
+  }
+};
+
+// ── addVisit guard ────────────────────────────────────────────
+var _visitRunning = false;
+var _visitBase = window.addVisit;
+window.addVisit = function(){
+  if(_visitRunning){ console.warn('[v71] addVisit re-entry blocked'); return; }
+  _visitRunning = true;
+  try{
+    return (typeof _visitBase==='function') ? _visitBase.apply(this, arguments) : undefined;
+  } finally {
+    setTimeout(function(){
+      _visitRunning = false;
+      window.v71DedupeAndRecalc(true);
+    }, 200);
+  }
+};
+
+// ── addExpense guard ──────────────────────────────────────────
+var _expRunning = false;
+var _expBase = window.addExpense;
+window.addExpense = function(){
+  if(_expRunning){ console.warn('[v71] addExpense re-entry blocked'); return; }
+  _expRunning = true;
+  try{
+    return (typeof _expBase==='function') ? _expBase.apply(this, arguments) : undefined;
+  } finally {
+    setTimeout(function(){
+      _expRunning = false;
+      window.v71DedupeAndRecalc(true);
+    }, 200);
+  }
+};
+
+// ── تحميل الإقامة اليومي (صامت، مرة واحدة يومياً) ──────────
+window.v71DailyAdmissionAccrual = function(){
+  var key = 'v71_accrual_' + today();
+  if(localStorage.getItem('athar_'+key) === 'done') return;
+
+  var admissions = R('admissions',[]);
+  var count=0, total=0;
+  admissions.forEach(function(a){
+    var open = (a.status||'مفتوحة')==='مفتوحة' || (a.status||'open')==='open';
+    if(!open) return;
+    if((a.lastDailyChargeDate||'') === today()) return;
+    var amount = Number(a.dailyRate||0);
+    if(amount <= 0) return;
+
+    var patients = R('patients',[]);
+    var p = patients.find(function(x){return String(x.id)===String(a.patientId);});
+    if(p){
+      p.balance = Number(p.balance||0) + amount;
+      W('patients', patients);
+    }
+    // قيد محاسبي
+    var journal = R('journal',[]);
+    journal.push({
+      id:'JV-AUTO-'+Date.now()+'-'+Math.random().toString(36).slice(2,5),
+      no:'JV-AUTO-'+Date.now(),
+      date:now(),
+      description:'إقامة يومية تلقائية — '+pName(a.patientId)+' — سرير '+(a.room||a.bed||'-'),
+      auto:true, posted:true,
+      lines:[
+        {acc:'حساب المريض #'+a.patientId, dr:amount, cr:0},
+        {acc:'إيراد إقامة داخلية',         dr:0,      cr:amount}
+      ]
+    });
+    W('journal', journal);
+
+    a.total = Number(a.total||0) + amount;
+    a.lastDailyChargeDate = today();
+    count++; total += amount;
+  });
+
+  if(count > 0){
+    W('admissions', admissions);
+    // إشعار في systemNotifications بدل alert
+    var notif = R('systemNotifications',[]);
+    notif.unshift({id:'ACCRUAL-'+Date.now(), date:now(), type:'info',
+      msg:'تحميل إقامة يومي تلقائي: '+count+' مريض — إجمالي '+money(total)});
+    if(notif.length>100) notif=notif.slice(0,100);
+    W('systemNotifications', notif);
+    console.log('[v71] Daily accrual: '+count+' patients, total '+money(total));
+  }
+  W(key, 'done');
+};
+
+// ── Storage Monitor ───────────────────────────────────────────
+window.v71StorageCheck = function(){
+  try{
+    var total=0;
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i);
+      total += (localStorage.getItem(k)||'').length + k.length;
+    }
+    var mb = total*2/1024/1024;
+    if(mb > 3.8){
+      var box = document.getElementById('v71StorageWarn');
+      if(box) box.style.display='block';
+      console.warn('[v71] localStorage: '+mb.toFixed(2)+' MB — consider backup!');
+    }
+    return mb;
+  }catch(e){return 0;}
+};
+
+// ── Maintenance card in cashier page ─────────────────────────
+function injectMaintenanceCard(){
+  var page = document.getElementById('cashier');
+  if(!page || document.getElementById('v71MaintCard')) return;
+
+  var div = document.createElement('div');
+  div.id = 'v71MaintCard';
+  div.className = 'card';
+  div.style.cssText = 'border:2px solid #e67e22;background:#fffbf5;margin-bottom:12px;';
+  div.innerHTML = [
+    '<h2 style="color:#e67e22;font-size:16px;">🛠️ أدوات صيانة الخزينة</h2>',
+    '<div id="v71StorageWarn" style="display:none;background:#f8d7da;color:#721c24;padding:8px;border-radius:6px;margin-bottom:8px;font-weight:700;">',
+    '⚠️ حجم البيانات اقترب من الحد الأقصى — اعمل Backup فوراً من الإعدادات',
+    '</div>',
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;">',
+    '<button class="btn btn-warn btn-sm" onclick="var r=v71DedupeAndRecalc(false);',
+    'document.getElementById('v71MaintResult').innerHTML='✅ تم: حذف '+r.removed+' تكرار | كاش: '+v71Balance('كاش').toLocaleString('ar-EG')+' ج';">',
+    '🔄 تنظيف التكرارات + إعادة الأرصدة</button>',
+    '<button class="btn btn-primary btn-sm" onclick="v71ShowAudit()">📋 Audit Log</button>',
+    '<button class="btn btn-success btn-sm" onclick="v71DailyAdmissionAccrual();alert('تم تحميل الإقامة اليوم');">🛏️ تحميل إقامة اليوم</button>',
+    '<button class="btn btn-primary btn-sm" onclick="alert('كاش: '+v71Balance('كاش').toLocaleString('ar-EG')+' ج\nشبكة: '+v71Balance('شبكة').toLocaleString('ar-EG')+' ج\nتحويل: '+v71Balance('تحويل').toLocaleString('ar-EG')+' ج');">💰 عرض الأرصدة</button>',
+    '</div>',
+    '<div id="v71MaintResult" style="margin-top:8px;font-size:13px;color:#0d7377;font-weight:700;"></div>'
+  ].join('');
+  page.insertBefore(div, page.firstChild);
+}
+
+// ── Audit Log viewer ──────────────────────────────────────────
+window.v71ShowAudit = function(){
+  var arr = R('treasuryMovements',[]).slice(-40).reverse();
+  if(!arr.length){ alert('لا توجد حركات مسجلة'); return; }
+  var rows = arr.map(function(m){
+    var dt = new Date(m.date).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'});
+    var color = m.type==='صرف'?'#dc3545':'#198754';
+    return '<tr><td>'+dt+'</td><td style="color:'+color+';font-weight:700;">'+m.type+'</td>'+
+      '<td style="font-weight:700;">'+money(m.amount)+'</td>'+
+      '<td>'+(m.method||'كاش')+'</td>'+
+      '<td>'+(m.patientId?pName(m.patientId):'-')+'</td>'+
+      '<td>'+(m.desc||m.note||'-')+'</td>'+
+      '<td style="color:#0d7377;font-weight:900;">'+money(m.totalBal||0)+'</td>'+
+      '<td style="font-size:11px;color:#999;">'+(m.caller||m._caller||'-').slice(0,30)+'</td></tr>';
+  }).join('');
+  var w = window.open('','_blank','width=950,height=550');
+  w.document.write('<html dir="rtl"><head><meta charset="UTF-8"><style>'+
+    'body{font-family:Tahoma;padding:15px;direction:rtl;}'+
+    'table{border-collapse:collapse;width:100%;}'+
+    'th{background:#0d7377;color:#fff;padding:8px;text-align:right;}'+
+    'td{padding:7px 8px;border-bottom:1px solid #eee;font-size:13px;}'+
+    'tr:hover{background:#f8f9fa;}</style>
+<style id="athar-v73-hospital-manager-completion-style">
+.v73-note{background:#e8f5f4;color:#0d7377;border-right:5px solid #0d7377;border-radius:10px;padding:10px 14px;margin:10px 0;font-weight:800}
+.v73-warn{background:#fff8e1;color:#856404;border-right:5px solid #ffc107;border-radius:10px;padding:10px 14px;margin:10px 0;font-weight:800}
+.v73-search{width:100%;padding:8px 10px;border:1px solid #d0d7de;border-radius:8px;font-size:12px;background:#fff;direction:rtl;margin-bottom:5px}
+.v73-rx-table input,.v73-rx-table select{width:100%;padding:7px;border:1px solid #ddd;border-radius:7px;font-size:12px}
+.v73-cash{background:#28a745;color:#fff}
+.v73-credit{background:#ffc107;color:#222}
+</style>
+<script id="athar-v71-admission-guarantee">
+// FINAL GUARANTEE: render admission bed maps after all scripts loaded
+window.addEventListener('load', function(){
+  [200, 600, 1200, 2500].forEach(function(ms){
+    setTimeout(function(){
+      var active = document.querySelector('.page.active');
+      if(active && active.id==='admission'){
+        if(typeof window.v54RenderSingleAdmissionBedMap==='function'){
+          window.v54RenderSingleAdmissionBedMap();
+        }
+      }
+    }, ms);
+  });
+});
+</script>
+<script id="athar-v73-hospital-manager-completion">
+(function(){
+/*
+V73 — استكمال تعليقات مدير المستشفى والدكتور
+- روشتة تفصيلية حقيقية: جرعة / مرات / مدة / ملاحظات.
+- الصيدلية: صرف آجل أو صرف كاش، وربط الكاش بالخزينة والمدفوعات ورصيد المريض.
+- منع العمليات بدون مريض/طبيب.
+- إخفاء المرضى المؤرشفين من القوائم.
+- بحث سريع أعلى القوائم الكبيرة.
+- تحميل الإقامة اليومية مرة واحدة في اليوم.
+- فلترة مرضى الطبيب عند وجود مستخدم طبيب.
+*/
+if(window.__ATHAR_V73_MANAGER_COMPLETION__) return;
+window.__ATHAR_V73_MANAGER_COMPLETION__ = true;
+
+function R(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function W(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){alert('⚠️ خطأ حفظ/مساحة التخزين. اعمل Backup.');}}
+function now(){return new Date().toISOString();}
+function n(v){return Number(v)||0;}
+function money(v){return n(v).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function nextObj(){return R('nextId',{p:1001,v:5001,rx:1,srv:1,item:1,staff:1,pay:1,j:1});}
+function saveNext(x){W('nextId',x);}
+function patientName(id){var p=R('patients',[]).find(function(x){return String(x.id)===String(id)});return p?p.name:'-';}
+function staffName(id){var s=R('staff',[]).find(function(x){return String(x.id)===String(id)});return s?s.name:'-';}
+function itemName(id){var i=R('items',[]).find(function(x){return String(x.id)===String(id)});return i?i.name:'-';}
+
+function addJ(desc,lines){
+  if(typeof window.addJournal==='function'){try{return window.addJournal(desc,lines);}catch(e){}}
+  var j=R('journal',[]), nx=nextObj(); if(!nx.j)nx.j=j.length+1;
+  j.push({id:nx.j++,date:now(),description:desc,lines:lines||[],auto:true,v73:true});
+  W('journal',j);saveNext(nx);
+}
+function addTM(type,amount,method,treasury,desc,patientId){
+  if(typeof window.addTreasuryMove==='function'){try{return window.addTreasuryMove(type,amount,method,treasury,desc,patientId);}catch(e){}}
+  var t=R('treasuryMovements',[]);
+  t.push({id:'TM-'+Date.now(),date:now(),type:type,amount:n(amount),method:method||'كاش',treasury:treasury||'الخزينة الرئيسية',desc:desc||'',patientId:patientId||null,v73:true});
+  W('treasuryMovements',t);
+}
+
+/* ---------- searchable selects ---------- */
+function selectType(sel){
+  var id=(sel.id||'').toLowerCase();
+  var label=((sel.closest('.field')||{}).textContent||'').toLowerCase();
+  if(id.includes('patient')||label.includes('المريض')||label.includes('العميل'))return 'patient';
+  if(id.includes('doctor')||label.includes('الطبيب'))return 'doctor';
+  if(id.includes('drug')||id.includes('med')||label.includes('الدواء')||label.includes('العلاج'))return 'medicine';
+  if(id.includes('item')||id.includes('service')||label.includes('الخدمة')||label.includes('الصنف')||label.includes('تحليل')||label.includes('أشعة'))return 'item';
+  if(sel.options&&sel.options.length>25)return 'large';
+  return '';
+}
+function enableSearch(sel){
+  if(!sel||sel.dataset.v73Search==='1'||!selectType(sel))return;
+  sel.dataset.v73Search='1';
+  var input=document.createElement('input'); input.className='v73-search'; input.placeholder='🔎 بحث سريع';
+  sel.parentNode.insertBefore(input,sel);
+  var original=[];
+  function cap(){original=Array.from(sel.options).map(function(o){return {value:o.value,text:o.textContent,disabled:o.disabled};});}
+  cap(); sel.addEventListener('focus',cap);
+  input.addEventListener('input',function(){
+    var q=input.value.trim().toLowerCase(), old=sel.value;
+    var list=!q?original:original.filter(function(o){return (o.text||'').toLowerCase().includes(q)||String(o.value||'').toLowerCase().includes(q);}).slice(0,80);
+    sel.innerHTML=list.length?list.map(function(o){return '<option value="'+String(o.value).replace(/"/g,'&quot;')+'" '+(o.disabled?'disabled':'')+'>'+o.text+'</option>';}).join(''):'<option value="">لا توجد نتائج</option>';
+    if(list.some(function(o){return String(o.value)===String(old)})) sel.value=old;
+  });
+}
+function hideArchivedPatients(){
+  var archived={}; R('patients',[]).forEach(function(p){if(p.archived)archived[String(p.id)]=1;});
+  document.querySelectorAll('select').forEach(function(sel){
+    if(selectType(sel)==='patient'){
+      Array.from(sel.options).forEach(function(o){if(archived[String(o.value)])o.remove();});
+    }
+  });
+}
+function enhanceSelects(){document.querySelectorAll('select').forEach(enableSearch);hideArchivedPatients();}
+
+/* ---------- doctor visibility ---------- */
+function currentUser(){return R('currentUser',null)||R('loggedUser',null)||R('activeUser',null)||{};}
+function isDoctorUser(){var u=currentUser();return String(u.role||'').includes('طبيب')||String(u.role||'').toLowerCase().includes('doctor');}
+function currentDoctorId(){var u=currentUser();return u.staffId||u.doctorId||u.linkedStaffId||u.id||null;}
+function filterDoctorPatients(){
+  if(!isDoctorUser())return;
+  var did=currentDoctorId(); if(!did)return;
+  var allowed={};
+  R('visits',[]).forEach(function(v){if(String(v.doctorId)===String(did))allowed[String(v.patientId)]=1;});
+  R('admissions',[]).forEach(function(a){if(String(a.doctorId)===String(did))allowed[String(a.patientId)]=1;});
+  document.querySelectorAll('select').forEach(function(sel){
+    if(selectType(sel)==='patient'){
+      Array.from(sel.options).forEach(function(o){if(o.value&&!allowed[String(o.value)])o.disabled=true;});
+    }
+  });
+}
+
+/* ---------- detailed prescription ---------- */
+function fillRxPanelSelects(){
+  var ps=document.getElementById('v73RxPatient'), ds=document.getElementById('v73RxDoctor');
+  if(ps){
+    ps.innerHTML='<option value="">-- اختر المريض --</option>'+R('patients',[]).filter(function(p){return !p.archived;}).map(function(p){return '<option value="'+p.id+'">#'+p.id+' - '+p.name+(p.phone?' - '+p.phone:'')+'</option>';}).join('');
+  }
+  if(ds){
+    ds.innerHTML='<option value="">-- اختر الطبيب --</option>'+R('staff',[]).filter(function(s){return s.role==='طبيب';}).map(function(d){return '<option value="'+d.id+'">'+d.name+'</option>';}).join('');
+  }
+  enhanceSelects(); filterDoctorPatients();
+}
+function ensureRxPanel(){
+  var page=document.getElementById('clinic')||document.getElementById('doctor');
+  if(!page||document.getElementById('v73RxPanel'))return;
+  var card=document.createElement('div');
+  card.className='card'; card.id='v73RxPanel';
+  card.innerHTML='<h2>💊 روشتة تفصيلية</h2>'+
+    '<div class="v73-note">تم إضافة الجرعة وعدد المرات والمدة والملاحظات حتى تكون الروشتة مناسبة للتشغيل الفعلي.</div>'+
+    '<div class="grid grid-3"><div class="field"><label>المريض</label><select id="v73RxPatient"></select></div><div class="field"><label>الطبيب</label><select id="v73RxDoctor"></select></div><div class="field"><label>التشخيص</label><input id="v73RxDiagnosis" placeholder="تشخيص مختصر"></div></div>'+
+    '<table class="v73-rx-table"><thead><tr><th>العلاج</th><th>الكمية</th><th>الجرعة</th><th>المرات</th><th>المدة</th><th>ملاحظات</th><th></th></tr></thead><tbody id="v73RxRows"></tbody></table>'+
+    '<div class="actions"><button class="btn btn-primary" onclick="v73AddRxRow()">➕ إضافة علاج</button><button class="btn btn-success" onclick="v73SavePrescription()">💾 حفظ الروشتة</button><button class="btn btn-warn" onclick="v73PrintLastPrescription()">🖨️ طباعة آخر روشتة</button></div>';
+  page.appendChild(card);
+  fillRxPanelSelects(); window.v73AddRxRow();
+}
+window.v73AddRxRow=function(){
+  var body=document.getElementById('v73RxRows'); if(!body)return;
+  var opts='<option value="">-- اختر العلاج --</option>'+R('items',[]).filter(function(i){return i.type==='دواء'||String(i.type||'').includes('دواء')||String(i.name||'').length;}).map(function(i){return '<option value="'+i.id+'">'+(i.name||i.itemName||i.id)+' | متاح: '+(i.qty??'-')+' | '+(i.price||0)+' ج</option>';}).join('');
+  var tr=document.createElement('tr');
+  tr.innerHTML='<td><select class="v73RxDrug">'+opts+'</select></td><td><input type="number" class="v73RxQty" value="1" min="1"></td><td><input class="v73RxDose" placeholder="مثال: قرص / 5 مل"></td><td><input class="v73RxFreq" placeholder="كل 8 ساعات"></td><td><input class="v73RxDuration" placeholder="5 أيام"></td><td><input class="v73RxNotes" placeholder="بعد الأكل"></td><td><button class="btn btn-danger btn-sm" onclick="this.closest(\\'tr\\').remove()">حذف</button></td>';
+  body.appendChild(tr); enhanceSelects();
+};
+window.v73SavePrescription=function(){
+  var pid=document.getElementById('v73RxPatient')?.value;
+  var did=document.getElementById('v73RxDoctor')?.value;
+  if(!pid)return alert('اختر المريض أولاً');
+  if(!did)return alert('اختر الطبيب أولاً');
+  var prescriptions=R('prescriptions',[]), nx=nextObj(); if(!nx.rx)nx.rx=prescriptions.length+1;
+  var saved=[];
+  document.querySelectorAll('#v73RxRows tr').forEach(function(tr){
+    var drug=tr.querySelector('.v73RxDrug')?.value;
+    var qty=n(tr.querySelector('.v73RxQty')?.value)||1;
+    var dose=tr.querySelector('.v73RxDose')?.value.trim();
+    var freq=tr.querySelector('.v73RxFreq')?.value.trim();
+    var duration=tr.querySelector('.v73RxDuration')?.value.trim();
+    var notes=tr.querySelector('.v73RxNotes')?.value.trim();
+    if(drug&&dose&&freq&&duration){
+      var rx={id:nx.rx++,patientId:+pid,doctorId:+did,visitId:null,drugId:+drug,qty:qty,dose:dose,frequency:freq,duration:duration,notes:notes,diagnosis:document.getElementById('v73RxDiagnosis')?.value||'',status:'منتظر الصرف',date:now(),v73:true};
+      prescriptions.push(rx); saved.push(rx);
+    }
+  });
+  if(!saved.length)return alert('أدخل العلاج مع الجرعة والمرات والمدة');
+  W('prescriptions',prescriptions); saveNext(nx); window.prescriptions=prescriptions; window.lastPrescription=saved;
+  try{if(typeof renderRxQueue==='function')renderRxQueue();}catch(e){}
+  alert('تم حفظ الروشتة التفصيلية وإرسالها للصيدلية');
+};
+window.v73PrintLastPrescription=function(){
+  var list=window.lastPrescription||R('prescriptions',[]).slice(-5);
+  if(!list||!list.length)return alert('لا توجد روشتة للطباعة');
+  var first=Array.isArray(list)?list[0]:list;
+  list=Array.isArray(list)?list:[list];
+  var h='<div dir="rtl" style="font-family:Tahoma;padding:25px"><h2>روشتة طبية</h2><p>المريض: '+patientName(first.patientId)+'</p><p>الطبيب: '+staffName(first.doctorId)+'</p><p>التشخيص: '+(first.diagnosis||'-')+'</p><table border="1" cellspacing="0" cellpadding="8" width="100%"><tr><th>العلاج</th><th>الكمية</th><th>الجرعة</th><th>المرات</th><th>المدة</th><th>ملاحظات</th></tr>';
+  list.forEach(function(r){h+='<tr><td>'+itemName(r.drugId)+'</td><td>'+r.qty+'</td><td>'+(r.dose||'-')+'</td><td>'+(r.frequency||'-')+'</td><td>'+(r.duration||'-')+'</td><td>'+(r.notes||'')+'</td></tr>';});
+  h+='</table></div>';
+  var w=window.open('','_blank'); w.document.write(h); w.document.close(); w.print();
+};
+
+/* ---------- pharmacy link to patient account ---------- */
+window.renderRxQueue=function(){
+  var box=document.getElementById('rxQueue'); if(!box)return;
+  var list=R('prescriptions',[]).filter(function(r){return r.status==='منتظر الصرف';});
+  if(!list.length){box.innerHTML='<div class="no-data">لا توجد روشتات بانتظار الصرف</div>';return;}
+  var h='<table><tr><th>#</th><th>المريض</th><th>العلاج</th><th>الكمية</th><th>تفاصيل الجرعة</th><th>المتاح</th><th>القيمة</th><th>إجراء</th></tr>';
+  list.forEach(function(r){
+    var drug=R('items',[]).find(function(i){return String(i.id)===String(r.drugId);})||{};
+    var p=R('patients',[]).find(function(x){return String(x.id)===String(r.patientId);});
+    var price=n(drug.price)*n(r.qty);
+    var discount=p?n(p.discount):0;
+    var total=price*(1-discount/100);
+    var dose=[r.dose,r.frequency,r.duration,r.notes].filter(Boolean).join(' — ')||'-';
+    var available=n(drug.qty);
+    var ok=available>=n(r.qty);
+    h+='<tr><td>#'+r.id+'</td><td>'+patientName(r.patientId)+'</td><td>'+(drug.name||'-')+'</td><td>'+r.qty+'</td><td>'+dose+'</td><td>'+available+'</td><td>'+money(total)+'</td><td>'+
+      (ok?'<button class="btn btn-success btn-sm" onclick="dispenseRx('+r.id+',\\'آجل\\')">صرف آجل</button> <button class="btn btn-primary btn-sm" onclick="dispenseRx('+r.id+',\\'كاش\\')">صرف كاش</button>':'<span class="badge badge-danger">غير متوفر</span>')+
+      '</td></tr>';
+  });
+  box.innerHTML=h+'</table>';
+};
+window.dispenseRx=function(rxId,mode){
+  mode=mode||'آجل';
+  var prescriptions=R('prescriptions',[]);
+  var r=prescriptions.find(function(x){return String(x.id)===String(rxId);});
+  if(!r)return alert('الروشتة غير موجودة');
+  if(r.status==='تم الصرف')return alert('تم صرف هذه الروشتة من قبل');
+
+  var items=R('items',[]);
+  var drug=items.find(function(i){return String(i.id)===String(r.drugId);});
+  if(!drug)return alert('الصنف غير موجود');
+  if(n(drug.qty)<n(r.qty))return alert('الكمية غير متوفرة');
+
+  var patients=R('patients',[]);
+  var p=patients.find(function(x){return String(x.id)===String(r.patientId);});
+  if(!p)return alert('المريض غير موجود');
+
+  var gross=n(drug.price)*n(r.qty);
+  var net=+(gross*(1-n(p.discount||0)/100)).toFixed(2);
+  var cost=n(drug.cost)*n(r.qty);
+
+  drug.qty=n(drug.qty)-n(r.qty);
+  p.balance=+(n(p.balance)+net).toFixed(2);
+
+  addJ('صرف دواء - روشتة #'+r.id,[
+    {acc:'حساب المريض #'+p.id,dr:net,cr:0},
+    {acc:'إيراد الصيدلية',dr:0,cr:net},
+    {acc:'تكلفة مبيعات الصيدلية',dr:cost,cr:0},
+    {acc:'مخزون الصيدلية',dr:0,cr:cost}
+  ]);
+
+  var payments=R('payments',[]), nx=nextObj(); if(!nx.pay)nx.pay=payments.length+1;
+  if(mode==='كاش'){
+    p.balance=+(n(p.balance)-net).toFixed(2);
+    payments.push({id:nx.pay++,patientId:p.id,amount:net,method:'كاش',treasury:'الخزينة الرئيسية',date:now(),note:'تحصيل صيدلية روشتة #'+r.id,v73:true});
+    addJ('تحصيل صيدلية نقدي - روشتة #'+r.id,[
+      {acc:'الخزينة الرئيسية',dr:net,cr:0},
+      {acc:'حساب المريض #'+p.id,dr:0,cr:net}
+    ]);
+    addTM('قبض',net,'كاش','الخزينة الرئيسية','تحصيل صيدلية روشتة #'+r.id,p.id);
+  }
+
+  r.status='تم الصرف'; r.dispensedAt=now(); r.paymentMode=mode; r.amount=net;
+  W('items',items); W('patients',patients); W('prescriptions',prescriptions); W('payments',payments); saveNext(nx);
+  window.items=items; window.patients=patients; window.prescriptions=prescriptions; window.payments=payments;
+
+  try{if(typeof renderRxQueue==='function')renderRxQueue();}catch(e){}
+  try{if(typeof renderCashier==='function')renderCashier();}catch(e){}
+  alert('تم صرف العلاج '+(mode==='كاش'?'وتحصيله نقداً':'على حساب المريض')+'\nالقيمة: '+money(net)+'\nرصيد المريض الحالي: '+money(p.balance));
+};
+
+/* ---------- validation wrappers ---------- */
+function firstValue(ids){for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value;}return '';}
+function requirePatient(kind){
+  if(!firstValue(['srvPatient','servicePatient','visitPatient','vPatient','cashierPatient','payPatient','v46AdmPatient','admPatient','recAdmPatient','v73RxPatient','v67RxPatient','v66RxPatient'])){
+    alert('لا يمكن '+kind+' بدون اختيار المريض أولاً');return false;
+  }
+  return true;
+}
+['addService','executeSrv','addSrv','addVisitService'].forEach(function(fn){
+  var old=window[fn];
+  if(typeof old==='function'&&!old.__v73Guarded){
+    var wrapped=function(){if(!requirePatient('إدخال الخدمة'))return;return old.apply(this,arguments);};
+    wrapped.__v73Guarded=true; window[fn]=wrapped;
+  }
+});
+
+/* ---------- daily admission accrual once ---------- */
+window.v73RunDailyAdmissionAccrual=function(){
+  var d=new Date().toISOString().slice(0,10), key='athar_v73_admission_accrual_'+d;
+  if(localStorage.getItem(key)==='done')return false;
+  try{
+    if(typeof window.v51AccrueAdmissionDailyCosts==='function'){
+      window.v51AccrueAdmissionDailyCosts();
+      var notes=R('systemNotifications',[]);
+      notes.push({date:now(),type:'إقامة',message:'تم تحميل الإقامة اليومية تلقائياً'});
+      W('systemNotifications',notes);
+    }
+  }catch(e){console.warn('admission accrual error',e);}
+  localStorage.setItem(key,'done');
+  return true;
+};
+
+function initV73(){
+  enhanceSelects();
+  filterDoctorPatients();
+  ensureRxPanel();
+  fillRxPanelSelects();
+  try{renderRxQueue();}catch(e){}
+  v73RunDailyAdmissionAccrual();
+}
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function')oldRefresh(id);
+  setTimeout(initV73,200);
+};
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(initV73,900);
+  setInterval(function(){enhanceSelects();hideArchivedPatients();},2000);
+});
+})();
+</script>
+<script id="athar-v73-hospital-manager-completion">
+(function(){
+/*
+V73 — استكمال تعليقات مدير المستشفى والدكتور
+- روشتة تفصيلية حقيقية: جرعة / مرات / مدة / ملاحظات.
+- الصيدلية: صرف آجل أو صرف كاش، وربط الكاش بالخزينة والمدفوعات ورصيد المريض.
+- منع العمليات بدون مريض/طبيب.
+- إخفاء المرضى المؤرشفين من القوائم.
+- بحث سريع أعلى القوائم الكبيرة.
+- تحميل الإقامة اليومية مرة واحدة في اليوم.
+- فلترة مرضى الطبيب عند وجود مستخدم طبيب.
+*/
+if(window.__ATHAR_V73_MANAGER_COMPLETION__) return;
+window.__ATHAR_V73_MANAGER_COMPLETION__ = true;
+
+function R(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function W(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){alert('⚠️ خطأ حفظ/مساحة التخزين. اعمل Backup.');}}
+function now(){return new Date().toISOString();}
+function n(v){return Number(v)||0;}
+function money(v){return n(v).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function nextObj(){return R('nextId',{p:1001,v:5001,rx:1,srv:1,item:1,staff:1,pay:1,j:1});}
+function saveNext(x){W('nextId',x);}
+function patientName(id){var p=R('patients',[]).find(function(x){return String(x.id)===String(id)});return p?p.name:'-';}
+function staffName(id){var s=R('staff',[]).find(function(x){return String(x.id)===String(id)});return s?s.name:'-';}
+function itemName(id){var i=R('items',[]).find(function(x){return String(x.id)===String(id)});return i?i.name:'-';}
+
+function addJ(desc,lines){
+  if(typeof window.addJournal==='function'){try{return window.addJournal(desc,lines);}catch(e){}}
+  var j=R('journal',[]), nx=nextObj(); if(!nx.j)nx.j=j.length+1;
+  j.push({id:nx.j++,date:now(),description:desc,lines:lines||[],auto:true,v73:true});
+  W('journal',j);saveNext(nx);
+}
+function addTM(type,amount,method,treasury,desc,patientId){
+  if(typeof window.addTreasuryMove==='function'){try{return window.addTreasuryMove(type,amount,method,treasury,desc,patientId);}catch(e){}}
+  var t=R('treasuryMovements',[]);
+  t.push({id:'TM-'+Date.now(),date:now(),type:type,amount:n(amount),method:method||'كاش',treasury:treasury||'الخزينة الرئيسية',desc:desc||'',patientId:patientId||null,v73:true});
+  W('treasuryMovements',t);
+}
+
+/* ---------- searchable selects ---------- */
+function selectType(sel){
+  var id=(sel.id||'').toLowerCase();
+  var label=((sel.closest('.field')||{}).textContent||'').toLowerCase();
+  if(id.includes('patient')||label.includes('المريض')||label.includes('العميل'))return 'patient';
+  if(id.includes('doctor')||label.includes('الطبيب'))return 'doctor';
+  if(id.includes('drug')||id.includes('med')||label.includes('الدواء')||label.includes('العلاج'))return 'medicine';
+  if(id.includes('item')||id.includes('service')||label.includes('الخدمة')||label.includes('الصنف')||label.includes('تحليل')||label.includes('أشعة'))return 'item';
+  if(sel.options&&sel.options.length>25)return 'large';
+  return '';
+}
+function enableSearch(sel){
+  if(!sel||sel.dataset.v73Search==='1'||!selectType(sel))return;
+  sel.dataset.v73Search='1';
+  var input=document.createElement('input'); input.className='v73-search'; input.placeholder='🔎 بحث سريع';
+  sel.parentNode.insertBefore(input,sel);
+  var original=[];
+  function cap(){original=Array.from(sel.options).map(function(o){return {value:o.value,text:o.textContent,disabled:o.disabled};});}
+  cap(); sel.addEventListener('focus',cap);
+  input.addEventListener('input',function(){
+    var q=input.value.trim().toLowerCase(), old=sel.value;
+    var list=!q?original:original.filter(function(o){return (o.text||'').toLowerCase().includes(q)||String(o.value||'').toLowerCase().includes(q);}).slice(0,80);
+    sel.innerHTML=list.length?list.map(function(o){return '<option value="'+String(o.value).replace(/"/g,'&quot;')+'" '+(o.disabled?'disabled':'')+'>'+o.text+'</option>';}).join(''):'<option value="">لا توجد نتائج</option>';
+    if(list.some(function(o){return String(o.value)===String(old)})) sel.value=old;
+  });
+}
+function hideArchivedPatients(){
+  var archived={}; R('patients',[]).forEach(function(p){if(p.archived)archived[String(p.id)]=1;});
+  document.querySelectorAll('select').forEach(function(sel){
+    if(selectType(sel)==='patient'){
+      Array.from(sel.options).forEach(function(o){if(archived[String(o.value)])o.remove();});
+    }
+  });
+}
+function enhanceSelects(){document.querySelectorAll('select').forEach(enableSearch);hideArchivedPatients();}
+
+/* ---------- doctor visibility ---------- */
+function currentUser(){return R('currentUser',null)||R('loggedUser',null)||R('activeUser',null)||{};}
+function isDoctorUser(){var u=currentUser();return String(u.role||'').includes('طبيب')||String(u.role||'').toLowerCase().includes('doctor');}
+function currentDoctorId(){var u=currentUser();return u.staffId||u.doctorId||u.linkedStaffId||u.id||null;}
+function filterDoctorPatients(){
+  if(!isDoctorUser())return;
+  var did=currentDoctorId(); if(!did)return;
+  var allowed={};
+  R('visits',[]).forEach(function(v){if(String(v.doctorId)===String(did))allowed[String(v.patientId)]=1;});
+  R('admissions',[]).forEach(function(a){if(String(a.doctorId)===String(did))allowed[String(a.patientId)]=1;});
+  document.querySelectorAll('select').forEach(function(sel){
+    if(selectType(sel)==='patient'){
+      Array.from(sel.options).forEach(function(o){if(o.value&&!allowed[String(o.value)])o.disabled=true;});
+    }
+  });
+}
+
+/* ---------- detailed prescription ---------- */
+function fillRxPanelSelects(){
+  var ps=document.getElementById('v73RxPatient'), ds=document.getElementById('v73RxDoctor');
+  if(ps){
+    ps.innerHTML='<option value="">-- اختر المريض --</option>'+R('patients',[]).filter(function(p){return !p.archived;}).map(function(p){return '<option value="'+p.id+'">#'+p.id+' - '+p.name+(p.phone?' - '+p.phone:'')+'</option>';}).join('');
+  }
+  if(ds){
+    ds.innerHTML='<option value="">-- اختر الطبيب --</option>'+R('staff',[]).filter(function(s){return s.role==='طبيب';}).map(function(d){return '<option value="'+d.id+'">'+d.name+'</option>';}).join('');
+  }
+  enhanceSelects(); filterDoctorPatients();
+}
+function ensureRxPanel(){
+  var page=document.getElementById('clinic')||document.getElementById('doctor');
+  if(!page||document.getElementById('v73RxPanel'))return;
+  var card=document.createElement('div');
+  card.className='card'; card.id='v73RxPanel';
+  card.innerHTML='<h2>💊 روشتة تفصيلية</h2>'+
+    '<div class="v73-note">تم إضافة الجرعة وعدد المرات والمدة والملاحظات حتى تكون الروشتة مناسبة للتشغيل الفعلي.</div>'+
+    '<div class="grid grid-3"><div class="field"><label>المريض</label><select id="v73RxPatient"></select></div><div class="field"><label>الطبيب</label><select id="v73RxDoctor"></select></div><div class="field"><label>التشخيص</label><input id="v73RxDiagnosis" placeholder="تشخيص مختصر"></div></div>'+
+    '<table class="v73-rx-table"><thead><tr><th>العلاج</th><th>الكمية</th><th>الجرعة</th><th>المرات</th><th>المدة</th><th>ملاحظات</th><th></th></tr></thead><tbody id="v73RxRows"></tbody></table>'+
+    '<div class="actions"><button class="btn btn-primary" onclick="v73AddRxRow()">➕ إضافة علاج</button><button class="btn btn-success" onclick="v73SavePrescription()">💾 حفظ الروشتة</button><button class="btn btn-warn" onclick="v73PrintLastPrescription()">🖨️ طباعة آخر روشتة</button></div>';
+  page.appendChild(card);
+  fillRxPanelSelects(); window.v73AddRxRow();
+}
+window.v73AddRxRow=function(){
+  var body=document.getElementById('v73RxRows'); if(!body)return;
+  var opts='<option value="">-- اختر العلاج --</option>'+R('items',[]).filter(function(i){return i.type==='دواء'||String(i.type||'').includes('دواء')||String(i.name||'').length;}).map(function(i){return '<option value="'+i.id+'">'+(i.name||i.itemName||i.id)+' | متاح: '+(i.qty??'-')+' | '+(i.price||0)+' ج</option>';}).join('');
+  var tr=document.createElement('tr');
+  tr.innerHTML='<td><select class="v73RxDrug">'+opts+'</select></td><td><input type="number" class="v73RxQty" value="1" min="1"></td><td><input class="v73RxDose" placeholder="مثال: قرص / 5 مل"></td><td><input class="v73RxFreq" placeholder="كل 8 ساعات"></td><td><input class="v73RxDuration" placeholder="5 أيام"></td><td><input class="v73RxNotes" placeholder="بعد الأكل"></td><td><button class="btn btn-danger btn-sm" onclick="this.closest(\\'tr\\').remove()">حذف</button></td>';
+  body.appendChild(tr); enhanceSelects();
+};
+window.v73SavePrescription=function(){
+  var pid=document.getElementById('v73RxPatient')?.value;
+  var did=document.getElementById('v73RxDoctor')?.value;
+  if(!pid)return alert('اختر المريض أولاً');
+  if(!did)return alert('اختر الطبيب أولاً');
+  var prescriptions=R('prescriptions',[]), nx=nextObj(); if(!nx.rx)nx.rx=prescriptions.length+1;
+  var saved=[];
+  document.querySelectorAll('#v73RxRows tr').forEach(function(tr){
+    var drug=tr.querySelector('.v73RxDrug')?.value;
+    var qty=n(tr.querySelector('.v73RxQty')?.value)||1;
+    var dose=tr.querySelector('.v73RxDose')?.value.trim();
+    var freq=tr.querySelector('.v73RxFreq')?.value.trim();
+    var duration=tr.querySelector('.v73RxDuration')?.value.trim();
+    var notes=tr.querySelector('.v73RxNotes')?.value.trim();
+    if(drug&&dose&&freq&&duration){
+      var rx={id:nx.rx++,patientId:+pid,doctorId:+did,visitId:null,drugId:+drug,qty:qty,dose:dose,frequency:freq,duration:duration,notes:notes,diagnosis:document.getElementById('v73RxDiagnosis')?.value||'',status:'منتظر الصرف',date:now(),v73:true};
+      prescriptions.push(rx); saved.push(rx);
+    }
+  });
+  if(!saved.length)return alert('أدخل العلاج مع الجرعة والمرات والمدة');
+  W('prescriptions',prescriptions); saveNext(nx); window.prescriptions=prescriptions; window.lastPrescription=saved;
+  try{if(typeof renderRxQueue==='function')renderRxQueue();}catch(e){}
+  alert('تم حفظ الروشتة التفصيلية وإرسالها للصيدلية');
+};
+window.v73PrintLastPrescription=function(){
+  var list=window.lastPrescription||R('prescriptions',[]).slice(-5);
+  if(!list||!list.length)return alert('لا توجد روشتة للطباعة');
+  var first=Array.isArray(list)?list[0]:list;
+  list=Array.isArray(list)?list:[list];
+  var h='<div dir="rtl" style="font-family:Tahoma;padding:25px"><h2>روشتة طبية</h2><p>المريض: '+patientName(first.patientId)+'</p><p>الطبيب: '+staffName(first.doctorId)+'</p><p>التشخيص: '+(first.diagnosis||'-')+'</p><table border="1" cellspacing="0" cellpadding="8" width="100%"><tr><th>العلاج</th><th>الكمية</th><th>الجرعة</th><th>المرات</th><th>المدة</th><th>ملاحظات</th></tr>';
+  list.forEach(function(r){h+='<tr><td>'+itemName(r.drugId)+'</td><td>'+r.qty+'</td><td>'+(r.dose||'-')+'</td><td>'+(r.frequency||'-')+'</td><td>'+(r.duration||'-')+'</td><td>'+(r.notes||'')+'</td></tr>';});
+  h+='</table></div>';
+  var w=window.open('','_blank'); w.document.write(h); w.document.close(); w.print();
+};
+
+/* ---------- pharmacy link to patient account ---------- */
+window.renderRxQueue=function(){
+  var box=document.getElementById('rxQueue'); if(!box)return;
+  var list=R('prescriptions',[]).filter(function(r){return r.status==='منتظر الصرف';});
+  if(!list.length){box.innerHTML='<div class="no-data">لا توجد روشتات بانتظار الصرف</div>';return;}
+  var h='<table><tr><th>#</th><th>المريض</th><th>العلاج</th><th>الكمية</th><th>تفاصيل الجرعة</th><th>المتاح</th><th>القيمة</th><th>إجراء</th></tr>';
+  list.forEach(function(r){
+    var drug=R('items',[]).find(function(i){return String(i.id)===String(r.drugId);})||{};
+    var p=R('patients',[]).find(function(x){return String(x.id)===String(r.patientId);});
+    var price=n(drug.price)*n(r.qty);
+    var discount=p?n(p.discount):0;
+    var total=price*(1-discount/100);
+    var dose=[r.dose,r.frequency,r.duration,r.notes].filter(Boolean).join(' — ')||'-';
+    var available=n(drug.qty);
+    var ok=available>=n(r.qty);
+    h+='<tr><td>#'+r.id+'</td><td>'+patientName(r.patientId)+'</td><td>'+(drug.name||'-')+'</td><td>'+r.qty+'</td><td>'+dose+'</td><td>'+available+'</td><td>'+money(total)+'</td><td>'+
+      (ok?'<button class="btn btn-success btn-sm" onclick="dispenseRx('+r.id+',\\'آجل\\')">صرف آجل</button> <button class="btn btn-primary btn-sm" onclick="dispenseRx('+r.id+',\\'كاش\\')">صرف كاش</button>':'<span class="badge badge-danger">غير متوفر</span>')+
+      '</td></tr>';
+  });
+  box.innerHTML=h+'</table>';
+};
+window.dispenseRx=function(rxId,mode){
+  mode=mode||'آجل';
+  var prescriptions=R('prescriptions',[]);
+  var r=prescriptions.find(function(x){return String(x.id)===String(rxId);});
+  if(!r)return alert('الروشتة غير موجودة');
+  if(r.status==='تم الصرف')return alert('تم صرف هذه الروشتة من قبل');
+
+  var items=R('items',[]);
+  var drug=items.find(function(i){return String(i.id)===String(r.drugId);});
+  if(!drug)return alert('الصنف غير موجود');
+  if(n(drug.qty)<n(r.qty))return alert('الكمية غير متوفرة');
+
+  var patients=R('patients',[]);
+  var p=patients.find(function(x){return String(x.id)===String(r.patientId);});
+  if(!p)return alert('المريض غير موجود');
+
+  var gross=n(drug.price)*n(r.qty);
+  var net=+(gross*(1-n(p.discount||0)/100)).toFixed(2);
+  var cost=n(drug.cost)*n(r.qty);
+
+  drug.qty=n(drug.qty)-n(r.qty);
+  p.balance=+(n(p.balance)+net).toFixed(2);
+
+  addJ('صرف دواء - روشتة #'+r.id,[
+    {acc:'حساب المريض #'+p.id,dr:net,cr:0},
+    {acc:'إيراد الصيدلية',dr:0,cr:net},
+    {acc:'تكلفة مبيعات الصيدلية',dr:cost,cr:0},
+    {acc:'مخزون الصيدلية',dr:0,cr:cost}
+  ]);
+
+  var payments=R('payments',[]), nx=nextObj(); if(!nx.pay)nx.pay=payments.length+1;
+  if(mode==='كاش'){
+    p.balance=+(n(p.balance)-net).toFixed(2);
+    payments.push({id:nx.pay++,patientId:p.id,amount:net,method:'كاش',treasury:'الخزينة الرئيسية',date:now(),note:'تحصيل صيدلية روشتة #'+r.id,v73:true});
+    addJ('تحصيل صيدلية نقدي - روشتة #'+r.id,[
+      {acc:'الخزينة الرئيسية',dr:net,cr:0},
+      {acc:'حساب المريض #'+p.id,dr:0,cr:net}
+    ]);
+    addTM('قبض',net,'كاش','الخزينة الرئيسية','تحصيل صيدلية روشتة #'+r.id,p.id);
+  }
+
+  r.status='تم الصرف'; r.dispensedAt=now(); r.paymentMode=mode; r.amount=net;
+  W('items',items); W('patients',patients); W('prescriptions',prescriptions); W('payments',payments); saveNext(nx);
+  window.items=items; window.patients=patients; window.prescriptions=prescriptions; window.payments=payments;
+
+  try{if(typeof renderRxQueue==='function')renderRxQueue();}catch(e){}
+  try{if(typeof renderCashier==='function')renderCashier();}catch(e){}
+  alert('تم صرف العلاج '+(mode==='كاش'?'وتحصيله نقداً':'على حساب المريض')+'\nالقيمة: '+money(net)+'\nرصيد المريض الحالي: '+money(p.balance));
+};
+
+/* ---------- validation wrappers ---------- */
+function firstValue(ids){for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value;}return '';}
+function requirePatient(kind){
+  if(!firstValue(['srvPatient','servicePatient','visitPatient','vPatient','cashierPatient','payPatient','v46AdmPatient','admPatient','recAdmPatient','v73RxPatient','v67RxPatient','v66RxPatient'])){
+    alert('لا يمكن '+kind+' بدون اختيار المريض أولاً');return false;
+  }
+  return true;
+}
+['addService','executeSrv','addSrv','addVisitService'].forEach(function(fn){
+  var old=window[fn];
+  if(typeof old==='function'&&!old.__v73Guarded){
+    var wrapped=function(){if(!requirePatient('إدخال الخدمة'))return;return old.apply(this,arguments);};
+    wrapped.__v73Guarded=true; window[fn]=wrapped;
+  }
+});
+
+/* ---------- daily admission accrual once ---------- */
+window.v73RunDailyAdmissionAccrual=function(){
+  var d=new Date().toISOString().slice(0,10), key='athar_v73_admission_accrual_'+d;
+  if(localStorage.getItem(key)==='done')return false;
+  try{
+    if(typeof window.v51AccrueAdmissionDailyCosts==='function'){
+      window.v51AccrueAdmissionDailyCosts();
+      var notes=R('systemNotifications',[]);
+      notes.push({date:now(),type:'إقامة',message:'تم تحميل الإقامة اليومية تلقائياً'});
+      W('systemNotifications',notes);
+    }
+  }catch(e){console.warn('admission accrual error',e);}
+  localStorage.setItem(key,'done');
+  return true;
+};
+
+function initV73(){
+  enhanceSelects();
+  filterDoctorPatients();
+  ensureRxPanel();
+  fillRxPanelSelects();
+  try{renderRxQueue();}catch(e){}
+  v73RunDailyAdmissionAccrual();
+}
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function')oldRefresh(id);
+  setTimeout(initV73,200);
+};
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(initV73,900);
+  setInterval(function(){enhanceSelects();hideArchivedPatients();},2000);
+});
+})();
+</script>
+<script id="athar-v75-clean-leaked-js">
+(function(){
+if(window.__ATHAR_V75_CLEAN_ADMISSION__)return;window.__ATHAR_V75_CLEAN_ADMISSION__=true;
+function read(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d}}
+function write(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v))}catch(e){}}
+function patientName(id){var p=read('patients',[]).find(function(x){return String(x.id)===String(id)});return p?p.name:'-'}
+function activeAdmissions(){return read('admissions',[]).filter(function(a){var st=a.status||'مفتوحة';return st==='مفتوحة'||st==='open'})}
+function ensureRooms(){var rooms=read('rooms',[]);if(!rooms.length){rooms=[101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120].map(function(n){return{id:String(n),number:String(n),status:'available',patientId:null,admissionId:null}});write('rooms',rooms)}return rooms}
+function syncRooms(){var rooms=ensureRooms();rooms.forEach(function(r){if(r.status==='occupied'){var still=activeAdmissions().find(function(a){return String(a.id)===String(r.admissionId)});if(!still){r.status='available';r.patientId=null;r.admissionId=null}}});activeAdmissions().forEach(function(a){var no=String(a.room||a.bed||a.roomNo||'');if(!no)return;var r=rooms.find(function(x){return String(x.number)===no||String(x.id)===no});if(r){r.status='occupied';r.patientId=a.patientId;r.admissionId=a.id}});write('rooms',rooms);return rooms}
+function bedHtml(r){var cls=r.status==='occupied'?'occupied':(r.status==='reserved'?'reserved':'available');var status=r.status==='occupied'?'مشغول':(r.status==='reserved'?'محجوز':'متاح');var pat=r.status==='occupied'?'<small>'+patientName(r.patientId)+'</small>':'';return '<div class="v75-bed '+cls+'" onclick="atharV75SelectBed(\\''+r.number+'\\')"><div class="num">'+r.number+'</div><div class="status">'+status+'</div>'+pat+'</div>'}
+function admissionPage(){return document.getElementById('admission')||Array.from(document.querySelectorAll('.page')).find(function(p){var t=p.textContent||'';return t.includes('إدارة الإقامة الداخلية')||t.includes('المرضى بالإقامة الداخلية')})}
+function ensureCard(){var page=admissionPage();if(!page)return null;var card=document.getElementById('atharV75AdmissionMapCard');if(card)return card;card=document.createElement('div');card.className='card';card.id='atharV75AdmissionMapCard';card.innerHTML='<h2>🗺️ خريطة الأسرة</h2><div class="v75-legend"><span><b class="v75-dot available"></b> متاح</span><span><b class="v75-dot occupied"></b> مشغول</span><span><b class="v75-dot reserved"></b> محجوز</span></div><div id="atharV75AdmissionMap"></div>';var title=Array.from(page.querySelectorAll('h2')).find(function(h){return (h.textContent||'').includes('المرضى بالإقامة الداخلية')});var before=title?(title.closest('.card')||title.parentElement):null;if(before)page.insertBefore(card,before);else page.appendChild(card);return card}
+window.atharV75RenderAdmissionMap=function(){var card=ensureCard();if(!card)return;var map=document.getElementById('atharV75AdmissionMap');if(!map)return;map.innerHTML=syncRooms().map(bedHtml).join('');card.style.display='block';map.style.display='grid'}
+window.atharV75SelectBed=function(no){var r=syncRooms().find(function(x){return String(x.number)===String(no)});if(r&&r.status==='occupied'){alert('السرير '+no+' مشغول بواسطة '+patientName(r.patientId));return}['v46AdmRoom','admRoom','recAdmRoom'].forEach(function(id){var el=document.getElementById(id);if(el)el.value=no})}
+var oldRefresh=window.refreshPage;window.refreshPage=function(id){if(typeof oldRefresh==='function')oldRefresh(id);if(id==='admission')setTimeout(window.atharV75RenderAdmissionMap,150)}
+var oldShow=window.showPage;if(typeof oldShow==='function'){window.showPage=function(id,btn){oldShow(id,btn);if(id==='admission')setTimeout(window.atharV75RenderAdmissionMap,150)}}
+document.addEventListener('DOMContentLoaded',function(){setTimeout(window.atharV75RenderAdmissionMap,700);setInterval(function(){var a=document.querySelector('.page.active');if(a&&(a.id==='admission'||(a.textContent||'').includes('إدارة الإقامة الداخلية')))window.atharV75RenderAdmissionMap()},2000)})
+})();
+</script>
+
+<script id="athar-v77-final-demo-core">
+(function(){
+/*
+ATHAR Medical V77 — Final Demo Core
+- مبني على النسخة النظيفة V75 بدون كسر التصميم.
+- يأخذ أفضل أفكار V76: ميزان تسوية الخزينة، getTreasuryBalance موحد، daily admission accrual، مصدر v53 للأطباء.
+- يستبدل الدوال المالية الحساسة بتعريف واحد مباشر بدل wrappers:
+  addTreasuryMove / addVisit / payPartial / addExpense / chargePatient / dispenseRx
+*/
+if(window.__ATHAR_V77_FINAL_DEMO_CORE__) return;
+window.__ATHAR_V77_FINAL_DEMO_CORE__ = true;
+
+function R(k,d){try{return JSON.parse(localStorage.getItem('athar_'+k)||JSON.stringify(d));}catch(e){return d;}}
+function W(k,v){try{localStorage.setItem('athar_'+k,JSON.stringify(v));}catch(e){alert('⚠️ خطأ في حفظ البيانات أو مساحة التخزين. اعمل Backup فورًا.');}}
+function now(){return new Date().toISOString();}
+function day(v){try{return new Date(v||new Date()).toISOString().slice(0,10);}catch(e){return new Date().toISOString().slice(0,10);}}
+function minute(v){try{return new Date(v||new Date()).toISOString().slice(0,16);}catch(e){return new Date().toISOString().slice(0,16);}}
+function n(v){return Number(v)||0;}
+function money(v){return n(v).toLocaleString('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2})+' ج';}
+function nextObj(){return R('nextId',{p:1001,v:5001,rx:1,srv:1,item:1,staff:1,pay:1,j:1});}
+function saveNext(x){W('nextId',x);}
+function patientName(id){var p=R('patients',[]).find(function(x){return String(x.id)===String(id)});return p?p.name:'-';}
+function staffName(id){var s=R('staff',[]).find(function(x){return String(x.id)===String(id)});return s?s.name:'-';}
+function itemName(id){var i=R('items',[]).find(function(x){return String(x.id)===String(id)});return i?(i.name||i.itemName||'-'):'-';}
+function caller(){try{return ((new Error()).stack||'').split('\n').slice(3,7).join(' | ').replace(/[<>]/g,'');}catch(e){return 'unknown';}}
+
+function syncGlobals(){
+  try{
+    window.patients=R('patients',[]);
+    window.visits=R('visits',[]);
+    window.payments=R('payments',[]);
+    window.treasuryMovements=R('treasuryMovements',[]);
+    window.journal=R('journal',[]);
+    window.items=R('items',[]);
+    window.prescriptions=R('prescriptions',[]);
+  }catch(e){}
+}
+
+/* ---------- Audit ---------- */
+function audit(action,row,reason){
+  var log=R('treasuryAuditLog',[]);
+  log.push({date:now(),action:action,reason:reason||'',row:row||null,caller:caller()});
+  if(log.length>800) log=log.slice(-800);
+  W('treasuryAuditLog',log);
+}
+
+/* ---------- Treasury Core ---------- */
+function treasuryKey(x){
+  var ref=x.ref||x.reference||x.sourceId||x.receiptNo||x.no||'';
+  var note=String(x.desc||x.note||'').trim().slice(0,70);
+  return [
+    x.type||'',
+    Math.round(n(x.amount)*100)/100,
+    String(x.patientId||x.pid||''),
+    String(x.method||'كاش'),
+    String(x.treasury||'الخزينة الرئيسية'),
+    ref||note,
+    minute(x.date)
+  ].join('|');
+}
+
+window.v77GetTreasuryBalance=function(method, treasury){
+  var arr=R('treasuryMovements',[]);
+  var key=String(method||'كاش');
+  var tr=treasury||null;
+  return arr.reduce(function(s,x){
+    if(tr && String(x.treasury||'الخزينة الرئيسية')!==String(tr)) return s;
+    var m=String(x.method||'كاش');
+    var ok=key==='كاش' ? (!m.includes('شبكة')&&!m.includes('تحويل')&&!m.includes('بنك')) : m.includes(key);
+    return ok ? s + (x.type==='صرف' ? -n(x.amount) : n(x.amount)) : s;
+  },0);
+};
+
+window.v77DedupeAndRecalc=function(show){
+  var arr=R('treasuryMovements',[]);
+  arr.sort(function(a,b){return new Date(a.date||0)-new Date(b.date||0);});
+  var seen={}, clean=[], removed=0, running=0;
+  arr.forEach(function(x){
+    var k=treasuryKey(x);
+    if(seen[k]){
+      removed++;
+      audit('dedupe-remove',x,'duplicate key');
+      return;
+    }
+    seen[k]=1;
+    running += (x.type==='صرف' ? -n(x.amount) : n(x.amount));
+    x.runningBalance=+running.toFixed(2);
+    clean.push(x);
+  });
+  W('treasuryMovements',clean);
+  syncGlobals();
+  if(show) alert('تم تنظيف الخزينة: حذف '+removed+' حركة مكررة.\nرصيد الكاش الحالي: '+money(v77GetTreasuryBalance('كاش')));
+  return removed;
+};
+
+window.addTreasuryMove=function(type, amount, method, treasury, desc, patientId, sourceId){
+  amount=n(amount); method=method||'كاش'; treasury=treasury||'الخزينة الرئيسية';
+  if(amount<=0){audit('blocked',{type:type,amount:amount,method:method,treasury:treasury,desc:desc,patientId:patientId},'invalid amount');return null;}
+
+  if(type==='صرف'){
+    var bucket=method.includes('تحويل')?'تحويل':(method.includes('شبكة')?'شبكة':'كاش');
+    var bal=window.v77GetTreasuryBalance(bucket,treasury);
+    if(amount>bal){
+      alert('🚫 لا يمكن الصرف بالسالب\nالمتاح: '+money(bal)+'\nالمطلوب: '+money(amount));
+      audit('blocked',{type:type,amount:amount,method:method,treasury:treasury,desc:desc,patientId:patientId},'negative balance');
+      return null;
+    }
+  }
+
+  var row={id:'TM-'+Date.now()+'-'+Math.floor(Math.random()*9999),date:now(),type:type,amount:amount,method:method,treasury:treasury,desc:desc||'',patientId:patientId||null,sourceId:sourceId||'',caller:caller(),v77:true};
+  var arr=R('treasuryMovements',[]);
+  var k=treasuryKey(row);
+  if(arr.some(function(x){return treasuryKey(x)===k;})){
+    audit('blocked',row,'duplicate same key/minute');
+    return null;
+  }
+  arr.push(row);
+  W('treasuryMovements',arr);
+  audit('add',row,'accepted');
+  v77DedupeAndRecalc(false);
+  return row;
+};
+
+function addJournal(desc,lines,sourceId){
+  var j=R('journal',[]);
+  var nx=nextObj(); if(!nx.j) nx.j=j.length+1;
+  var dr=0,cr=0;
+  (lines||[]).forEach(function(l){dr+=n(l.dr);cr+=n(l.cr);});
+  j.push({id:nx.j++,no:'JV-'+new Date().getFullYear()+'-'+String(j.length+1).padStart(6,'0'),date:now(),description:desc,lines:lines||[],sourceId:sourceId||'',balanced:Math.abs(dr-cr)<0.01,v77:true});
+  W('journal',j); saveNext(nx); syncGlobals();
+}
+window.addJournal=addJournal;
+
+/* ---------- Patient Charge Core ---------- */
+window.v77ChargePatient=function(patientId, amount, opts){
+  opts=opts||{};
+  amount=n(amount);
+  if(!patientId||amount<=0) return false;
+  var mode=opts.mode||'آجل'; // آجل / كاش
+  var patients=R('patients',[]);
+  var p=patients.find(function(x){return String(x.id)===String(patientId);});
+  if(!p) return false;
+  if(p.archived){alert('لا يمكن تسجيل حركة على مريض مؤرشف');return false;}
+
+  if(mode==='آجل'){
+    p.balance=+(n(p.balance)+amount).toFixed(2);
+    W('patients',patients); syncGlobals();
+    addJournal(opts.desc||'تحميل على حساب المريض',[
+      {acc:'حساب المريض #'+p.id,dr:amount,cr:0},
+      {acc:opts.revenueAcc||'إيراد خدمات',dr:0,cr:amount}
+    ],opts.sourceId);
+    return true;
+  }
+
+  if(mode==='كاش'){
+    // لا يلمس رصيد المريض إطلاقًا في الكاش، يسجل الخزينة والإيراد فقط.
+    addJournal(opts.desc||'تحصيل نقدي مباشر',[
+      {acc:opts.treasury||'الخزينة الرئيسية',dr:amount,cr:0},
+      {acc:opts.revenueAcc||'إيراد خدمات',dr:0,cr:amount}
+    ],opts.sourceId);
+    var pays=R('payments',[]), nx=nextObj(); if(!nx.pay)nx.pay=pays.length+1;
+    pays.push({id:nx.pay++,patientId:+patientId,amount:amount,method:opts.method||'كاش',treasury:opts.treasury||'الخزينة الرئيسية',date:now(),note:opts.desc||'تحصيل نقدي مباشر',sourceId:opts.sourceId||'',v77:true});
+    W('payments',pays); saveNext(nx); syncGlobals();
+    addTreasuryMove('قبض',amount,opts.method||'كاش',opts.treasury||'الخزينة الرئيسية',opts.desc||'تحصيل نقدي مباشر',patientId,opts.sourceId);
+    return true;
+  }
+  return false;
+};
+
+window.chargePatient=function(patientId,amount,desc,mode){
+  return window.v77ChargePatient(patientId,amount,{desc:desc||'خدمة',mode:mode||'آجل',revenueAcc:'إيراد خدمات',sourceId:'CHARGE-'+Date.now()});
+};
+
+/* ---------- Clean addVisit ---------- */
+window.addVisit=function(){
+  var patientId=+(document.getElementById('vPatient')?.value||0);
+  var doctorId=+(document.getElementById('vDoctor')?.value||0);
+  var nurseId=+(document.getElementById('vNurse')?.value||0);
+  var fee=n(document.getElementById('vFee')?.value);
+  var pay=document.getElementById('vPay')?.value||'آجل';
+  var depId=document.getElementById('vDepartment')?.value||null;
+  var referralId=+(document.getElementById('vReferral')?.value||0);
+
+  if(!patientId||!doctorId) return alert('اختر المريض والطبيب');
+  if(fee<=0) return alert('أدخل قيمة الكشف');
+
+  var patients=R('patients',[]);
+  var p=patients.find(function(x){return +x.id===patientId;});
+  if(!p) return alert('المريض غير موجود');
+  if(p.archived) return alert('لا يمكن فتح زيارة لمريض مؤرشف');
+
+  var visits=R('visits',[]);
+  var staff=R('staff',[]);
+  var nx=nextObj(); if(!nx.v) nx.v=5001;
+  var net=+(fee*(1-n(p.discount||0)/100)).toFixed(2);
+  var visit={id:nx.v++,patientId:patientId,doctorId:doctorId,nurseId:nurseId||null,referralId:referralId||null,fee:net,originalFee:fee,date:now(),status:'مفتوحة',diagnosis:'',departmentId:depId?+depId:null,v77:true};
+  visits.push(visit); W('visits',visits); saveNext(nx); syncGlobals();
+
+  if(pay==='كاش'){
+    v77ChargePatient(patientId,net,{mode:'كاش',desc:'كشف زيارة #'+visit.id,revenueAcc:'إيراد كشف',sourceId:'VISIT-'+visit.id});
+  }else{
+    v77ChargePatient(patientId,net,{mode:'آجل',desc:'كشف آجل - زيارة #'+visit.id,revenueAcc:'إيراد كشف',sourceId:'VISIT-'+visit.id});
+  }
+
+  // Doctor accrual based on v53 approach: paid/earned for cash, pending for credit.
+  var ledger=R('doctorAccrualLedgerV53',[]);
+  var doc=staff.find(function(s){return +s.id===doctorId;});
+  var nurse=staff.find(function(s){return +s.id===nurseId;});
+  function addAcc(st,source,rate){
+    if(!st) return;
+    var r=n(rate||st.feeRate);
+    var due=+(net*r/100).toFixed(2);
+    if(due<=0) return;
+    ledger.push({id:'DAC-'+Date.now()+'-'+Math.floor(Math.random()*9999),date:now(),staffId:st.id,patientId:patientId,visitId:visit.id,source:source,gross:net,rate:r,net:due,status:pay==='كاش'?'earned':'pending',v77:true});
+    addJournal('استحقاق '+source+' - زيارة #'+visit.id,[
+      {acc:'مصروف أطباء',dr:due,cr:0},
+      {acc:'مستحقات أطباء',dr:0,cr:due}
+    ],'DOC-'+visit.id+'-'+st.id);
+  }
+  addAcc(doc,'طبيب',doc&&doc.feeRate);
+  addAcc(nurse,'تمريض',nurse&&nurse.feeRate);
+  W('doctorAccrualLedgerV53',ledger);
+
+  try{if(typeof renderVisits==='function')renderVisits();}catch(e){}
+  try{if(typeof fillPatientSelects==='function')fillPatientSelects();}catch(e){}
+  try{if(typeof renderTreasuryBalances==='function')renderTreasuryBalances();}catch(e){}
+  try{if(typeof renderCashier==='function')renderCashier();}catch(e){}
+  alert('تم فتح الزيارة #'+visit.id+' ✓\nرسم الكشف بعد الخصم: '+money(net));
+};
+
+/* ---------- Clean payPartial ---------- */
+window.payPartial=function(){
+  var patientId=+(document.getElementById('payPatient')?.value||document.getElementById('cashierPatient')?.value||0);
+  var amount=n(document.getElementById('payAmount')?.value||document.getElementById('cashAmount')?.value||0);
+  var method=document.getElementById('payMethod')?.value||document.getElementById('cashMethod')?.value||'كاش';
+  var treasury=document.getElementById('payTreasury')?.value||'الخزينة الرئيسية';
+  var note=document.getElementById('payNote')?.value||'سداد مريض';
+
+  if(!patientId) return alert('اختر المريض');
+  if(amount<=0) return alert('أدخل مبلغ صحيح');
+
+  var patients=R('patients',[]);
+  var p=patients.find(function(x){return +x.id===patientId;});
+  if(!p) return alert('المريض غير موجود');
+
+  var oldBal=n(p.balance);
+  p.balance=+(oldBal-amount).toFixed(2); // يسمح بمقدم / تحت الحساب
+  W('patients',patients);
+
+  var payments=R('payments',[]);
+  var nx=nextObj(); if(!nx.pay) nx.pay=payments.length+1;
+  var payId=nx.pay++;
+  payments.push({id:payId,patientId:patientId,amount:amount,method:method,treasury:treasury,date:now(),note:note,sourceId:'PAY-'+payId,v77:true});
+  W('payments',payments); saveNext(nx); syncGlobals();
+
+  addJournal('سداد من المريض #'+p.id+' ('+method+')',[
+    {acc:treasury,dr:amount,cr:0},
+    {acc:'حساب المريض #'+p.id,dr:0,cr:amount}
+  ],'PAY-'+payId);
+  addTreasuryMove('قبض',amount,method,treasury,note,patientId,'PAY-'+payId);
+
+  // Convert pending doctor dues to earned proportionally without alert.
+  try{v77SettleDoctorPending(patientId,amount);}catch(e){}
+
+  if(document.getElementById('payAmount')) document.getElementById('payAmount').value='';
+  if(document.getElementById('cashAmount')) document.getElementById('cashAmount').value='';
+
+  try{if(typeof renderCashier==='function')renderCashier();}catch(e){}
+  try{if(typeof showPatientBalance==='function')showPatientBalance();}catch(e){}
+  alert('تم السداد ✓\nالرصيد السابق: '+money(oldBal)+'\nالرصيد الحالي: '+money(p.balance));
+};
+
+/* ---------- Doctor dues single source: v53 ledger ---------- */
+window.v77BuildDoctorAccrualLedger=function(){
+  var led=R('doctorAccrualLedgerV53',[]);
+  if(led.length) return led;
+  // fallback build from visits only if no ledger exists
+  var staff=R('staff',[]);
+  R('visits',[]).forEach(function(v){
+    var doc=staff.find(function(s){return +s.id===+v.doctorId;});
+    if(doc){
+      var due=+(n(v.fee)*n(doc.feeRate)/100).toFixed(2);
+      led.push({id:'DAC-'+(v.id||Date.now())+'-'+doc.id,date:v.date||now(),staffId:doc.id,patientId:v.patientId,visitId:v.id,source:'طبيب',gross:n(v.fee),rate:n(doc.feeRate),net:due,status:'earned',v77:true});
+    }
+  });
+  W('doctorAccrualLedgerV53',led);
+  return led;
+};
+window.v53BuildDoctorAccrualLedger=window.v77BuildDoctorAccrualLedger;
+window.v51BuildStaffEarnedPending=window.v77BuildDoctorAccrualLedger;
+window.buildPaidStaffLedger=window.v77BuildDoctorAccrualLedger;
+window.recalculateStaffDuesOnCollection=function(){return window.v77BuildDoctorAccrualLedger();};
+
+window.v77SettleDoctorPending=function(patientId,amount){
+  var ledger=R('doctorAccrualLedgerV53',[]);
+  var pending=ledger.filter(function(x){return String(x.patientId)===String(patientId)&&x.status==='pending';});
+  var remaining=n(amount);
+  pending.forEach(function(x){
+    if(remaining<=0) return;
+    x.status='earned';
+    x.settledAt=now();
+    remaining-=n(x.gross||x.net||0);
+  });
+  W('doctorAccrualLedgerV53',ledger);
+};
+
+/* ---------- Pharmacy / Prescription ---------- */
+window.dispenseRx=function(rxId,mode){
+  mode=mode||'آجل';
+  var prescriptions=R('prescriptions',[]);
+  var r=prescriptions.find(function(x){return String(x.id)===String(rxId);});
+  if(!r) return alert('الروشتة غير موجودة');
+  if(r.status==='تم الصرف') return alert('تم صرف هذه الروشتة من قبل');
+
+  var items=R('items',[]);
+  var drug=items.find(function(i){return String(i.id)===String(r.drugId);});
+  if(!drug) return alert('الصنف غير موجود');
+  if(n(drug.qty)<n(r.qty)) return alert('الكمية غير متوفرة');
+
+  var patients=R('patients',[]);
+  var p=patients.find(function(x){return String(x.id)===String(r.patientId);});
+  if(!p) return alert('المريض غير موجود');
+
+  var gross=n(drug.price)*n(r.qty);
+  var net=+(gross*(1-n(p.discount||0)/100)).toFixed(2);
+  var cost=n(drug.cost)*n(r.qty);
+  var sourceId='RX-'+r.id;
+
+  drug.qty=n(drug.qty)-n(r.qty);
+
+  if(mode==='كاش'){
+    // كاش: لا يلمس رصيد المريض، خزينة وإيراد مباشر + مخزون
+    addJournal('صرف دواء كاش - روشتة #'+r.id,[
+      {acc:'الخزينة الرئيسية',dr:net,cr:0},
+      {acc:'إيراد الصيدلية',dr:0,cr:net},
+      {acc:'تكلفة مبيعات الصيدلية',dr:cost,cr:0},
+      {acc:'مخزون الصيدلية',dr:0,cr:cost}
+    ],sourceId);
+    addTreasuryMove('قبض',net,'كاش','الخزينة الرئيسية','تحصيل صيدلية روشتة #'+r.id,p.id,sourceId);
+    var pays=R('payments',[]), nx=nextObj(); if(!nx.pay) nx.pay=pays.length+1;
+    pays.push({id:nx.pay++,patientId:p.id,amount:net,method:'كاش',treasury:'الخزينة الرئيسية',date:now(),note:'تحصيل صيدلية روشتة #'+r.id,sourceId:sourceId,v77:true});
+    W('payments',pays); saveNext(nx);
+  }else{
+    // آجل: يرفع رصيد المريض فقط
+    p.balance=+(n(p.balance)+net).toFixed(2);
+    addJournal('صرف دواء آجل - روشتة #'+r.id,[
+      {acc:'حساب المريض #'+p.id,dr:net,cr:0},
+      {acc:'إيراد الصيدلية',dr:0,cr:net},
+      {acc:'تكلفة مبيعات الصيدلية',dr:cost,cr:0},
+      {acc:'مخزون الصيدلية',dr:0,cr:cost}
+    ],sourceId);
+  }
+
+  r.status='تم الصرف'; r.dispensedAt=now(); r.paymentMode=mode; r.amount=net;
+  W('items',items);W('patients',patients);W('prescriptions',prescriptions);syncGlobals();
+  try{if(typeof renderRxQueue==='function')renderRxQueue();}catch(e){}
+  try{if(typeof renderCashier==='function')renderCashier();}catch(e){}
+  alert('تم صرف العلاج '+(mode==='كاش'?'وتحصيله نقدًا':'على حساب المريض')+'\nالقيمة: '+money(net)+'\nرصيد المريض الحالي: '+money(p.balance));
+};
+
+/* ---------- Expense / Salary ---------- */
+window.addExpense=function(){
+  var amount=n(document.getElementById('expenseAmount')?.value||0);
+  var method=document.getElementById('expenseMethod')?.value||'كاش';
+  var treasury=document.getElementById('expenseTreasury')?.value||'الخزينة الرئيسية';
+  var type=document.getElementById('expenseType')?.value||'مصروف';
+  var note=document.getElementById('expenseNote')?.value||type;
+  if(amount<=0) return alert('أدخل مبلغ صحيح');
+  var bucket=method.includes('تحويل')?'تحويل':(method.includes('شبكة')?'شبكة':'كاش');
+  var bal=v77GetTreasuryBalance(bucket,treasury);
+  if(amount>bal) return alert('🚫 لا يمكن صرف مصروف أكبر من رصيد الخزينة\nالمتاح: '+money(bal));
+
+  var ex=R('expenses',[]);
+  var id='EXP-'+Date.now();
+  ex.push({id:id,date:now(),amount:amount,method:method,treasury:treasury,type:type,note:note,v77:true});
+  W('expenses',ex);
+  addJournal(type+' - '+note,[
+    {acc:type,dr:amount,cr:0},
+    {acc:treasury,dr:0,cr:amount}
+  ],id);
+  addTreasuryMove('صرف',amount,method,treasury,type+' - '+note,null,id);
+  try{if(typeof renderCashier==='function')renderCashier();}catch(e){}
+  alert('تم تسجيل المصروف');
+};
+
+window.paySalary=function(staffId,amount){
+  amount=n(amount);
+  if(!staffId||amount<=0) return alert('اختر الموظف/الطبيب وأدخل مبلغ صحيح');
+  var bal=v77GetTreasuryBalance('كاش','الخزينة الرئيسية');
+  if(amount>bal) return alert('🚫 لا يمكن صرف مستحقات أكبر من رصيد الخزينة\nالمتاح: '+money(bal));
+  addJournal('صرف مستحقات طبيب/موظف #'+staffId,[
+    {acc:'مستحقات أطباء',dr:amount,cr:0},
+    {acc:'الخزينة الرئيسية',dr:0,cr:amount}
+  ],'SAL-'+staffId+'-'+Date.now());
+  addTreasuryMove('صرف',amount,'كاش','الخزينة الرئيسية','صرف مستحقات طبيب/موظف #'+staffId,null,'SAL-'+staffId+'-'+Date.now());
+  alert('تم صرف المستحقات');
+};
+
+/* ---------- Admission daily accrual by actual days ---------- */
+window.v77DailyAdmissionAccrual=function(show){
+  var admissions=R('admissions',[]);
+  var patients=R('patients',[]);
+  var log=R('admissionDailyCharges',[]);
+  var count=0,total=0;
+  admissions.forEach(function(a){
+    var st=a.status||'مفتوحة';
+    if(!(st==='مفتوحة'||st==='open')) return;
+    var pid=a.patientId;
+    var p=patients.find(function(x){return String(x.id)===String(pid);});
+    if(!p) return;
+    var daily=n(a.dailyCost||a.dailyRate||a.cost||200);
+    var start=new Date(a.date||a.startDate||now());
+    var today=new Date(day(new Date()));
+    var days=Math.max(1,Math.floor((today-start)/(24*60*60*1000))+1);
+    var charged=log.filter(function(x){return String(x.admissionId)===String(a.id);}).length;
+    var missing=days-charged;
+    for(var i=0;i<missing;i++){
+      var chargeDate=new Date(start.getTime()+charged*24*60*60*1000+i*24*60*60*1000);
+      var cid='ADM-DAY-'+a.id+'-'+day(chargeDate);
+      if(log.some(function(x){return x.id===cid;})) continue;
+      p.balance=+(n(p.balance)+daily).toFixed(2);
+      log.push({id:cid,admissionId:a.id,patientId:pid,date:day(chargeDate),amount:daily,v77:true});
+      addJournal('تحميل إقامة يومية - سرير '+(a.room||a.bed||''),[
+        {acc:'حساب المريض #'+p.id,dr:daily,cr:0},
+        {acc:'إيراد الإقامة',dr:0,cr:daily}
+      ],cid);
+      count++; total+=daily;
+    }
+  });
+  W('patients',patients);W('admissionDailyCharges',log);syncGlobals();
+  if(show) alert('تم تحميل '+count+' يوم إقامة بإجمالي '+money(total));
+  return {count:count,total:total};
+};
+
+/* ---------- Trial Balance + Reconciliation ---------- */
+window.v77RenderTrialBalance=function(){
+  var box=document.getElementById('trialBalanceReport')||document.getElementById('trialBalance')||document.getElementById('reportContent');
+  if(!box) return;
+  var rows={};
+  R('journal',[]).forEach(function(j){
+    (j.lines||[]).forEach(function(l){
+      var acc=l.acc||l.account||'غير محدد';
+      if(!rows[acc]) rows[acc]={dr:0,cr:0};
+      rows[acc].dr+=n(l.dr); rows[acc].cr+=n(l.cr);
+    });
+  });
+  var html='<table><tr><th>الحساب</th><th>طبيعته</th><th>مدين</th><th>دائن</th><th>الرصيد</th></tr>';
+  var tdr=0,tcr=0;
+  Object.keys(rows).sort().forEach(function(acc){
+    var r=rows[acc], bal=r.dr-r.cr;
+    var nat=(acc.includes('إيراد')||acc.includes('مستحقات')||acc.includes('دائن'))?'دائن':'مدين';
+    tdr+=r.dr; tcr+=r.cr;
+    html+='<tr><td>'+acc+'</td><td>'+nat+'</td><td>'+money(r.dr)+'</td><td>'+money(r.cr)+'</td><td>'+(bal>=0?'مدين ':'دائن ')+money(Math.abs(bal))+'</td></tr>';
+  });
+  html+='<tr><th>الإجمالي</th><th>'+(Math.abs(tdr-tcr)<0.01?'<span class="v77-pill ok">متوازن</span>':'<span class="v77-pill bad">غير متوازن</span>')+'</th><th>'+money(tdr)+'</th><th>'+money(tcr)+'</th><th>فرق: '+money(tdr-tcr)+'</th></tr></table>';
+  box.innerHTML=html;
+};
+
+window.v77TreasuryJournalReconciliation=function(){
+  var treasury=R('treasuryMovements',[]);
+  var cashIn=0,cashOut=0;
+  treasury.forEach(function(t){if(t.type==='صرف') cashOut+=n(t.amount); else cashIn+=n(t.amount);});
+  var treasuryNet=cashIn-cashOut;
+
+  var jDr=0,jCr=0;
+  R('journal',[]).forEach(function(j){
+    (j.lines||[]).forEach(function(l){
+      var acc=String(l.acc||l.account||'');
+      if(acc.includes('خزينة')||acc.includes('الخزينة')){
+        jDr+=n(l.dr); jCr+=n(l.cr);
+      }
+    });
+  });
+  var journalNet=jDr-jCr;
+  var diff=treasuryNet-journalNet;
+  var html='<div dir="rtl" style="font-family:Tahoma;padding:15px"><h2>تقرير تسوية الخزينة مع القيود</h2>'+
+    '<table border="1" cellspacing="0" cellpadding="7" width="100%">'+
+    '<tr><th>البند</th><th>مدين/داخل</th><th>دائن/خارج</th><th>الصافي</th></tr>'+
+    '<tr><td>حركات الخزينة</td><td>'+money(cashIn)+'</td><td>'+money(cashOut)+'</td><td>'+money(treasuryNet)+'</td></tr>'+
+    '<tr><td>قيود حساب الخزينة</td><td>'+money(jDr)+'</td><td>'+money(jCr)+'</td><td>'+money(journalNet)+'</td></tr>'+
+    '<tr><th>الفرق</th><th colspan="3">'+(Math.abs(diff)<0.01?'<span style="color:green">متطابق</span>':'<span style="color:red">'+money(diff)+'</span>')+'</th></tr>'+
+    '</table></div>';
+  var w=window.open('','_blank'); w.document.write(html); w.document.close();
+};
+
+function injectMaintenance(){
+  var cash=document.getElementById('cashier');
+  if(!cash||document.getElementById('v77MaintenanceCard')) return;
+  var div=document.createElement('div');
+  div.id='v77MaintenanceCard';
+  div.className='v77-maint-card';
+  div.innerHTML='<b>🛠️ صيانة وتسوية مالية — V77</b><br>'+
+    '<button class="btn btn-primary btn-sm" onclick="v77DedupeAndRecalc(true)">تنظيف تكرار الخزينة</button>'+
+    '<button class="btn btn-warn btn-sm" onclick="v77TreasuryJournalReconciliation()">تقرير التسوية خزينة ↔ قيود</button>'+
+    '<button class="btn btn-success btn-sm" onclick="v77DailyAdmissionAccrual(true)">تحميل الإقامة اليومية</button>'+
+    '<button class="btn btn-primary btn-sm" onclick="alert(\\'رصيد الكاش: \\'+v77GetTreasuryBalance(\\'كاش\\').toLocaleString(\\'ar-EG\\')+\\' ج\\')">رصيد الكاش</button>';
+  cash.insertBefore(div,cash.firstChild);
+}
+
+/* ---------- Init ---------- */
+var oldRefresh=window.refreshPage;
+window.refreshPage=function(id){
+  if(typeof oldRefresh==='function') oldRefresh(id);
+  setTimeout(function(){
+    if(id==='cashier') injectMaintenance();
+    if(id==='trial'||id==='reports'||id==='report') try{v77RenderTrialBalance();}catch(e){}
+  },150);
+};
+
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(function(){
+    syncGlobals();
+    v77DedupeAndRecalc(false);
+    injectMaintenance();
+    v77DailyAdmissionAccrual(false);
+    try{if(typeof renderCashier==='function')renderCashier();}catch(e){}
+  },900);
+});
 })();
 </script>
 
